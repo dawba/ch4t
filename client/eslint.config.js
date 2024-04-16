@@ -1,6 +1,9 @@
-import styleGuide from "eslint-config-standard";
+// @ts-check
 
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
 
-export default [
-  ...[].concat(styleGuide),
-];
+export default tseslint.config(
+    eslint.configs.recommended,
+    ...tseslint.configs.recommended,
+);
