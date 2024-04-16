@@ -22,7 +22,7 @@ jobs:
         run: cd client && yarn install
 
       - name: Lint with ESLint
-        run: cd client && yarn run fix
+        run: cd client && yarn run lint
 
       - name: Check formatting with Prettier
         run: cd client && yarn check:format
