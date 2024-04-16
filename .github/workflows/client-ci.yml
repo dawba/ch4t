@@ -1,9 +1,11 @@
 name: CI (client)
+
 on:
   push:
     branches: [ "main", "fix/*", "feature/*" ]
   pull_request:
     branches: [ "main", "fix/*", "feature/*" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,16 +19,16 @@ jobs:
           node-version: 16.x
 
       - name: Install dependencies
-        run: yarn install --prefix client
+        run: cd client && yarn install
 
       - name: Lint with ESLint
-        run: yarn run fix --prefix client
+        run: cd client && yarn run fix
 
       - name: Check formatting with Prettier
-        run: yarn check:format --prefix client
+        run: cd client && yarn check:format
 
       - name: Build app
-        run: yarn run build --prefix client
+        run: cd client && yarn run build
 
       - name: Run tests
-        run: yarn test --prefix client
+        run: cd client && yarn test
