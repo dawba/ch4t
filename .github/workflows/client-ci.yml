@@ -26,6 +26,7 @@ jobs:
     job2:
       name: Clean install for CI, lint, prettier and tests.
       runs-on: ubuntu-latest
+      needs: job1
 
       steps:
         - name: Clean install dependencies
