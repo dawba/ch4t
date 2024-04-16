@@ -11,6 +11,26 @@
     "prettier": "npx prettier . --write",
     "check-format": "npx prettier . --check"
   },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "project": "./tsconfig.json"
+    },
+    "plugins": [
+      "@typescript-eslint",
+      "react"
+    ],
+    "rules": {
+    }
+  },
   "dependencies": {
     "prettier": "^3.2.5",
     "react": "^18.2.0",
