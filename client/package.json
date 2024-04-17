@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "prettier": "npx prettier . --write",
     "check:format": "yarn prettier . --check",
-    "test": "vitest"
+    "test": "vitest",
+    "test:functions": "vitest --include '**/*.ts'"
   },
   "dependencies": {
     "prettier": "^3.2.5",
