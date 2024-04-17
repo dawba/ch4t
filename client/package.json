@@ -11,7 +11,7 @@
     "prettier": "npx prettier . --write",
     "check:format": "yarn prettier . --check",
     "test": "vitest",
-    "test:functions": "vitest --include '**/*.ts'"
+    "test:functions": "find . -type f -name '*.ts' | xargs vitest"
   },
   "dependencies": {
     "prettier": "^3.2.5",
