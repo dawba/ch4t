@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import UserDocument from "../types/UserDocument";
 
 const { Schema, model, Types } = mongoose;
 const { ObjectId } = Types;
@@ -27,6 +28,6 @@ const userSchema = new Schema({
   },
 });
 
-const User = model("User", userSchema);
+const User = model<UserDocument>("User", userSchema);
 
 export default User;
