@@ -8,26 +8,26 @@ import Chat from "../model/Chat";
 const router = express.Router();
 
 // Get all users
-router.get("/", async (req: Request, res: Response) => {
+router.get("/user", async (req: Request, res: Response) => {
   const users = await User.find();
   res.json(users);
 });
 
 // Get user by specified id
-router.get("/:id", async (req: Request, res: Response) => {
+router.get("/user/:id", async (req: Request, res: Response) => {
   const user = await User.findById(req.params.id);
   res.json(user);
 });
 
 // Create a new user
-router.post("/", async (req: UserRequest, res: Response) => {
+router.post("/user", async (req: UserRequest, res: Response) => {
   const user = new User(req.body);
   await user.save();
   res.json(user);
 });
 
 // Update a user
-router.put("/:id", async (req: UserRequest, res: Response) => {
+router.put("/user/:id", async (req: UserRequest, res: Response) => {
   const user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
@@ -35,7 +35,7 @@ router.put("/:id", async (req: UserRequest, res: Response) => {
 });
 
 // Delete a user
-router.delete("/:id", async (req: Request, res: Response) => {
+router.delete("/user/:id", async (req: Request, res: Response) => {
   const userId = req.params.id;
 
   await User.findByIdAndDelete(userId);
