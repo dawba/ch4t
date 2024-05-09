@@ -16,6 +16,7 @@ router.get("/user", async (req: Request, res: Response) => {
 // Get user by specified id
 router.get("/user/:id", async (req: Request, res: Response) => {
   const user = await User.findById(req.params.id);
+
   res.json(user);
 });
 
@@ -23,6 +24,7 @@ router.get("/user/:id", async (req: Request, res: Response) => {
 router.post("/user", async (req: UserRequest, res: Response) => {
   const user = new User(req.body);
   await user.save();
+
   res.json(user);
 });
 
@@ -31,6 +33,7 @@ router.put("/user/:id", async (req: UserRequest, res: Response) => {
   const user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
+
   res.json(user);
 });
 
