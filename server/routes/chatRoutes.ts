@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import Chat from "../model/Chat";
 import { ChatRequest } from "../types/Requests";
 import User from "../model/User";
+import Message from "../model/Message";
 
 const router = express.Router();
 
@@ -48,7 +49,7 @@ router.delete("/chat/:id", async (req: Request, res: Response) => {
   const chatId = req.params.id;
 
   await Chat.findByIdAndDelete(chatId);
-
+  await Message.deleteMany({ chat: chatId });
   await User.updateMany({ chats: chatId }, { $pull: { chats: chatId } });
 });
 
