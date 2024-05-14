@@ -7,8 +7,8 @@ import Chat from "../model/Chat";
 
 const router = express.Router();
 
-// Get all messages
-router.get("/message", async (req: Request, res: Response) => {
+// Get all use messages
+router.get("/message/user/:id", async (req: Request, res: Response) => {
   const messages = await Message.find();
   res.json(messages);
 });
