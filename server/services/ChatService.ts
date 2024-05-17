@@ -1,7 +1,7 @@
-import Chat from "../model/Chat";
-import User from "../model/User";
-import Message from "../model/Message";
-import ChatDocument from "../types/ChatDocument";
+import Chat from "../model/Chat.js";
+import User from "../model/User.js";
+import Message from "../model/Message.js";
+import ChatDocument from "../types/ChatDocument.js";
 
 export const getAllChats = () => {
   return Chat.find();

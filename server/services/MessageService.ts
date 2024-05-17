@@ -1,5 +1,5 @@
-import Message from "../model/Message";
-import Chat from "../model/Chat";
+import Message from "../model/Message.js";
+import Chat from "../model/Chat.js";
 
 export const getAllUserMessages = async (userId: string) => {
   return Message.find({ sender: userId });
@@ -27,13 +27,11 @@ export const updateMessage = async (id: string, messageData: any) => {
 };
 
 export const deleteMessage = async (id: string) => {
-  const message = await Message.findByIdAndUpdate(
+  return await Message.findByIdAndUpdate(
     id,
     { content: "" },
     {
       new: true,
     },
   );
-
-  return message;
 };

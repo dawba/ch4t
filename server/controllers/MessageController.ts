@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as messageService from "../services/MessageService";
+import * as messageService from "../services/MessageService.js";
 
 export const getAllUserMessages = async (req: Request, res: Response) => {
   return await messageService.getAllUserMessages(req.params.id);

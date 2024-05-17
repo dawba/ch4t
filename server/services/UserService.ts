@@ -1,4 +1,4 @@
-import User from "../model/User";
+import User from "../model/User.js";
 
 export const getAllUsers = async () => {
   return User.find();
@@ -21,4 +21,12 @@ export const updateUser = async (id: string, userData: any) => {
 
 export const deleteUser = async (id: string) => {
   await User.findByIdAndDelete(id);
+};
+
+export const getUserByUsername = async (username: string) => {
+  return User.findOne({ username: username });
+};
+
+export const getUserByEmail = async (email: string) => {
+  return User.findOne({ email: email });
 };
