@@ -1,0 +1,8 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <mask id="cutoutMask">
+        <rect width="48" height="48" fill="white"/>
+        <path d="M24 30L24 18" stroke="black" stroke-width="1.5" stroke-linecap="square"/>
+        <path d="M30 24L18 24" stroke="black" stroke-width="1.5" stroke-linecap="square"/>
+    </mask>
+    <circle cx="24" cy="24" r="18" fill="#FBFF4A" mask="url(#cutoutMask)" stroke="#FBFF4A" stroke-width="1.5"/>
+</svg>
