@@ -8,6 +8,7 @@ const userSchema = new Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -18,10 +19,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  chats: {
-    type: ObjectId,
-    ref: "Chat",
-  },
+  chats: [
+    {
+      type: ObjectId,
+      ref: "Chat",
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
