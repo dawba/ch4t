@@ -1,0 +1,34 @@
+  
+  .messageTile {
+    background-color: #090909; 
+    padding: 20px; 
+    width: 280px;
+    height: 60px;
+    border-radius: 5px;
+  }
+
+  .senderName {
+    font-size: 16px;
+    font-family: 'Verdana', sans-serif;
+    color: #FBFF4A;
+    padding-top: 5px;
+  }
+  
+  .lastMessage {
+    font-size: 12px;
+    font-family: 'Verdana', sans-serif;
+    color: #FBFF4A;
+    display: flex; 
+    align-items: left;
+  }
+
+  .messageIcon {
+    width: 19.2px;
+    height: 19.2px;
+    padding-left: 152px;
+    vertical-align: middle;
+  }
+  
+
+
+
