@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Krungthep';
+    src: url('./assets/fonts/Krungthep.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@layer base {
+    body {
+        font-family: 'Krungthep', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: black;
+        @apply text-primary-yellow;
+    }
+
+    input {
+        @apply border border-primary-yellow rounded-xl p-2 focus:outline-none;
+        background-color: black;
+    }
+
+    input:focus {
+        @apply caret-primary-yellow border-2;
+    }
+
+    input::placeholder {
+        color: var(--tw-primary-yellow);
+        opacity: 0.5;
+    }
+}
+
+.page-wrapper {
+    width: 97.5vw;
+    height: 95vh;
+}
