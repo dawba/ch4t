@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { ReactComponent as Logo } from '../assets/logo.svg';
+import React, {useState} from 'react';
+import {ReactComponent as Logo} from '../assets/logo.svg';
+import {Link} from 'react-router-dom';
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
@@ -21,9 +22,9 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
+        <div className="flex flex-col items-center justify-center h-screen w-auto">
             <form onSubmit={handleSubmit} className="flex flex-col w-80">
-                <Logo className="w-48 h-48 mx-auto mb-4" />
+                <Logo className="w-500 h-500 mx-auto mb-4"/>
                 <input
                     type="email"
                     id="email"
@@ -45,10 +46,14 @@ const Login: React.FC = () => {
                     data-tip="Tooltip text here"
                 />
                 <p className="text-white text-xs mx-auto mt-2">
-                    Click <a className="text-primary-yellow underline hover:no-underline hover:opacity-80 visited:" href="your_registration_page.html">here</a> to register
+                    Click
+                    <Link to="/register" className="text-primary-yellow underline hover:no-underline hover:opacity-80">
+                        here
+                    </Link>
+                    to register
                 </p>
                 <button className="bg-primary-yellow mt-12 w-52 mx-auto h-8 rounded-xl hover:opacity-80 text-black"
-                    type="submit">
+                        type="submit">
                     Login
                 </button>
             </form>
@@ -56,4 +61,4 @@ const Login: React.FC = () => {
     );
 };
 
-export default Login;
+export default LoginPage;
