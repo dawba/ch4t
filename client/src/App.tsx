@@ -1,13 +1,36 @@
+// import React from 'react';
+// import {Routes, Route, Navigate, BrowserRouter} from "react-router-dom";
+// import LoginPage from './pages/LoginPage';
+// import RegisterPage from './pages/RegisterPage';
+//
+// const App: React.FC = () => {
+//     return (
+//         <div className="App">
+//             <BrowserRouter>
+//                 <div className="page-wrapper flex justify-center items-center bg-background-gray rounded-xl">
+//                     <Routes>
+//                         <Route path="/login" element={<LoginPage/>}/>
+//                         <Route path="/" element={<Navigate replace to="/login"/>}/>
+//                         <Route path="/register" element={<RegisterPage/>}/>
+//                     </Routes>
+//                 </div>
+//             </BrowserRouter>
+//         </div>
+//     );
+// };
+//
+// export default App;
+
 import React from 'react';
-import LoginPage from './pages/LoginPage'
 import './index.css'
+import RegisterPage from "./pages/RegisterPage";
 
 const App: React.FC = () => {
-  return (
-      <div className="page-wrapper flex justify-center items-center bg-background-gray rounded-xl">
-          <LoginPage/>
-      </div>
-  );
+    return (
+        <div className="page-wrapper flex justify-center items-center bg-background-gray rounded-xl">
+            <RegisterPage/>
+        </div>
+    );
 };
 
 export default App;
