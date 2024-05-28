@@ -10,7 +10,7 @@ interface Props {
     lastMessageStatus: LastMessageStatus
 }
 
-const MessageTile = ({
+const ChatTile = ({
     chatName,
     profilePicture,
     lastMessage,
@@ -44,6 +44,6 @@ const MessageTile = ({
     )
 }
 
-export default MessageTile
+export default ChatTile
 
 /* close_ring_light */
