@@ -1,6 +1,6 @@
 // Usage example
 import React from 'react'
-import GroupChatsList from './components/GroupChatsList'
+import SideMenu from './components/SideMenu'
 import profilePicture from './assets/profile.jpg'
 
 const App: React.FC = () => {
@@ -23,9 +23,15 @@ const App: React.FC = () => {
         // Add more chat objects as needed
     ]
 
+    const handleNavigationClick = () => {
+        console.log('Navigation button clicked!')
+    }
+
     return (
         <div className="App">
-            <GroupChatsList chats={chats} />
+            
+           
+            <SideMenu></SideMenu>
         </div>
     )
 }
