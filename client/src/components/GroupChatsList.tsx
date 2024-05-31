@@ -1,10 +1,10 @@
-// src/components/GroupChatList.tsx
-import React from 'react'
+
 import ChatTile from './ChatTile'
-import Search from './Search' 
+import Search from './Search'
 import styles from './GroupChatsList.module.css'
 type LastMessageStatus = 'read' | 'unread'
 interface ChatData {
+    id: string;
     chatName: string
     profilePicture: string
     lastMessage: string
@@ -16,14 +16,14 @@ interface Props {
     chats: ChatData[]
 }
 
-const GroupChatsList: React.FC<Props> = ({ chats }) => {
+const GroupChatsList = ({ chats }: Props) => {
     return (
         <div className={styles.groupChatsList}>
-            {chats.map((chat, index) => (
-                <ChatTile key={index} {...chat} />
+            {chats.map((chat) => (
+                <ChatTile key={chat.id} {...chat} />
             ))}
             <div className={styles.searchBarWrapper}>
-                <Search/>
+                <Search />
             </div>
         </div>
     )

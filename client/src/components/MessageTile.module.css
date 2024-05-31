@@ -1,0 +1,50 @@
+.messageTile {
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 0;
+    max-width: 60%;
+    word-wrap: break-word;
+}
+
+.userMessage {
+    background-color: #090909;
+    align-self: flex-end;
+    text-align: right;
+}
+
+.otherMessage {
+    background-color: #090909;
+    align-self: flex-start;
+    text-align: left;
+}
+
+.messageInfo {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.senderName {
+    font-weight: bold;
+    color: #fbff4a;
+    font-size: 24px;
+    margin-right: 7px;
+}
+
+.timeSent {
+    margin-left: 10px;
+    color: #fbff4a;
+    font-size: 12px;
+}
+
+.userMessage .timeSent {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+.messageText {
+    color: #ffffff;
+    font-size: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+}

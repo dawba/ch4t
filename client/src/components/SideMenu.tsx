@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import styles from './SideMenu.module.css'
 import NavigationButton from './NavigationButton'
 import settingsButton from '../assets/settings_button.png'
@@ -11,7 +11,7 @@ import addChatButton from '../assets/add_chat_button.png'
 import addChatButtonActive from '../assets/add_chat_button_active.png'
 import logo from '../assets/logo.png'
 
-const SideMenu: React.FC = () => {
+const SideMenu =  () => {
     const [activeButton, setActiveButton] = useState<number | null>(null)
 
     const handleButtonClick = (index: number) => {
@@ -36,7 +36,7 @@ const SideMenu: React.FC = () => {
                     onClick={handleButtonClick}
                     activeImage={chatImages[1]}
                     inactiveImage={chatImages[0]}
-                ></NavigationButton>
+                />
                 <NavigationButton
                     index={1}
                     isActive={activeButton === 1}

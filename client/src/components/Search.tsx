@@ -1,9 +1,9 @@
 // src/components/SearchBar.tsx
-import React, { useState } from 'react'
+import { useState } from 'react'
 import searchIcon from '../assets/search-icon.png'
 import styles from './Search.module.css'
 
-const Search: React.FC = () => {
+const Search =  () => {
     const [searchQuery, setSearchQuery] = useState('')
 
     const handleSearch = () => {

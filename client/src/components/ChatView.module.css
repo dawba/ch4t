@@ -1,0 +1,60 @@
+.chatViewWrapper{
+    background-color: #121212; 
+    width: 1420px;
+    height: 1020px; 
+    display: flex; 
+    flex-direction: column;
+} 
+
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #1a1a1a; /* Darker background for the top bar */
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.profileName {
+    margin-right: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #f5d300; /* Yellow color */
+}
+
+.profileImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #f5d300; /* Yellow border */
+}
+
+.messageList {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #000; /* Maintain the black background */
+}
+
+.inputArea {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #1a1a1a; /* Darker background for the input area */
+}
+
+.attachmentButton {
+    margin-right: 10px;
+}
+
+.textField {
+    flex: 1;
+    margin-right: 10px;
+}
+
+
+

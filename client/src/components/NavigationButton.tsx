@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './NavigationButton.module.css';
 
 interface NavigationButtonProps {
@@ -9,7 +8,7 @@ interface NavigationButtonProps {
   inactiveImage: string;
 }
 
-const NavigationButton: React.FC<NavigationButtonProps> = ({ index, isActive, onClick, activeImage, inactiveImage }) => {
+const NavigationButton= ({ index, isActive, onClick, activeImage, inactiveImage }:NavigationButtonProps) => {
 
   const handleButtonClick = () => {
     if (!isActive) {

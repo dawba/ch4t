@@ -21,6 +21,9 @@ const ChatTile = ({
         lastMessage.length > 25 ? lastMessage.slice(0, 25) + '...' : lastMessage
     const statusImage =
         lastMessageStatus === 'read' ? messageRead : messageNotRead
+
+    const messageFromLastSender =
+        lastMessageSenderName + ': ' + messageToDisplay
     return (
         <div className={`flex items-center ${styles.messageTile}`}>
             <div className="w-12 h-12 flex items-center justify-center border-2 border-yellow-400 rounded-full overflow-hidden mr-4">
@@ -32,8 +35,7 @@ const ChatTile = ({
             <div className="flex flex-col">
                 <div className={styles.senderName}>{chatName}</div>
                 <div className={styles.lastMessage}>
-                    {lastMessageSenderName + ': '}
-                    {messageToDisplay}
+                    {messageFromLastSender}
                     <img
                         src={statusImage}
                         className={styles.messageStateIcon}
@@ -45,5 +47,3 @@ const ChatTile = ({
 }
 
 export default ChatTile
-
-/* close_ring_light */
