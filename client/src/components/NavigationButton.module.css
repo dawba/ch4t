@@ -1,0 +1,14 @@
+.navigationButton {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .navigationButtonImg {
+    width: 100%;
+    height: 100%;
+  }
+  

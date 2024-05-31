@@ -1,0 +1,28 @@
+.sideMenu {
+    width: 120px;
+    height: 1020px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 0px;
+    background-color: #121212;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    display: center;
+    margin-top: 20px;
+}
+
+.navigationButtonGroup{
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    margin-top: 30px;
+} 
+
+.settingsButton{
+    margin-top:650px
+}
