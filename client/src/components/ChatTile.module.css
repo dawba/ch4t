@@ -1,34 +1,33 @@
-  
-  .messageTile {
-    background-color: #090909; 
-    padding: 20px; 
-    width: 280px;
-    height: 60px;
+.messageTile {
+    background-color: #090909;
+    padding: 20px;
+    width: 100%;
+    max-width: 280px;
+    height: auto;
     border-radius: 5px;
-  }
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
-  .senderName {
+.senderName {
     font-size: 16px;
     font-family: 'Verdana', sans-serif;
-    color: #FBFF4A;
+    color: #fbff4a;
     padding-top: 5px;
-  }
-  
-  .lastMessage {
+}
+
+.lastMessage {
     font-size: 12px;
     font-family: 'Verdana', sans-serif;
-    color: #FBFF4A;
-    display: flex; 
+    color: #fbff4a;
+    display: flex;
     align-items: left;
-  }
+    flex-wrap: wrap;
+}
 
-  .messageIcon {
+.messageIcon {
     width: 19.2px;
     height: 19.2px;
-    padding-left: 152px;
-    vertical-align: middle;
-  }
-  
-
-
-
+    margin-left: auto;
+}

@@ -1,10 +1,8 @@
 .sideMenu {
     width: 120px;
-    height: 1020px;
+    height: 100vh;
     border-top-left-radius: 20px;
-    border-top-right-radius: 0px;
     border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 0px;
     background-color: #121212;
     display: flex;
     flex-direction: column;
@@ -12,17 +10,40 @@
 }
 
 .logo {
-    display: center;
+    display: block;
     margin-top: 20px;
 }
 
-.navigationButtonGroup{
+.navigationButtonGroup {
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
+    flex-direction: column;
+    align-items: center;
     margin-top: 30px;
-} 
+    width: 100%;
+}
 
-.settingsButton{
-    margin-top:650px
+.settingsButton {
+    margin-top: auto;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .sideMenu {
+        width: 100%;
+        height: 60px;
+        flex-direction: row;
+        justify-content: space-around;
+        border-radius: 0;
+    }
+
+    .navigationButtonGroup {
+        flex-direction: row;
+        margin-top: 0;
+        width: auto;
+    }
+
+    .settingsButton {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 }

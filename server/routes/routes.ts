@@ -27,9 +27,9 @@ router.delete(
   userController.deleteUser,
 );
 
-router.get("/message/:id", messageController.getAllUserMessages);
+router.get("/message/user/:id", messageController.getAllUserMessages);
 router.get(
-  "message/user/:id",
+  "message/:id",
   validateIdMiddleware,
   messageController.getMessageById,
 );

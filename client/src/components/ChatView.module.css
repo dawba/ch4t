@@ -1,17 +1,17 @@
-.chatViewWrapper{
-    background-color: #121212; 
-    width: 1420px;
-    height: 1020px; 
-    display: flex; 
+.chatViewWrapper {
+    background-color: #121212;
+    width: 100%;
+    height: 100vh;
+    display: flex;
     flex-direction: column;
-} 
+}
 
 .topBar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #1a1a1a; /* Darker background for the top bar */
+    background-color: #1a1a1a;
 }
 
 .profile {
@@ -23,28 +23,28 @@
     margin-right: 10px;
     font-size: 1.2em;
     font-weight: bold;
-    color: #f5d300; /* Yellow color */
+    color: #f5d300;
 }
 
 .profileImage {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 2px solid #f5d300; /* Yellow border */
+    border: 2px solid #f5d300;
 }
 
 .messageList {
     flex: 1;
     overflow-y: auto;
     padding: 10px;
-    background-color: #000; /* Maintain the black background */
+    background-color: #000;
 }
 
 .inputArea {
     display: flex;
     align-items: center;
     padding: 10px;
-    background-color: #1a1a1a; /* Darker background for the input area */
+    background-color: #1a1a1a;
 }
 
 .attachmentButton {
@@ -56,5 +56,25 @@
     margin-right: 10px;
 }
 
+@media (max-width: 768px) {
+    .topBar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
+    .inputArea {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
+    .attachmentButton {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .textField {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
