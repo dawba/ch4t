@@ -15,7 +15,7 @@ export const validateUserCreationMiddleware = async (
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
     return res.status(400).json({
-      message: `Missing required fields ${!username ? "username" : ""} ${email ? "email" : ""} ${password ? "password" : ""}}`,
+      message: `Missing required fields ${!username ? "username" : ""} ${!email ? "email" : ""} ${!password ? "password" : ""}}`,
     });
   }
 

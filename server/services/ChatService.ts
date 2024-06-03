@@ -3,12 +3,18 @@ import User from "../model/User.js";
 import Message from "../model/Message.js";
 import ChatDocument from "../types/ChatDocument.js";
 
-export const getAllChats = () => {
-  return Chat.find();
+
+
+export const getAllChats = async () => {
+  const data = await Chat.find();
+  const message = data ? "chats retrieved successfully" : "chats not found";
+  return { data, message };
 };
 
-export const getChatById = (id: string) => {
-  return Chat.findById(id);
+export const getChatById = async (id: string) => {
+  const data = await Chat.findById(id);
+  const message = data ? "chat retrieved successfully" : "chat not found";
+  return { data, message };
 };
 
 export const createChat = (chatData: ChatDocument) => {
