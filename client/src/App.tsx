@@ -23,12 +23,14 @@
 
 import React from 'react';
 import './index.css'
-import RegisterPage from "./pages/RegisterPage";
+// import RegisterPage from "./pages/RegisterPage";
+// import NavigationMenu from "./components/NavigationMenu.tsx";
+import MessagingPage from "./pages/MessagingPage.tsx";
 
 const App: React.FC = () => {
     return (
-        <div className="page-wrapper flex justify-center items-center bg-background-gray rounded-xl">
-            <RegisterPage/>
+        <div className="page-wrapper flex justify-center items-center bg-background-gray rounded-xl overflow-hidden">
+            <MessagingPage/>
         </div>
     );
 };
