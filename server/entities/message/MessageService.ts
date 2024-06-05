@@ -1,5 +1,5 @@
-import Message from "./Message";
-import Chat from "../chat/Chat";
+import Message from "./Message.js";
+import Chat from "../chat/Chat.js";
 
 export class MessageService {
   async getAllUserMessages(userId: string) {

@@ -4,10 +4,10 @@ import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
 import http from "http";
-import MessageRouter from "./entities/message/router";
-import ChatRouter from "./entities/chat/router";
-import UserRouter from "./entities/user/router";
-import { MessageService } from "./entities/message/MessageService";
+import MessageRouter from "./entities/message/router.js";
+import ChatRouter from "./entities/chat/router.js";
+import UserRouter from "./entities/user/router.js";
+import { MessageService } from "./entities/message/MessageService.js";
 
 // Load env vars from .env
 dotenv.config({ path: "config.env" });
@@ -41,9 +41,9 @@ db.on("error", (err) => {
 
 app.use(cors());
 app.use(express.json());
-app.use("/api/messages", MessageRouter);
-app.use("/api/chats", ChatRouter);
-app.use("/api/users", UserRouter);
+app.use("/api/message", MessageRouter);
+app.use("/api/chat", ChatRouter);
+app.use("/api/user", UserRouter);
 
 const server = http.createServer(app);
 const messageService = new MessageService();

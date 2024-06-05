@@ -1,4 +1,4 @@
-import { MessageController } from "./MessageController";
+import { MessageController } from "./MessageController.js";
 import express from "express";
 
 const messageController = new MessageController();

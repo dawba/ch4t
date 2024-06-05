@@ -1,11 +1,19 @@
 import { Request, Response } from "express";
-import { ChatService } from "./ChatService";
+import { ChatService } from "./ChatService.js";
 import { ChatRequest } from "../../types/Requests";
 
 export class ChatController {
   chatService: ChatService;
   constructor() {
     this.chatService = new ChatService();
+
+    // Bind methods to preserve the `this` context
+    this.getAllChats = this.getAllChats.bind(this);
+    this.getChatById = this.getChatById.bind(this);
+    this.createChat = this.createChat.bind(this);
+    this.updateChat = this.updateChat.bind(this);
+    this.deleteChat = this.deleteChat.bind(this);
+    this.getAllUserChats = this.getAllUserChats.bind(this);
   }
 
   async getAllChats(req: Request, res: Response) {

@@ -1,6 +1,6 @@
-import User from "./User";
-import UserDocument from "../../types/UserDocument";
-import { EmailService } from "../email/EmailService";
+import User from "./User.js";
+import UserDocument from "./UserDocument.js";
+import { EmailService } from "../email/EmailService.js";
 
 export class UserService {
   async getAllUsers() {

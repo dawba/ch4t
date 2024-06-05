@@ -1,11 +1,20 @@
 import { Request, Response } from "express";
-import { UserService } from "./UserService";
+import { UserService } from "./UserService.js";
 
 export class UserController {
   userService: UserService;
 
   constructor() {
     this.userService = new UserService();
+
+    // Bind methods to preserve the `this` context
+    this.getAllUsers = this.getAllUsers.bind(this);
+    this.getUserById = this.getUserById.bind(this);
+    this.createUser = this.createUser.bind(this);
+    this.confirmUser = this.confirmUser.bind(this);
+    this.updateUser = this.updateUser.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
+    this.loginUser = this.loginUser.bind(this);
   }
 
   async getAllUsers(req: Request, res: Response) {

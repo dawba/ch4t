@@ -1,8 +1,8 @@
 import mongoose, { ObjectId } from "mongoose";
-import Chat from "./Chat";
-import User from "../user/User";
-import Message from "../message/Message";
-import ChatDocument from "../../types/ChatDocument";
+import Chat from "./Chat.js";
+import User from "../user/User.js";
+import Message from "../message/Message.js";
+import ChatDocument from "./ChatDocument.js";
 
 export class ChatService {
   async getAllChats() {

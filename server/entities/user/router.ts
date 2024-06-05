@@ -1,5 +1,5 @@
 import express from "express";
-import { UserController } from "./UserController";
+import { UserController } from "./UserController.js";
 
 const userController = new UserController();
 const UserRouter = express.Router();
@@ -9,5 +9,6 @@ UserRouter.get("/:id", userController.getUserById);
 UserRouter.post("/", userController.createUser);
 UserRouter.put("/:id", userController.updateUser);
 UserRouter.delete("/:id", userController.deleteUser);
+UserRouter.post("/login", userController.loginUser);
 
 export default UserRouter;
