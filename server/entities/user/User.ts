@@ -25,6 +25,8 @@ const userSchema = new Schema({
       ref: "Chat",
     },
   ],
+  isVerified: { type: Boolean, default: false },
+  verificationToken: { type: String, required: true },
   createdAt: {
     type: Date,
     default: Date.now,

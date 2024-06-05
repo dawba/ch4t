@@ -1,9 +1,13 @@
 import express from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
-import router from "./routes/routes.js";
 import mongoose from "mongoose";
-// import db from "./db/connection.js";
+import { Server } from "socket.io";
+import http from "http";
+import MessageRouter from "./entities/message/router";
+import ChatRouter from "./entities/chat/router";
+import UserRouter from "./entities/user/router";
+import { MessageService } from "./entities/message/MessageService";
 
 // Load env vars from .env
 dotenv.config({ path: "config.env" });
@@ -15,30 +19,69 @@ const uri = process.env.ATLAS_URI || "";
 
 const db = mongoose.connection;
 
-mongoose.connection.once("open", () => {
+db.once("open", () => {
   console.log("Connected to MongoDB");
 });
 
-mongoose.connection.on("connected", () => {
+db.on("connected", () => {
   console.log("Mongoose is connected");
 });
 
-mongoose.connection.on("error", (err) => {
+db.on("error", (err) => {
   console.error("Connection error", err);
 });
 
-try {
-  await mongoose.connect(uri);
-} catch (error) {
-  console.log("Error when opening the connection", error);
-}
+(async () => {
+  try {
+    await mongoose.connect(uri);
+  } catch (error) {
+    console.log("Error when opening the connection", error);
+  }
+})();
 
 app.use(cors());
 app.use(express.json());
-app.use("/api", router);
+app.use("/api/messages", MessageRouter);
+app.use("/api/chats", ChatRouter);
+app.use("/api/users", UserRouter);
 
-// Start the server
+const server = http.createServer(app);
+const messageService = new MessageService();
 
-app.listen(PORT, () => {
+// Websocket preparation
+// Binding Socket.IO to our server
+const io = new Server(server, {
+  cors: {
+    origin: "*", // Allow all origins (adjust as needed for security)
+    methods: ["GET", "POST"],
+  },
+});
+
+// Handle socket connections
+io.on("connection", (socket) => {
+  console.log(`User connected: ${socket.id}`);
+
+  // Join a specific chat room
+  socket.on("joinChat", (chatId) => {
+    socket.join(chatId);
+    console.log(`User ${socket.id} joined chat ${chatId}`);
+  });
+
+  // Handle sending messages
+  socket.on("sendMessage", async (messageData) => {
+    console.log(messageData);
+    const { chatId, messageObject } = messageData;
+    console.log("Message sent:", messageObject);
+    await messageService.createMessageForChat(chatId, messageObject);
+    io.to(chatId).emit("receiveMessage", messageObject);
+  });
+
+  // Handle disconnect
+  socket.on("disconnect", () => {
+    console.log(`User disconnected: ${socket.id}`);
+  });
+});
+
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
