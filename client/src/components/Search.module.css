@@ -1,30 +1,16 @@
 .searchBar {
-    background-color: #090909;
-    padding: 0 20px;
-    width: 280px;
+    background-color: var(--tw-background-gray);
     height: 40px;
     border-radius: 20px;
-    display: flex;
     align-items: center;
 }
 
 .searchInput {
-    background-color: #090909;
-    color: white;
-    padding: 8px;
+    height: 40px;
     flex-grow: 1;
     outline: none; 
     border: none;
-}
-
-.searchInput:focus {
-    border: none; /* Ensure no border on focus */
-    outline: none; /* Ensure no outline on focus */
-  }
-
-.searchIcon {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
+    margin-right: 10px;
+    background-color: var(--tw-background-gray);
 }
 
