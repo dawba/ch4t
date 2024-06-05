@@ -1,5 +1,6 @@
 import Message from "./Message.js";
 import Chat from "../chat/Chat.js";
+import mongoose from "mongoose";
 
 export class MessageService {
   async getAllUserMessages(userId: string) {
@@ -22,10 +23,16 @@ export class MessageService {
   }
 
   async createMessageForChat(chatId: string, messageData: any) {
-    const message = new Message(messageData);
+    const message = new Message({
+      sender: new mongoose.Types.ObjectId(messageData.sender),
+      content: messageData.message,
+      chat: chatId,
+    });
+
     await message.save();
 
     await Chat.findByIdAndUpdate(chatId, { $push: { messages: message._id } });
+    return message;
   }
 
   async updateMessage(id: string, messageData: any) {

@@ -70,10 +70,12 @@ io.on("connection", (socket) => {
   // Handle sending messages
   socket.on("sendMessage", async (messageData) => {
     console.log(messageData);
-    const { chatId, messageObject } = messageData;
-    console.log("Message sent:", messageObject);
-    await messageService.createMessageForChat(chatId, messageObject);
-    io.to(chatId).emit("receiveMessage", messageObject);
+    const { chatId } = messageData;
+    const messageToEmit = await messageService.createMessageForChat(
+      chatId,
+      messageData,
+    );
+    io.to(chatId).emit("receiveMessage", messageToEmit);
   });
 
   // Handle disconnect

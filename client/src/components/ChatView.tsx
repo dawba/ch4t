@@ -1,77 +1,83 @@
-import styles from './ChatView.module.css' 
-import Search  from './Search'
-import MessageList from './MesssageList' 
-import ImageButton from './ImageButton'; 
-import attachmentButton from '../assets/attachment_button.png' 
-import sendButton from '../assets/send_button.png' 
-import CustomTextField from './CustomTextField';
-import { v4 as uuidv4 } from 'uuid';
+import mongoose from 'mongoose'
 
+import styles from './ChatView.module.css'
+import Search from './Search'
+import MessageList, { MessageTileProps } from './MessageList'
+import ImageButton from './ImageButton'
+import attachmentButton from '../assets/attachment_button.png'
+import sendButton from '../assets/send_button.png'
+import CustomTextField from './CustomTextField'
+import useMessages from '../hooks/useMessages'
+import { io } from 'socket.io-client'
+import { useEffect } from 'react'
+import { MessageDataAdapter } from '../adapters/implementation/MessageDataAdapter.ts'
+import { useScrollToBottom } from '../hooks/useScrollToBottom.ts'
 
-const ChatView = () => {
-    
-    const  HandleButtonClick = () =>
-    {
-        console.log("clicked");
+export interface ChatViewProps {
+  chatId: string
+  currentUser: string
+  users: mongoose.Types.ObjectId[]
+}
+
+const socket = io('http://localhost:5050')
+
+const ChatView = ({ chatId, currentUser, users }: ChatViewProps) => {
+  const { messages, setMessages } = useMessages({ chatId, currentUser, users })
+  const messageListRef = useScrollToBottom(messages)
+
+  useEffect(() => {
+    socket.emit('joinChat', chatId)
+
+    socket.on('receiveMessage', (message: MessageTileProps) => {
+      console.log('received message:', message)
+      const receivedMessage = MessageDataAdapter.getMessages(
+        [message],
+        currentUser,
+        users
+      )
+
+      setMessages((prevMessages) => [...prevMessages, ...receivedMessage])
+    })
+
+    return () => {
+      socket.off('receiveMessage')
     }
-    const data = [
-        {
-            message:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus, diam vel imperdiet placerat, nisi libero facilisis tortor, vel varius lacus tortor quis purus. Aliquam vitae ullamcorper sapien. Integer dignissim tortor massa, sed maximus massa fringilla sed. Suspendisse eleifend mauris libero, vel laoreet enim fringilla eget.',
-            senderName: 'Toamsz',
-            timeSent: '21 Apr 2024 10:22',
-            messageSentByUser: true, 
-            id: uuidv4()
-        },
-        {
-            message:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus, diam vel imperdiet placerat, nisi libero facilisis tortor, vel varius lacus tortor quis purus. Aliquam vitae ullamcorper sapien. Integer dignissim tortor massa, sed maximus massa fringilla sed. Suspendisse eleifend mauris libero, vel laoreet enim fringilla eget.',
-            senderName: 'Toamsz',
-            timeSent: '21 Apr 2024 10:22',
-            messageSentByUser: false,
-            id: uuidv4()
-            
-        },
-        {
-            message:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus, diam vel imperdiet placerat, nisi libero facilisis tortor, vel varius lacus tortor quis purus. Aliquam vitae ullamcorper sapien. Integer dignissim tortor massa, sed maximus massa fringilla sed. Suspendisse eleifend mauris libero, vel laoreet enim fringilla eget.',
-            senderName: 'Toamsz',
-            timeSent: '21 Apr 2024 10:22',
-            messageSentByUser: true,
-            id: uuidv4()
-        },
-        {
-            message:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus, diam vel imperdiet placerat, nisi libero facilisis tortor, vel varius lacus tortor quis purus. Aliquam vitae ullamcorper sapien. Integer dignissim tortor massa, sed maximus massa fringilla sed. Suspendisse eleifend mauris libero, vel laoreet enim fringilla eget.',
-            senderName: 'Toamsz',
-            timeSent: '21 Apr 2024 10:22',
-            messageSentByUser: false,
-            id: uuidv4()
-        }
-    ]
+  })
 
-    return (
-        <div className={styles.chatViewWrapper}>
-        <div className={styles.topBar}>
-            <Search />
-            
+  const handleButtonClick = () => {
+    console.log('clicked')
+  }
+
+  const handleSubmit = (message: string) => {
+    if (!message) {
+      return
+    }
+
+    const messageData = { chatId, sender: currentUser, message }
+    socket.emit('sendMessage', messageData)
+  }
+
+  return (
+    <div className={styles.chatViewWrapper}>
+      <div className={styles.topBar}>
+        <Search />
+      </div>
+      <div className={styles.messageList} ref={messageListRef}>
+        <MessageList messages={messages} />
+      </div>
+      <div className={styles.inputArea}>
+        <div className={styles.attachmentButton}>
+          <ImageButton image={attachmentButton} onClick={handleButtonClick} />
         </div>
-        <div className={styles.messageList} >
-        <MessageList messages={data} />
+        <div className={styles.textField}>
+          <CustomTextField handleSubmit={handleSubmit} />
         </div>
-        <div className={styles.inputArea}>
-            <div className={styles.attachmentButton}>
-            <ImageButton image={attachmentButton} onClick={HandleButtonClick}  />
-            </div> 
-            <div className={styles.textField}>
-            <CustomTextField  />
-            </div>
-            <div className={styles.attachmentButton}>
-            <ImageButton image={sendButton} onClick={HandleButtonClick}  />
-            </div> 
+        <div className={styles.attachmentButton}>
+          <ImageButton image={sendButton} onClick={handleButtonClick} />
         </div>
+      </div>
     </div>
-    )
+  )
 }
 
 export default ChatView

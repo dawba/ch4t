@@ -8,7 +8,7 @@ export class UserService {
   }
 
   async getUserById(id: string) {
-    return User.findById;
+    return User.findById(id);
   }
 
   async createUser(userData: UserDocument) {
