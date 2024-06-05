@@ -1,11 +1,19 @@
 import { Request, Response } from "express";
-import { MessageService } from "./MessageService";
+import { MessageService } from "./MessageService.js";
 
 export class MessageController {
   messageService: MessageService;
 
   constructor() {
     this.messageService = new MessageService();
+
+    // Bind methods to preserve the `this` context
+    this.getAllUserMessages = this.getAllUserMessages.bind(this);
+    this.getMessageById = this.getMessageById.bind(this);
+    this.createMessage = this.createMessage.bind(this);
+    this.updateMessage = this.updateMessage.bind(this);
+    this.deleteMessage = this.deleteMessage.bind(this);
+    this.getAllChatMessages = this.getAllChatMessages.bind(this);
   }
 
   async getAllUserMessages(req: Request, res: Response) {
