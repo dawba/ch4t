@@ -1,33 +1,25 @@
-.messageTile {
-    background-color: #090909;
-    padding: 20px;
-    width: 100%;
-    max-width: 280px;
-    height: auto;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
+  
+  .messageTile {
+    background-color: #090909; 
+    padding: 15px;
+    border-radius: 15px;
+  }
 
-.senderName {
+  .chatName {
     font-size: 16px;
-    font-family: 'Verdana', sans-serif;
-    color: #fbff4a;
-    padding-top: 5px;
-}
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.lastMessage {
+  .lastMessage {
     font-size: 12px;
     font-family: 'Verdana', sans-serif;
-    color: #fbff4a;
-    display: flex;
-    align-items: left;
-    flex-wrap: wrap;
-}
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
 
-.messageIcon {
-    width: 19.2px;
-    height: 19.2px;
-    margin-left: auto;
-}
+
+

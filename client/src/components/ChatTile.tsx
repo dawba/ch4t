@@ -1,47 +1,42 @@
 import styles from './ChatTile.module.css'
-import messageRead from '../assets/message_read.svg'
-import messageNotRead from '../assets/message_not_read.svg'
-type LastMessageStatus = 'read' | 'unread'
-interface Props {
+import {ReactComponent as ReadIcon} from '../assets/message_read.svg';
+import {ReactComponent as UnreadIcon} from '../assets/message_unread.svg';
+
+type Props = {
     chatName: string
     profilePicture: string
     lastMessage: string
-    lastMessageSenderName: string
-    lastMessageStatus: LastMessageStatus
+    lastSender: string
+    isLastMessageRead: boolean
 }
 
-const ChatTile = ({
-    chatName,
-    profilePicture,
-    lastMessage,
-    lastMessageSenderName,
-    lastMessageStatus,
-}: Props) => {
-    const messageToDisplay =
-        lastMessage.length > 25 ? lastMessage.slice(0, 25) + '...' : lastMessage
-    const statusImage =
-        lastMessageStatus === 'read' ? messageRead : messageNotRead
+export const Mock: Props = {
+    chatName: 'Balanga',
+    profilePicture: '../assets/profile.jpg',
+    lastMessage: 'I ma a creep, I am a weirdo, What the hell am I doing here',
+    lastSender: 'Creep',
+    isLastMessageRead: true
+}
 
-    const messageFromLastSender =
-        lastMessageSenderName + ': ' + messageToDisplay
+const ChatTile = ({ chatName, profilePicture, lastMessage, lastSender, isLastMessageRead }: Props) => {
+    const StatusIcon = isLastMessageRead ? ReadIcon : UnreadIcon
+    const lastSenderAndMessage = lastSender + ': ' + lastMessage
+
     return (
-        <div className={`flex items-center ${styles.messageTile}`}>
-            <div className="w-12 h-12 flex items-center justify-center border-2 border-yellow-400 rounded-full overflow-hidden mr-4">
+        <div className={`h-auto w-full mx-2 flex items-center ${styles.messageTile}`}>
+            <div className="w-12 h-12 flex-none items-center justify-center border-2 border-primary-yellow rounded-full overflow-hidden mr-4">
                 <img
                     src={profilePicture}
                     className="w-full h-full object-cover"
                 />
             </div>
-            <div className="flex flex-col">
-                <div className={styles.senderName}>{chatName}</div>
-                <div className={styles.lastMessage}>
-                    {messageFromLastSender}
-                    <img
-                        src={statusImage}
-                        className={styles.messageStateIcon}
-                    />
-                </div>
+            <div className="flex flex-col grow truncate">
+                <p className={styles.chatName}>{chatName}</p>
+                <p className={styles.lastMessage}>
+                    {lastSenderAndMessage}
+                </p>
             </div>
+            <StatusIcon className={'w-4 h-4 flex-none mx-2'}/>
         </div>
     )
 }

@@ -1,25 +1,17 @@
-// src/components/SearchBar.tsx
-import { useState } from 'react'
-import searchIcon from '../assets/search-icon.png'
+import {useEffect, useState} from 'react'
 import styles from './Search.module.css'
+import { ReactComponent as SearchIcon } from '../assets/search_icon.svg';
 
 const Search =  () => {
     const [searchQuery, setSearchQuery] = useState('')
 
-    const handleSearch = () => {
-        console.log('Searching for:', searchQuery)
-        // Add your search logic here
-    }
+    useEffect(() => {
+
+    }, [searchQuery]);
 
     return (
-        <div className={styles.searchBar}>
-            <button onClick={handleSearch} className="ml-1 ">
-                <img
-                    src={searchIcon}
-                    alt="Search"
-                    className={styles.searchIcon}
-                />
-            </button>
+        <div className={'flex flex-row w-full ' + styles.searchBar}>
+            <SearchIcon className={'w-8 h-8 ml-2 flex-none'}/>
             <input
                 type="text"
                 value={searchQuery}
