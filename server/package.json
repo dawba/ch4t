@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "node ./dist/server.js"
+    "start": "tsx -r dotenv/config server.ts"
   },
   "keywords": [],
   "author": "",
@@ -17,16 +17,24 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongodb": "^6.5.0",
+    "nodemailer": "^6.9.13",
+    "socket.io": "^4.7.5",
     "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
+    "uuid": "^9.0.1",
+    "ws": "^8.17.0",
     "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^20.12.12",
+    "@types/nodemailer": "^6.4.15",
+    "@types/uuid": "^9.0.8",
+    "@types/ws": "^8.5.10",
+    "crypto": "^1.0.1",
     "mongoose": "^8.3.4",
-    "tsx": "^4.9.3",
-    "typescript": "^5.4.5"
+    "tsx": "^4.9.3"
   },
   "compilerOptions": {
     "esModuleInterop": true

@@ -5,6 +5,7 @@ interface UserDocument extends mongoose.Document {
   email: string;
   password: string;
   chats: mongoose.Types.ObjectId[];
+  verificationToken: string;
   createdAt: Date;
 }
 

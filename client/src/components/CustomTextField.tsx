@@ -1,47 +1,59 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styles from './CustomTextField.module.css';
+import React, { useState, useEffect, useRef } from 'react'
+import styles from './CustomTextField.module.css'
 
 interface CustomTextFieldProps {
-  initialHeight?: number;
-  maxHeight?: number;
+  initialHeight?: number
+  maxHeight?: number
+  handleSubmit: (value: string) => void
 }
 
 const CustomTextField = ({
   initialHeight = 50,
   maxHeight = 200,
-}:CustomTextFieldProps) => {
-  const [height, setHeight] = useState(initialHeight);
-  const [value, setValue] = useState('');
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  handleSubmit,
+}: CustomTextFieldProps) => {
+  const [height, setHeight] = useState(initialHeight)
+  const [value, setValue] = useState('')
+  const textAreaRef = useRef<HTMLTextAreaElement>(null)
+
+  useEffect(() => {
+    adjustHeight()
+  }, [value])
 
   const handleInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(event.target.value);
-    adjustHeight();
-  };
+    setValue(event.target.value)
+    adjustHeight()
+  }
 
   const adjustHeight = () => {
     if (textAreaRef.current) {
-      const scrollHeight = textAreaRef.current.scrollHeight;
+      const scrollHeight = textAreaRef.current.scrollHeight
 
       if (scrollHeight > height && height < maxHeight) {
-        setHeight(Math.min(scrollHeight, maxHeight));
+        setHeight(Math.min(scrollHeight, maxHeight))
       }
     }
-  };
+  }
 
-  useEffect(() => {
-    adjustHeight();
-  }, [value]);
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault() // Prevent default form submission
+    handleSubmit(value)
+    setValue('')
+    setHeight(initialHeight)
+  }
 
   return (
-    <textarea
-      ref={textAreaRef}
-      className={styles.customTextField}
-      style={{ height: `${height}px` ,color: '#FBFF4A' }}
-      value={value}
-      onChange={handleInput}
-    />
-  );
-};
+    <form onSubmit={handleFormSubmit}>
+      <textarea
+        ref={textAreaRef}
+        className={styles.customTextField}
+        style={{ height: `${height}px`, color: '#FBFF4A' }}
+        value={value}
+        onChange={handleInput}
+      />
+      <button type="submit">send</button>
+    </form>
+  )
+}
 
-export default CustomTextField;
+export default CustomTextField
