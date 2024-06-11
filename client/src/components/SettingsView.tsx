@@ -1,9 +1,9 @@
-import React, { ChangeEvent, useContext } from 'react';
+import { ChangeEvent, useContext } from 'react';
 import { ReactComponent as GalleryIcon } from '../assets/gallery_icon.svg';
 import placeholderPath from '../assets/pfp_placeholder.jpg';
 import { UserContext } from "./UserProvider.tsx";
 
-const SettingsView: React.FC = () => {
+const SettingsView = () => {
     const userContext = useContext(UserContext);
 
     if (!userContext) {
