@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from './CustomTextField.module.css';
+import styles from '../styles/CustomTextField.module.css';
 
 interface CustomTextFieldProps {
   initialHeight?: number;

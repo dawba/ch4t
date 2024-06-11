@@ -1,4 +1,4 @@
-import styles from './NavigationMenu.module.css';
+import styles from '../styles/NavigationMenu.module.css';
 import * as React from 'react';
 import {ReactComponent as Logo} from '../assets/logo.svg';
 import { ReactComponent as DirectChatsIcon } from '../assets/nav_menu_icons/direct_chats_icon.svg';
