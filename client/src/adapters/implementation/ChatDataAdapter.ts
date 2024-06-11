@@ -1,4 +1,4 @@
-import { IChatDataAdapter } from '../interfaces/IChatDataAdapter.ts'
+import { IChatDataAdapter } from '../interfaces/IChatDataAdapter.ts';
 
 const ChatDataAdapter: IChatDataAdapter = {
   getChats: (chatData) => {
@@ -7,12 +7,12 @@ const ChatDataAdapter: IChatDataAdapter = {
       chatName: chat?.chatName || '',
       profilePicture: chat?.profilePicture || '',
       lastMessage: chat?.lastMessage || '',
-      lastMessageSenderName: chat?.lastMessageSenderName || '',
-      lastMessageStatus: chat?.lastMessageStatus || 'unread',
+      lastSender: chat?.lastMessageSenderName || '',
+      isLastMessageRead: chat?.isLastMessageRead || false,
       users: chat?.users || [],
       messages: chat?.messages || [],
-    }))
+    }));
   },
-}
+};
 
-export default ChatDataAdapter
+export default ChatDataAdapter;
