@@ -1,4 +1,4 @@
-import styles from './ChatView.module.css'
+import styles from '../styles/ChatView.module.css'
 import Search from './Search'
 import MessageList from './MesssageList'
 import ImageButton from './ImageButton'

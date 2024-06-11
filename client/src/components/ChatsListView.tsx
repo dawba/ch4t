@@ -1,6 +1,6 @@
 import ChatTile from './ChatTile'
 import Search from './Search'
-import styles from './ChatsListView.module.css'
+import styles from '../styles/ChatsListView.module.css'
 interface ChatData {
     id: string;
     chatName: string

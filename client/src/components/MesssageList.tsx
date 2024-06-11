@@ -1,4 +1,4 @@
-import styles from './MessageList.module.css'
+import styles from '../styles/MessageList.module.css'
 import MessageTile from './MessageTile'
 
 interface MessageTileProps {

@@ -21,13 +21,12 @@
 //
 // export default App;
 
-import React from 'react';
 import './index.css'
 // import RegisterPage from "./pages/RegisterPage";
 // import NavigationMenu from "./components/NavigationMenu.tsx";
 import MessagingPage from "./pages/MessagingPage.tsx";
 
-const App: React.FC = () => {
+const App = () => {
     return (
         <div className="page-wrapper flex justify-center items-center bg-background-gray rounded-xl overflow-hidden">
             <MessagingPage/>

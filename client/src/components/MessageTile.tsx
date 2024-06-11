@@ -1,4 +1,4 @@
-import styles from './MessageTile.module.css'
+import styles from '../styles/MessageTile.module.css'
 
 interface MessageTileProps {
     id: string
