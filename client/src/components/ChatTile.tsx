@@ -1,44 +1,52 @@
 import styles from '../styles/ChatTile.module.css'
 import {ReactComponent as ReadIcon} from '../assets/message_read.svg';
 import {ReactComponent as UnreadIcon} from '../assets/message_unread.svg';
+import { ChatData } from '../adapters/interfaces/IChatDataAdapter.ts'
 
-type Props = {
-    chatName: string
-    profilePicture: string
-    lastMessage: string
-    lastSender: string
-    isLastMessageRead: boolean
-}
+const ChatTile = ({
+  chat,
+  setSelectedChat,
+}: {
+  chat: ChatData
+  setSelectedChat: (value: ChatData) => void
+}) => {
+  const {
+    lastMessage,
+    lastMessageSenderName,
+    lastMessageStatus,
+    chatName,
+    profilePicture,
+    id,
+  } = chat
 
-export const Mock: Props = {
-    chatName: 'Balanga',
-    profilePicture: '../assets/profile.jpg',
-    lastMessage: 'I ma a creep, I am a weirdo, What the hell am I doing here',
-    lastSender: 'Creep',
-    isLastMessageRead: true
-}
+  const messageToDisplay =
+    lastMessage.length > 25 ? lastMessage.slice(0, 25) + '...' : lastMessage
 
-const ChatTile = ({ chatName, profilePicture, lastMessage, lastSender, isLastMessageRead }: Props) => {
-    const StatusIcon = isLastMessageRead ? ReadIcon : UnreadIcon
-    const lastSenderAndMessage = lastSender + ': ' + lastMessage
+  const StatusIcon = isLastMessageRead ? ReadIcon : UnreadIcon
+  const lastSenderAndMessage = lastSender + ': ' + messageToDisplay
 
-    return (
-        <div className={`h-auto w-full mx-2 flex items-center ${styles.messageTile}`}>
-            <div className="w-12 h-12 flex-none items-center justify-center border-2 border-primary-yellow rounded-full overflow-hidden mr-4">
-                <img
-                    src={profilePicture}
-                    className="w-full h-full object-cover"
-                />
-            </div>
-            <div className="flex flex-col grow truncate">
-                <p className={styles.chatName}>{chatName}</p>
-                <p className={styles.lastMessage}>
-                    {lastSenderAndMessage}
-                </p>
-            </div>
-            <StatusIcon className={'w-4 h-4 flex-none mx-2'}/>
+  return (
+    <button
+      type="button"
+      className={`h-auto w-full mx-2 flex items-center ${styles.messageTile}`}
+      onClick={() => setSelectedChat(chat)}
+    >
+      <div className="w-12 h-12 flex-none items-center justify-center border-2 border-primary-yellow rounded-full overflow-hidden mr-4">
+        <img
+          src={profilePicture}
+          className="w-full h-full object-cover"
+          alt="Profile picture"
+        />
+      </div>
+      <div className="flex flex-col grow truncate">
+        <div className={styles.senderName}>{chatName}</div>
+        <div className={styles.lastMessage}>
+          {messageFromLastSender}
         </div>
-    )
+        <StatusIcon className={'w-4 h-4 flex-none mx-2'}/>
+      </div>
+    </button>
+  )
 }
 
 export default ChatTile
