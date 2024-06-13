@@ -1,7 +1,6 @@
-import React from "react";
 
 
-const AddChatView: React.FC = () => {
+const AddChatView = () => {
     return (
         <div>
             AddChatView

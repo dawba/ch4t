@@ -1,4 +1,4 @@
-import styles from './ImageButton.module.css'
+import styles from '../styles/ImageButton.module.css'
 
 interface ImageButtonProps {
     image: string

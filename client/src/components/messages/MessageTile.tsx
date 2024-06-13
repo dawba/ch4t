@@ -1,5 +1,5 @@
-import styles from './MessageTile.module.css'
 import { MessageTileProps } from './MessageList.tsx'
+import styles from '../styles/MessageTile.module.css'
 
 const MessageTile = ({
   message,

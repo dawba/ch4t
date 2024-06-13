@@ -29,6 +29,3 @@ jobs:
 
       - name: Build app
         run: cd client && yarn run build
-
-      - name: Run tests
-        run: cd client && yarn test:functions

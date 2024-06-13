@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-import styles from './ChatView.module.css'
+import styles from '../styles/ChatView.module.css'
 import Search from './Search'
 import MessageList, { MessageTileProps } from './MessageList'
 import ImageButton from './ImageButton'
