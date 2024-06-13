@@ -5,7 +5,9 @@ import {
   validateMongoId,
   validatePassword,
 } from "./validators.js";
-import * as userService from "../services/UserService.js";
+import { UserService } from "../entities/user/UserService.js";
+
+const userService = new UserService();
 
 export const validateUserCreationMiddleware = async (
   req: Request,
