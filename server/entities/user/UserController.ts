@@ -29,6 +29,13 @@ export class UserController {
     res.json(user);
   }
 
+  async getUserByUsername(req: Request, res: Response) {
+    const username = req.params.username;
+
+    const user = await this.userService.getUserByUsername(username);
+    res.json(user);
+  }
+
   async createUser(req: Request, res: Response) {
     console.log(`Received a request to create user: ${req.body}`);
     const user = await this.userService.createUser(req.body);
