@@ -5,8 +5,8 @@ const userController = new UserController();
 const UserRouter = express.Router();
 
 UserRouter.get("/", userController.getAllUsers);
-UserRouter.get("/:id", userController.getUserById);
-UserRouter.get("/:username", userController.getUserByUsername);
+UserRouter.get("/id/:id", userController.getUserById);
+UserRouter.get("/username/:username", userController.getUserByUsername);
 
 UserRouter.post("/", userController.createUser);
 UserRouter.post("/login", userController.loginUser);

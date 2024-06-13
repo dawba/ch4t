@@ -1,7 +1,7 @@
-import styles from '../styles/ChatTile.module.css';
-import { ReactComponent as ReadIcon } from '../assets/message_read.svg';
-import { ReactComponent as UnreadIcon } from '../assets/message_unread.svg';
-import { ChatData } from '../adapters/interfaces/IChatDataAdapter.ts';
+import styles from '../../styles/ChatTile.module.css';
+import { ReactComponent as ReadIcon } from '../../assets/message_read.svg';
+import { ReactComponent as UnreadIcon } from '../../assets/message_unread.svg';
+import { ChatData } from '../../types/types.ts';
 
 const ChatTile = ({ chat }: { chat: ChatData }) => {
   const {

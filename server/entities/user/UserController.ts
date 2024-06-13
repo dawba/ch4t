@@ -15,6 +15,7 @@ export class UserController {
     this.updateUser = this.updateUser.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
     this.loginUser = this.loginUser.bind(this);
+    this.getUserByUsername = this.getUserByUsername.bind(this);
   }
 
   async getAllUsers(req: Request, res: Response) {

@@ -1,7 +1,7 @@
 import ChatTile from './ChatTile';
-import Search from './Search';
-import styles from '../styles/ChatsList.module.css';
-import { ChatData } from '../adapters/interfaces/IChatDataAdapter.ts';
+import Search from '../Search';
+import styles from '../../styles/ChatList.module.css';
+import { ChatData } from '../../types/types.ts';
 
 export const Mock1: ChatData = {
   id: '1',
