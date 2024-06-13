@@ -1,27 +1,19 @@
-import styles from './MessageList.module.css'
-import MessageTile from './MessageTile'
-import { Types } from 'mongoose'
-
-export interface MessageTileProps {
-  id: string
-  message: string
-  senderName: string | Types.ObjectId
-  timeSent: string
-  messageSentByUser: boolean
-}
+import styles from './MessageList.module.css';
+import MessageTile from './MessageTile';
+import { MessageTileProps } from '../../types/types.ts';
 
 interface MessageListProps {
-  messages: MessageTileProps[]
+  messages: MessageTileProps[];
 }
 
 const MessageList = ({ messages }: MessageListProps) => {
   return (
     <div className={styles.messageListWrapper}>
       {messages.map((message) => (
-        <MessageTile key={message.timeSent} {...message} />
+        <MessageTile key={message.id} {...message} />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default MessageList
+export default MessageList;

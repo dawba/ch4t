@@ -1,23 +1,25 @@
-import { IMessageAdapter } from '../interfaces/IMessageAdapter.ts'
-import { MessageTileProps } from '../../components/MessageList.tsx'
+import { IMessageAdapter } from '../interfaces/IMessageAdapter.ts';
+import { ID, MessageData, MessageTileProps } from '../../types/types.ts';
 
 export const MessageDataAdapter: IMessageAdapter = {
   getMessages: (
-    messageData: Object[],
-    currentUser,
-    users
+    messageData: MessageData[],
+    currentUser: ID,
+    users: ID[]
   ): MessageTileProps[] => {
     return messageData.map((message) => {
-      const sender = users.find((user) => user.id === message.sender)
-      const messageSentByUser = message.sender === currentUser
+      const sender = users.find((user: ID) => user === message.sender);
+      const messageSentByUser = message.sender === currentUser;
+
+      const senderName = sender?.name ?? '';
 
       return {
         id: message._id,
         message: message.content,
-        senderName: sender ?? '',
+        senderName: senderName ?? '',
         timeSent: message.createdAt,
         messageSentByUser,
-      }
-    })
+      };
+    });
   },
-}
+};

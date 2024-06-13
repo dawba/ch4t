@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import NavigationMenu, { MenuItem } from '../components/NavigationMenu.tsx';
 import ContextMenu from '../components/ContextMenu.tsx';
 import { UserProvider } from '../components/UserProvider.tsx';
+import NavigationMenu from '../components/navigation/NavigationMenu.tsx';
+
+import { MenuItem } from '../types/types.ts';
 
 const MessagingPage = () => {
   const [activeItem, setActiveItem] = useState<MenuItem>('DirectChats');

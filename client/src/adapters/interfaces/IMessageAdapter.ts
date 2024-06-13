@@ -1,10 +1,9 @@
-import { MessageTileProps } from '../../components/MessageList.tsx'
-import mongoose from 'mongoose'
+import { ID, MessageData, MessageTileProps } from '../../types/types.ts';
 
 export interface IMessageAdapter {
   getMessages: (
-    messageData: any,
-    currentUser: string,
-    users: mongoose.Types.ObjectId[]
-  ) => MessageTileProps[]
+    messageData: MessageData[],
+    currentUser: ID,
+    users: ID[]
+  ) => MessageTileProps[];
 }
