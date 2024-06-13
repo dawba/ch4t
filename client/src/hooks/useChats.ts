@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import ChatDataAdapter from '../adapters/implementation/ChatDataAdapter.ts';
-import { ChatData } from '../types/types.ts';
+import { Chat } from '../types/types.ts';
 
 const useChats = (userId: string) => {
   const API_URL = `http://localhost:5050/api/chat/user/${userId}`;
-  const [chats, setChats] = useState<ChatData[]>([]);
-  const [selectedChat, setSelectedChat] = useState<ChatData>(chats[0]);
+  const [chats, setChats] = useState<Chat[]>([]);
+  const [selectedChat, setSelectedChat] = useState<Chat>(chats[0]);
 
   useEffect(() => {
     if (!userId) {

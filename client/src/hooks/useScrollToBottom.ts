@@ -1,17 +1,19 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react';
 
-export const useScrollToBottom = (dataDependency: any) => {
-  const ref = useRef<HTMLDivElement>(null)
+const useScrollToBottom = (dataDependency: any) => {
+  const ref = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     if (ref.current) {
-      ref.current.scrollTop = ref.current.scrollHeight
+      ref.current.scrollTop = ref.current.scrollHeight;
     }
-  }
+  };
 
   useEffect(() => {
-    scrollToBottom()
-  }, [dataDependency])
+    scrollToBottom();
+  }, [dataDependency]);
 
-  return ref
-}
+  return ref;
+};
+
+export default useScrollToBottom;

@@ -1,26 +1,46 @@
 // BACKEND TYPES
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import * as React from 'react';
 
-export type Chat = {
+export type ID = mongoose.Types.ObjectId;
+
+export type ChatData = {
   _id: string;
-  users: mongoose.Types.ObjectId[];
-  messages: mongoose.Types.ObjectId[];
+  users: ID[];
+  messages: ID[];
   createdAt: Date;
 };
 
+export type MessageData = {
+  _id: string;
+  content: string;
+  sender: ID;
+  chat: ID;
+  readStatus: { recipient: ID; read: boolean }[];
+  createdAt: Date;
+};
+
+// ===================================================================
 // FRONTEND TYPES
 
-export type ChatData = {
+export type Chat = {
   id: string;
   chatName: string;
   profilePicture: string;
   lastMessage: string;
   lastSender: string;
   isLastMessageRead: boolean;
-  users: mongoose.Types.ObjectId[];
-  messages: mongoose.Types.ObjectId[];
+  users: ID[];
+  messages: ID[];
 };
+
+export interface MessageTileProps {
+  id: string;
+  message: string;
+  senderName: string | Types.ObjectId;
+  timeSent: Date;
+  messageSentByUser: boolean;
+}
 
 export type Credentials = {
   username: string;

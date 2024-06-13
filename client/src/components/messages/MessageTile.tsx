@@ -1,5 +1,5 @@
-import { MessageTileProps } from './MessageList.tsx'
-import styles from '../styles/MessageTile.module.css'
+import styles from '../styles/MessageTile.module.css';
+import { MessageTileProps } from '../../types/types.ts';
 
 const MessageTile = ({
   message,
@@ -15,11 +15,11 @@ const MessageTile = ({
         <span className={styles.senderName}>
           {messageSentByUser ? 'Me' : senderName.toString()}
         </span>
-        <span className={styles.timeSent}>{timeSent}</span>
+        <span className={styles.timeSent}>{timeSent.toISOString()}</span>
       </div>
       <p className={styles.messageText}>{message}</p>
     </div>
-  )
-}
+  );
+};
 
-export default MessageTile
+export default MessageTile;
