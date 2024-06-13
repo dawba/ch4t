@@ -11,7 +11,7 @@ export const MessageDataAdapter: IMessageAdapter = {
       const sender = users.find((user: ID) => user === message.sender);
       const messageSentByUser = message.sender === currentUser;
 
-      const senderName = sender?.name ?? '';
+      const senderName = sender;
 
       return {
         id: message._id,

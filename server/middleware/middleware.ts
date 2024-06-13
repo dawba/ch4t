@@ -7,7 +7,7 @@ import {
 } from "./validators.js";
 import { UserService } from "../entities/user/UserService.js";
 
-const userService = new UserService()
+const userService = new UserService();
 
 export const validateUserCreationMiddleware = async (
   req: Request,

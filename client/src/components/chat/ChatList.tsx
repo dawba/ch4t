@@ -1,10 +1,11 @@
 import ChatTile from './ChatTile';
-import Search from '../Search';
-import styles from '../../styles/ChatList.module.css';
-import { ChatData } from '../../types/types.ts';
+import styles from '../styles/ChatsList.module.css';
+import { Chat, ID } from '../../types/types.ts';
+import Search from '../Search.tsx';
+import { uuid } from 'uuidv4';
 
-export const Mock1: ChatData = {
-  id: '1',
+export const Mock1: Chat = {
+  id: '1' as unknown as ID,
   chatName: 'Balanga',
   profilePicture: '../assets/profile.jpg',
   lastMessage: 'I ma a creep, I am a weirdo, What the hell am I doing here',
@@ -13,8 +14,8 @@ export const Mock1: ChatData = {
   users: [],
   messages: [],
 };
-export const Mock2: ChatData = {
-  id: '2',
+export const Mock2: Chat = {
+  id: '2' as unknown as ID,
   chatName: 'Balanga',
   profilePicture: '../assets/profile.jpg',
   lastMessage: 'I ma a creep, I am a weirdo, What the hell am I doing here',
@@ -23,8 +24,8 @@ export const Mock2: ChatData = {
   users: [],
   messages: [],
 };
-export const Mock3: ChatData = {
-  id: '3',
+export const Mock3: Chat = {
+  id: '3' as unknown as ID,
   chatName: 'Balanga',
   profilePicture: '../assets/profile.jpg',
   lastMessage: 'I ma a creep, I am a weirdo, What the hell am I doing here',
@@ -34,11 +35,11 @@ export const Mock3: ChatData = {
   messages: [],
 };
 
-const ChatList = ({ chats }: { chats: ChatData[] }) => {
+const ChatList = ({ chats }: { chats: Chat[] }) => {
   return (
     <div className={styles.groupChatsList}>
-      {chats.map((chat: ChatData) => (
-        <ChatTile key={chat.id} chat={chat} />
+      {chats.map((chat: Chat) => (
+        <ChatTile key={uuid()} chat={chat} />
       ))}
       <div className={styles.searchBarWrapper}>
         <Search />

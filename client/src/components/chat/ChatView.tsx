@@ -1,5 +1,3 @@
-import mongoose from 'mongoose';
-
 import { useEffect } from 'react';
 import useMessages from '../../hooks/useMessages.ts';
 import useScrollToBottom from '../../hooks/useScrollToBottom.ts';
@@ -14,19 +12,23 @@ import CustomTextField from '../CustomTextField.tsx';
 import attachmentButton from '../assets/attachment_button.png';
 import sendButton from '../assets/send_button.png';
 import { MessageDataAdapter } from '../../adapters/implementation/MessageDataAdapter.ts';
-import { MessageData } from '../../types/types.ts';
+import { ID, MessageData } from '../../types/types.ts';
 
 import styles from '../styles/ChatView.module.css';
 
 export interface ChatViewProps {
-  chatId: string;
-  currentUser: mongoose.Types.ObjectId;
-  users: mongoose.Types.ObjectId[];
+  chatId: ID;
+  currentUser: ID | null;
+  users: ID[];
 }
 
 const socket = io('http://localhost:5050');
 
 const ChatView = ({ chatId, currentUser, users }: ChatViewProps) => {
+  if (!currentUser) {
+    return null;
+  }
+
   const { messages, setMessages } = useMessages({ chatId, currentUser, users });
   const messageListRef = useScrollToBottom(messages);
 
