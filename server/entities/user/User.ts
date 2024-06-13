@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import UserDocument from "../types/UserDocument";
-
+import UserDocument from "./UserDocument.js";
 const { Schema, model, Types } = mongoose;
 const { ObjectId } = Types;
 

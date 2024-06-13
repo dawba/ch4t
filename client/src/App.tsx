@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import ChatView from './components/ChatView.tsx';
-import ChatList from './components/ChatList.tsx';
 import useChats from './hooks/useChats.ts';
 import useLogin from './hooks/useLogin.ts';
 import { Credentials } from './types/types.ts';
+import ChatList from './components/chat/ChatList.tsx';
+import ChatView from './components/chat/ChatView.tsx';
 
 // import React from 'react';
 // import {Routes, Route, Navigate, BrowserRouter} from "react-router-dom";
@@ -34,17 +34,17 @@ const App = () => {
     password: '',
   });
   const { user, handleLoginUser } = useLogin();
-  const { chats, selectedChat, setSelectedChat } = useChats(user?.id || '');
-  const { id: userId } = user || { id: '' };
+  const { chats, selectedChat } = useChats(user?.id ?? null);
+  const userId = user?.id ?? null;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await handleLoginUser(credentials.username, credentials.password);
+    handleLoginUser(credentials.username, credentials.password);
   };
 
   return (
     <div className="flex flex-row space-x-4">
-      <ChatList chats={chats} setSelectedChat={setSelectedChat} />
+      <ChatList chats={chats} />
       {selectedChat && (
         <ChatView
           chatId={selectedChat.id}
@@ -82,7 +82,7 @@ const App = () => {
         <button type="submit">Submit</button>
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default App;

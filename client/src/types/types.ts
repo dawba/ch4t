@@ -5,14 +5,14 @@ import * as React from 'react';
 export type ID = mongoose.Types.ObjectId;
 
 export type ChatData = {
-  _id: string;
+  _id: ID;
   users: ID[];
   messages: ID[];
   createdAt: Date;
 };
 
 export type MessageData = {
-  _id: string;
+  _id: ID;
   content: string;
   sender: ID;
   chat: ID;
@@ -24,7 +24,7 @@ export type MessageData = {
 // FRONTEND TYPES
 
 export type Chat = {
-  id: string;
+  id: ID;
   chatName: string;
   profilePicture: string;
   lastMessage: string;
@@ -34,8 +34,18 @@ export type Chat = {
   messages: ID[];
 };
 
+export type User = {
+  id: ID;
+  username: string;
+  password: string;
+  chats: ID;
+  isVerified: boolean;
+  verificationToken: string;
+  createdAt: Date;
+};
+
 export interface MessageTileProps {
-  id: string;
+  id: ID;
   message: string;
   senderName: string | Types.ObjectId;
   timeSent: Date;

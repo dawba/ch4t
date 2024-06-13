@@ -1,9 +1,9 @@
 import styles from '../styles/ChatTile.module.css';
 import { ReactComponent as ReadIcon } from '../assets/message_read.svg';
 import { ReactComponent as UnreadIcon } from '../assets/message_unread.svg';
-import { ChatData } from '../adapters/interfaces/IChatDataAdapter.ts';
+import { Chat } from '../../types/types.ts';
 
-const ChatTile = ({ chat }: { chat: ChatData }) => {
+const ChatTile = ({ chat }: { chat: Chat }) => {
   const {
     lastMessage,
     lastSender,

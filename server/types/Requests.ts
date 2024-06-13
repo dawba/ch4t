@@ -1,7 +1,7 @@
 import { Request } from "express";
-import UserDocument from "./UserDocument";
-import ChatDocument from "./ChatDocument";
-import MessageDocument from "./MessageDocument";
+import UserDocument from "../entities/user/UserDocument.js";
+import ChatDocument from "../entities/chat/ChatDocument.js";
+import MessageDocument from "../entities/message/MessageDocument";
 
 export interface UserRequest extends Request {
   body: UserDocument;
