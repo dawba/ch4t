@@ -30,7 +30,7 @@
     }
 
     input::placeholder {
-        @apply primary-yellow;
+        color: #FBFF4A;
         opacity: 0.5;
     }
 }
