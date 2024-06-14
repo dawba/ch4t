@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from '../styles/CustomTextField.module.css';
+import styles from '../../styles/CustomTextField.module.css';
 
 interface CustomTextFieldProps {
   initialHeight?: number
@@ -8,7 +8,7 @@ interface CustomTextFieldProps {
 }
 
 const CustomTextField = ({
-  initialHeight = 50,
+  initialHeight = 40,
   maxHeight = 200,
   handleSubmit,
 }: CustomTextFieldProps) => {
@@ -47,11 +47,10 @@ const CustomTextField = ({
       <textarea
         ref={textAreaRef}
         className={styles.customTextField}
-        style={{ height: `${height}px`, color: '#FBFF4A' }}
+        style={{ height: `${height}px` }}
         value={value}
         onChange={handleInput}
       />
-      <button type="submit">send</button>
     </form>
   )
 }

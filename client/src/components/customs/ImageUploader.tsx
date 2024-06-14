@@ -1,6 +1,6 @@
-import  { ChangeEvent } from 'react';
-import { ReactComponent as GalleryIcon } from '../assets/gallery_icon.svg';
-import placeholderPath from '../assets/pfp_placeholder.jpg';
+import { ChangeEvent } from 'react';
+// @ts-ignore
+import { ReactComponent as GalleryIcon } from '../../assets/gallery_icon.svg';
 
 interface ImageUploaderProps {
   image: string;
@@ -8,6 +8,8 @@ interface ImageUploaderProps {
 }
 
 const ImageUploader = ({ image, setImage }: ImageUploaderProps) => {
+  const placeholderPath = '../../assets/pfp_placeholder.jpg';
+
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -27,7 +29,11 @@ const ImageUploader = ({ image, setImage }: ImageUploaderProps) => {
         onChange={handleImageUpload}
       />
       <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden mt-8 relative border-2 border-primary-yellow">
-        <img src={image !== '' ? image : placeholderPath} alt="Profile" className="w-full h-full object-cover" />
+        <img
+          src={image !== '' ? image : placeholderPath}
+          alt="Profile"
+          className="w-full h-full object-cover"
+        />
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-80 transition-opacity flex items-center justify-center">
           <GalleryIcon className="w-8 h-8 text-white opacity-0 group-hover:opacity-100" />
         </div>

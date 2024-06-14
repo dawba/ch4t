@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
-import { UserContext } from '../components/UserProvider';
-import {ID} from '../types/types'
+import { ID } from '../types/types';
+import { UserContext } from '../components/providers/UserProvider.tsx';
 interface User {
   id: ID;
   username: string;

@@ -1,15 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage.tsx';
-import MessagingPage from './pages/MessagingPage.tsx';
 import RegisterPage from './pages/RegisterPage.tsx';
+import MainPage from './pages/MainPage.tsx';
 
 const App = () => {
   return (
-    <div>
+    <div className="page-wrapper flex justify-center items-center bg-background-gray rounded-xl">
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/messaging" element={<MessagingPage />} />
+        <Route path="/" element={<MainPage />} />
       </Routes>
     </div>
   );

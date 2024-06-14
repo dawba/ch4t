@@ -1,8 +1,7 @@
 .searchBar {
     background-color: #090909;
-    padding: 0 20px;
+    padding: 0 10px;
     width: 100%;
-    max-width: 280px;
     height: 40px;
     border-radius: 20px;
     display: flex;
@@ -11,8 +10,8 @@
 
 .searchInput {
     background-color: #090909;
-    color: white;
     padding: 8px;
+    width: 100%;
     flex-grow: 1;
     outline: none;
     border: none;
