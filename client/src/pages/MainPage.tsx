@@ -5,7 +5,6 @@ import NavigationMenu from '../components/navigation/NavigationMenu.tsx';
 
 import { MenuItem } from '../types/types.ts';
 import { UserProvider } from '../components/providers/UserProvider.tsx';
-import ChatView from '../components/chat/ChatView.tsx';
 
 const MainPage = () => {
   const [activeItem, setActiveItem] = useState<MenuItem>('DirectChats');
