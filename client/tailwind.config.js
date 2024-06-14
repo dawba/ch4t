@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import exposeColors from '@tailwind-plugin/expose-colors';
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -17,7 +16,7 @@ export default {
     extend: {},
   },
   plugins: [
-    exposeColors({
+    require('@tailwind-plugin/expose-colors')({
       extract: [
         'primary-yellow',
         'background-gray',

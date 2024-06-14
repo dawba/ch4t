@@ -1,13 +1,11 @@
-import {
-  ReactComponent as SettingsIconActive,
-  ReactComponent as SettingsIcon,
-  ReactComponent as AddChatIconActive,
-  ReactComponent as AddChatIcon,
-  ReactComponent as GroupChatsIconActive,
-  ReactComponent as GroupChatsIcon,
-  ReactComponent as DirectChatsIconActive,
-  ReactComponent as DirectChatsIcon,
-} from '*.svg';
+import { ReactComponent as SettingsIconActive } from '../../assets/nav_menu_icons/settings_icon_active.svg';
+import { ReactComponent as SettingsIcon } from '../../assets/nav_menu_icons/settings_icon.svg';
+import { ReactComponent as AddChatIconActive } from '../../assets/nav_menu_icons/add_chat_icon_active.svg';
+import { ReactComponent as AddChatIcon } from '../../assets/nav_menu_icons/add_chat_icon.svg';
+import { ReactComponent as GroupChatsIconActive } from '../../assets/nav_menu_icons/group_chats_icon_active.svg';
+import { ReactComponent as GroupChatsIcon } from '../../assets/nav_menu_icons/group_chats_icon.svg';
+import { ReactComponent as DirectChatsIconActive } from '../../assets/nav_menu_icons/direct_chats_icon_active.svg';
+import { ReactComponent as DirectChatsIcon } from '../../assets/nav_menu_icons/direct_chats_icon.svg';
 import { MenuItem, SVGIcon } from '../../types/types.ts';
 
 class MenuIconItem {

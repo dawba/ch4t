@@ -1,8 +1,8 @@
 import ChatTile from './ChatTile';
-import styles from '../styles/ChatsList.module.css';
 import { Chat, ID } from '../../types/types.ts';
 import Search from '../Search.tsx';
-import { uuid } from 'uuidv4';
+
+import styles from '../../styles/ChatList.module.css';
 
 export const Mock1: Chat = {
   id: '1' as unknown as ID,
@@ -39,7 +39,7 @@ const ChatList = ({ chats }: { chats: Chat[] }) => {
   return (
     <div className={styles.groupChatsList}>
       {chats.map((chat: Chat) => (
-        <ChatTile key={uuid()} chat={chat} />
+        <ChatTile key={chat.id.toString()} chat={chat} />
       ))}
       <div className={styles.searchBarWrapper}>
         <Search />

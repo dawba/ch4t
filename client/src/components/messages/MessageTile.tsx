@@ -1,4 +1,4 @@
-import styles from '../styles/MessageTile.module.css';
+import styles from '../../styles/MessageTile.module.css';
 import { MessageTileProps } from '../../types/types.ts';
 
 const MessageTile = ({

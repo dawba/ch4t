@@ -1,7 +1,7 @@
-import styles from './MessageList.module.css';
+import styles from '../../styles/MessageList.module.css';
 import MessageTile from './MessageTile';
 import { MessageTileProps } from '../../types/types.ts';
-import { v4 as uuid } from 'uuid';
+import { uuid } from 'uuidv4';
 
 interface MessageListProps {
   messages: MessageTileProps[];
