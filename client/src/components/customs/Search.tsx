@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
-import styles from '../styles/Search.module.css'
-import { ReactComponent as SearchIcon } from '../assets/search_icon.svg';
+import styles from '../../styles/Search.module.css'
+import { ReactComponent as SearchIcon } from '../../assets/search_icon.svg';
 
 const Search =  () => {
     const [searchQuery, setSearchQuery] = useState('')
@@ -11,7 +11,7 @@ const Search =  () => {
 
     return (
         <div className={'flex flex-row w-full ' + styles.searchBar}>
-            <SearchIcon className={'w-8 h-8 ml-2 flex-none'}/>
+            <SearchIcon className={'w-8 h-8 flex-none'}/>
             <input
                 type="text"
                 value={searchQuery}
