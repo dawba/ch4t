@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import useMessages from '../../hooks/useMessages.ts';
 import useScrollToBottom from '../../hooks/useScrollToBottom.ts';
 import {ReactComponent as ClipIcon} from '../../assets/clip_icon.svg';

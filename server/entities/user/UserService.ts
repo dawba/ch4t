@@ -9,7 +9,9 @@ export class UserService {
 
   async getUserById(id: string) {
     return User.findById(id);
-  }
+  } 
+
+ 
 
   async createUser(userData: UserDocument) {
     const verificationToken = crypto.randomUUID();

@@ -1,7 +1,7 @@
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import MenuIconItem from './MenuIconItem.tsx';
 import NavigationButton from './NavigationButton.tsx';
 import { MenuItem } from '../../types/types.ts';
+import MenuIconItem from './MenuIconItem.tsx';
 
 type NavigationMenuProps = {
   activeItem: MenuItem;
@@ -21,6 +21,7 @@ const NavigationMenu = ({ activeItem, setActiveItem }: NavigationMenuProps) => {
                 ? ' mt-auto'
                 : '')
             }
+            key={iconItem.menu}
           >
             <NavigationButton
               menuItem={iconItem}
