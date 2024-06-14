@@ -12,12 +12,14 @@ const userService = new UserService();
 export const validateUserCreationMiddleware = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
     return res.status(400).json({
-      message: `Missing required fields ${!username ? "username" : ""} ${!email ? "email" : ""} ${!password ? "password" : ""}}`,
+      message: `Missing required fields ${!username ? "username" : ""} ${
+        !email ? "email" : ""
+      } ${!password ? "password" : ""}}`,
     });
   }
 
@@ -50,7 +52,7 @@ export const validateUserCreationMiddleware = async (
 export const validateIdMiddleware = (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   const { id } = req.params;
 
@@ -64,7 +66,7 @@ export const validateIdMiddleware = (
 export const validateUserUpdateMiddleware = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   const { username, email, password } = req.body;
   const { id } = req.params;
@@ -95,7 +97,7 @@ export const validateUserUpdateMiddleware = async (
 export const validateUserDeleteMiddleware = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   const { id } = req.params;
 
