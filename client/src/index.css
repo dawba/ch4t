@@ -1,41 +1,42 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@font-face {
-    font-family: 'Krungthep';
-    src: url('./assets/fonts/Krungthep.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
 }
 
-@layer base {
-    body {
-        font-family: 'Krungthep', sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: black;
-        @apply text-primary-yellow;
-    }
+.logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
+}
+.logo:hover {
+    filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+    filter: drop-shadow(0 0 2em #61dafbaa);
+}
 
-    input {
-        @apply border border-primary-yellow rounded-xl p-2 focus:outline-none;
-        background-color: black;
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
     }
-
-    input:focus {
-        @apply caret-primary-yellow border-2;
-    }
-
-    input::placeholder {
-        color: var(--tw-primary-yellow);
-        opacity: 0.5;
+    to {
+        transform: rotate(360deg);
     }
 }
 
-.page-wrapper {
-    width: 97.5vw;
-    height: 95vh;
+@media (prefers-reduced-motion: no-preference) {
+    a:nth-of-type(2) .logo {
+        animation: logo-spin infinite 20s linear;
+    }
+}
+
+.card {
+    padding: 2em;
+}
+
+.read-the-docs {
+    color: #888;
 }

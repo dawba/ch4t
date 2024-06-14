@@ -1,7 +1,5 @@
 import { ReactComponent as ReadIcon } from '../../assets/message_read.svg';
 import { ReactComponent as UnreadIcon } from '../../assets/message_unread.svg';
-import { ReactComponent as ReadIcon } from '../../assets/message_read.svg';
-import { ReactComponent as UnreadIcon } from '../../assets/message_unread.svg';
 import { Chat } from '../../types/types.ts';
 
 import styles from '../../styles/ChatTile.module.css';
@@ -19,9 +17,7 @@ const ChatTile = ({ chat }: { chat: Chat }) => {
   const lastSenderAndMessage = lastSender + ': ' + lastMessage;
 
   return (
-    <div
-      className={`h-auto w-full flex items-center ${styles.messageTile}`}
-    >
+    <div className={`h-auto w-full flex items-center ${styles.messageTile}`}>
       <div className="w-12 h-12 flex-none items-center justify-center border-2 border-primary-yellow rounded-full overflow-hidden mr-4">
         <img
           src={profilePicture}

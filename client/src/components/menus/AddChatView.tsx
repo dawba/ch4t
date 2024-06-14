@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, useContext } from 'react';
-import { UserContext } from './UserProvider';
-import ImageUploader from './ImageUploader';
-import useAddChat from '../hooks/useAddChat';
+import { UserContext } from '../providers/UserProvider.tsx';
+import useAddChat from '../../hooks/useAddChat.ts';
+import ImageUploader from '../customs/ImageUploader.tsx';
 
 const AddChatView = () => {
   const userContext = useContext(UserContext);
