@@ -1,6 +1,6 @@
-import  { ChangeEvent, useState, useContext } from 'react';
+import { ChangeEvent, useState, useContext } from 'react';
 import { UserContext } from './UserProvider';
-import ProfileImageUploader from './ProfileImageUploader';
+import ImageUploader from './ImageUploader';
 import useAddChat from '../hooks/useAddChat';
 
 const AddChatView = () => {
@@ -10,7 +10,7 @@ const AddChatView = () => {
     throw new Error('AddChatView must be used within a UserProvider');
   }
 
-  const { pfp, setPfp } = userContext;
+  const { profilePicture, setProfilePicture } = userContext;
   const [chatName, setChatName] = useState('');
   const [username, setUsername] = useState('');
   const { addUserToChat, createChat, addedUsers, errorMessage } = useAddChat();
@@ -29,12 +29,13 @@ const AddChatView = () => {
   };
 
   const handleCreateChat = async () => {
-    await createChat(chatName, addedUsers, pfp);
+    await createChat(chatName, addedUsers, profilePicture);
+    addedUsers.length = 0;
   };
 
   return (
     <div className="flex flex-col p-7">
-      <ProfileImageUploader pfp={pfp} setPfp={setPfp} />
+      <ImageUploader image={profilePicture} setImage={setProfilePicture} />
       <p className="mt-8 ml-2 text-left text-sm">Chat Name</p>
       <input
         type="text"
@@ -60,7 +61,9 @@ const AddChatView = () => {
       {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
       <div className="mt-4">
         {addedUsers.map((user, index) => (
-          <p key={index} className="text-sm text-secondary-gray">{user.username}</p>
+          <p key={index} className="text-sm text-secondary-gray">
+            {user.username}
+          </p>
         ))}
       </div>
       <button

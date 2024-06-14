@@ -1,6 +1,6 @@
-import  { ChangeEvent, useContext } from 'react';
+import { ChangeEvent, useContext } from 'react';
 import { UserContext } from './UserProvider';
-import ProfileImageUploader from './ProfileImageUploader';
+import ImageUploader from './ImageUploader';
 
 const SettingsView = () => {
   const userContext = useContext(UserContext);
@@ -9,7 +9,7 @@ const SettingsView = () => {
     throw new Error('SettingsView must be used within a UserProvider');
   }
 
-  const { username, email, pfp, setUsername, setEmail, setPfp } = userContext;
+  const { username, email, profilePicture, setUsername, setEmail, setProfilePicture } = userContext;
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -21,7 +21,7 @@ const SettingsView = () => {
 
   return (
     <div className="flex flex-col p-7">
-      <ProfileImageUploader pfp={pfp} setPfp={setPfp} />
+      <ImageUploader image={profilePicture} setImage={setProfilePicture} />
       <p className="mt-8 ml-2 text-left text-sm">Username</p>
       <input
         type="text"
