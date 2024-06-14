@@ -1,12 +1,6 @@
 .customTextField {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    @apply border border-primary-yellow rounded-xl p-2 focus:outline-none;
+    background-color: black;
     resize: none;
-    overflow: auto;
-    box-sizing: border-box;
-    font-size: 14px;
-    background-color: #090909;
-    color: #fbff4a;
 }
