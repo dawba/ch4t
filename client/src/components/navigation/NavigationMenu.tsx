@@ -1,4 +1,4 @@
-import { ReactComponent as Logo } from '../assets/logo.svg';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
 import MenuIconItem from './MenuIconItem.tsx';
 import NavigationButton from './NavigationButton.tsx';
 import { MenuItem } from '../../types/types.ts';

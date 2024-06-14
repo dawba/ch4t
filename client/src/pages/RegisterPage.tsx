@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ReactComponent as Logo } from '../assets/logo.svg';
 import { ReactComponent as Envelope } from '../assets/envelope_icon.svg';
-import AlertIcon from '../components/AlertIcon.tsx';
+import AlertIcon from '../components/customs/AlertIcon.tsx';
 import { AlertIconState } from '../types/types.ts';
 
 const RegisterPage = () => {

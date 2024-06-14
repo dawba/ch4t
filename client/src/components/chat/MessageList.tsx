@@ -1,5 +1,5 @@
 import styles from './MessageList.module.css';
-import MessageTile from './MessageTile';
+import MessageTile from './MessageTile.tsx';
 import { MessageTileProps } from '../../types/types.ts';
 import { v4 as uuid } from 'uuid';
 
