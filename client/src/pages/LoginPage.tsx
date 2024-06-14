@@ -24,7 +24,7 @@ const LoginPage = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen w-auto">
       <form onSubmit={handleSubmit} className="flex flex-col w-80">
-        <Logo className="w-500 h-500 mx-auto mb-4" />
+        <Logo className="w-48 h-48 mx-auto mb-4" />
         <input
           type="email"
           id="email"
@@ -46,14 +46,14 @@ const LoginPage = () => {
           data-tip="Tooltip text here"
         />
         <p className="text-white text-xs mx-auto mt-2">
-          Click
+          Click{' '}
           <Link
-            to="/register"
-            className="text-primary-yellow underline hover:no-underline hover:opacity-80"
+              to="/register"
+              className="text-primary-yellow underline hover:no-underline hover:opacity-80"
           >
             here
           </Link>
-          to register
+          {' '}to register
         </p>
         <button
           className="bg-primary-yellow mt-12 w-52 mx-auto h-8 rounded-xl hover:opacity-80 text-black"
