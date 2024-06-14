@@ -9,12 +9,12 @@ import MessageList from '../messages/MessageList.tsx';
 import ImageButton from '../ImageButton.tsx';
 import CustomTextField from '../CustomTextField.tsx';
 
-import attachmentButton from '../assets/attachment_button.png';
-import sendButton from '../assets/send_button.png';
+import attachmentButton from '../../assets/attachment_button.png';
+import sendButton from '../../assets/send_button.png';
 import { MessageDataAdapter } from '../../adapters/implementation/MessageDataAdapter.ts';
 import { ID, MessageData } from '../../types/types.ts';
 
-import styles from '../styles/ChatView.module.css';
+import styles from '../../styles/ChatView.module.css';
 
 export interface ChatViewProps {
   chatId: ID;

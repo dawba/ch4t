@@ -1,4 +1,4 @@
-import styles from '../styles/NavigationMenu.module.css';
+import styles from '../../styles/NavigationMenu.module.css';
 import MenuIconItem from './MenuIconItem.tsx';
 
 type NavigationButtonProps = {
