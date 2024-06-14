@@ -1,7 +1,7 @@
-import ChatTile from './ChatTile';
-import styles from '../styles/ChatsList.module.css';
+import ChatTile from './ChatTile.tsx';
+import styles from '../../styles/ChatsListView.module.css';
 import { Chat, ID } from '../../types/types.ts';
-import Search from '../Search.tsx';
+import Search from '../customs/Search.tsx';
 import { uuid } from 'uuidv4';
 
 export const Mock1: Chat = {
@@ -35,7 +35,7 @@ export const Mock3: Chat = {
   messages: [],
 };
 
-const ChatList = ({ chats }: { chats: Chat[] }) => {
+const ChatListView = ({ chats }: { chats: Chat[] }) => {
   return (
     <div className={styles.groupChatsList}>
       {chats.map((chat: Chat) => (
@@ -48,4 +48,4 @@ const ChatList = ({ chats }: { chats: Chat[] }) => {
   );
 };
 
-export default ChatList;
+export default ChatListView;
