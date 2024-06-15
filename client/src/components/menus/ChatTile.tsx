@@ -4,7 +4,12 @@ import { Chat } from '../../types/types.ts';
 
 import styles from '../../styles/ChatTile.module.css';
 
-const ChatTile = ({ chat }: { chat: Chat }) => {
+type ChatTileProps = {
+  chat: Chat;
+  setSelectedChat: (c: Chat) => void;
+};
+
+const ChatTile = ({ chat, setSelectedChat }: ChatTileProps) => {
   const {
     lastMessage,
     lastSender,
@@ -17,7 +22,10 @@ const ChatTile = ({ chat }: { chat: Chat }) => {
   const lastSenderAndMessage = lastSender + ': ' + lastMessage;
 
   return (
-    <div className={`h-auto w-full flex items-center ${styles.messageTile}`}>
+    <div
+      className={`h-auto w-full flex items-center ${styles.messageTile}`}
+      onClick={() => setSelectedChat(chat)}
+    >
       <div className="w-12 h-12 flex-none items-center justify-center border-2 border-primary-yellow rounded-full overflow-hidden mr-4">
         <img
           src={profilePicture}
