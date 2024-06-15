@@ -3,14 +3,24 @@ import mongoose from "mongoose";
 const { Schema, model, Types } = mongoose;
 const { ObjectId } = Types;
 
+const userSubSchema = new Schema({
+  userId: {
+    type: ObjectId,
+    ref: "User",
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+});
+
 const chatSchema = new Schema({
-  users: [
-    {
-      type: ObjectId,
-      ref: "User",
-      required: true,
-    },
-  ],
+  users: [userSubSchema],
+  chatName: {
+    type: String || null,
+    default: null,
+  },
   messages: [
     {
       type: ObjectId,

@@ -14,15 +14,22 @@ export class ChatService {
   }
 
   async createChat(chatData: ChatDocument) {
-    const chat = new Chat(chatData);
+    const users = chatData.users.map((user) => ({
+      userId: new mongoose.Types.ObjectId(user.userId),
+      username: user.username,
+    }));
+
+    const chat = new Chat({
+      ...chatData,
+      users,
+    });
+
     await chat.save();
 
-    const users = chatData.users.map(
-      (id: mongoose.Types.ObjectId) => new mongoose.Types.ObjectId(id),
-    );
+    const userIds = users.map((user) => user.userId);
 
     await User.updateMany(
-      { _id: { $in: users } },
+      { _id: { $in: userIds } },
       { $push: { chats: chat._id } },
     );
 
