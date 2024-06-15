@@ -1,60 +1,82 @@
 import React, { useState } from 'react';
 import { ReactComponent as Logo } from '../assets/logo.svg';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Credentials } from '../types/types.ts';
+import useUserAuthentication from '../hooks/useUserAuthentication.ts';
+import CustomInput from '../components/customs/CustomInput.tsx';
+import NavigationFooter from '../components/customs/NavigationFooter.tsx';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [credentials, setCredentials] = useState<Credentials>({
+    username: '',
+    password: '',
+  });
+  const navigate = useNavigate();
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const {
+    usernameIconState,
+    usernameIconTooltip,
+    passwordIconState,
+    passwordIconTooltip,
+    handleUserLogin,
+  } = useUserAuthentication({
+    email: null,
+    username: credentials.username,
+    password: credentials.password,
+  });
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCredentials((prevCredentials) => ({
+      password: prevCredentials.password,
+      username: e.target.value,
+    }));
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+    setCredentials((prevCredentials) => ({
+      username: prevCredentials.username,
+      password: e.target.value,
+    }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // Here you would typically handle the login logic, like calling an API.
+    const response = await handleUserLogin(
+      credentials.username,
+      credentials.password
+    );
+
+    if (response.data) {
+      console.log('Logged in successfully');
+      navigate('/');
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-auto">
-      <form onSubmit={handleSubmit} className="flex flex-col w-80">
+    <div className="flex flex-col items-center justify-center h-screen">
+      <form onSubmit={handleSubmit} className="flex flex-col" noValidate>
         <Logo className="w-48 h-48 mx-auto mb-4" />
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={handleEmailChange}
-          required
-          placeholder="Email"
-          className="tip mt-4"
-          data-tip="Tooltip text here"
+        <CustomInput
+          type="username"
+          value={credentials.username}
+          onChange={handleUsernameChange}
+          placeholder="Username"
+          iconState={usernameIconState}
+          iconTooltip={usernameIconTooltip}
+          inputWithIcon
         />
-        <input
+        <CustomInput
           type="password"
-          id="password"
-          value={password}
+          value={credentials.password}
           onChange={handlePasswordChange}
-          required
           placeholder="Password"
-          className="tip mt-3"
-          data-tip="Tooltip text here"
+          inputWithIcon
+          iconState={passwordIconState}
+          iconTooltip={passwordIconTooltip}
         />
-        <p className="text-white text-xs mx-auto mt-2">
-          Click{' '}
-          <Link
-              to="/register"
-              className="text-primary-yellow underline hover:no-underline hover:opacity-80"
-          >
-            here
-          </Link>
-          {' '}to register
-        </p>
+
+        <NavigationFooter path="/register" where="register" />
+
         <button
           className="bg-primary-yellow mt-12 w-52 mx-auto h-8 rounded-xl hover:opacity-80 text-black"
           type="submit"

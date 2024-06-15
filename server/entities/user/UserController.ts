@@ -69,7 +69,7 @@ export class UserController {
         user,
       });
     } catch (error) {
-      console.error("Error when logging in user:", error);
+      console.error("Error when logging in user:", req.body, error);
       return res.status(401).json({
         message: "Invalid credentials",
       });

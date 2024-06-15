@@ -1,6 +1,6 @@
 import React, { createContext, useState, ReactNode } from 'react';
-import { ID } from '../types/types';
 import mongoose from 'mongoose';
+import { ID } from '../../types/types.ts';
 
 interface UserContextType {
   username: string;
@@ -12,8 +12,8 @@ interface UserContextType {
   setProfilePicture: (profilePicture: string) => void;
 }
 
-export const UserContext = createContext<UserContextType | undefined>(
-  undefined
+export const UserContext = createContext<UserContextType>(
+  {} as UserContextType
 );
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({

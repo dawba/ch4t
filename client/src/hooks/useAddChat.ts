@@ -1,33 +1,14 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { ID } from '../types/types';
-import { UserContext } from '../components/providers/UserProvider.tsx';
+
 interface User {
   id: ID;
   username: string;
 }
 
-const useAddChat = () => {
+const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
   const [addedUsers, setAddedUsers] = useState<User[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const userContext = useContext(UserContext);
-
-  if (!userContext) {
-    setErrorMessage('User context is not available');
-    return null;
-  }
-
-  const currentUserId = userContext.id;
-  const currentUserUsername = userContext.username;
-
-  if (!currentUserId) {
-    setErrorMessage('Current user ID is not available');
-    return null;
-  }
-
-  if (!currentUserUsername) {
-    setErrorMessage('Current user Username is not available');
-    return null;
-  }
 
   const addUserToChat = async (username: string) => {
     if (addedUsers.some((user) => user.username === username)) {
@@ -61,7 +42,11 @@ const useAddChat = () => {
     }
   };
 
+  // might be better approach to send the pfp in parallel with the chat creation
   const createChat = async (chatName: string, users: User[], pfp: string) => {
+    // log it for now to get rid of unused params warning
+    console.log(chatName, users, pfp);
+
     if (users.length == 0) {
       setErrorMessage('Cant create a chat with no users');
       return null;
@@ -94,7 +79,12 @@ const useAddChat = () => {
     }
   };
 
-  return { addUserToChat, createChat, addedUsers, errorMessage };
+  return {
+    addedUsers,
+    errorMessage,
+    addUserToChat,
+    createChat,
+  };
 };
 
 export default useAddChat;
