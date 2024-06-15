@@ -1,5 +1,5 @@
 // BACKEND TYPES
-import mongoose, { Types } from 'mongoose';
+import mongoose from 'mongoose';
 import * as React from 'react';
 
 export type ID = mongoose.Types.ObjectId;
@@ -45,7 +45,7 @@ export type UserData = {
 export type Chat = {
   id: ID;
   chatName: string;
-  chatPicture: Image;
+  chatPicture: Image | null;
   lastMessage: string;
   lastSender: string;
   isLastMessageRead: boolean;
@@ -75,7 +75,7 @@ export type Message = {
 export interface MessageTileProps {
   id: ID;
   message: string;
-  senderName: string | Types.ObjectId;
+  senderName: string;
   timeSent: Date;
   messageSentByUser: boolean;
 }

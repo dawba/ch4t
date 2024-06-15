@@ -33,7 +33,7 @@ const AddChatView = ({ onChatAdded }: AddChatProps) => {
 
   const handleCreateChat = async () => {
     const response = await createChat(chatName, addedUsers, profilePicture);
-    if (response) {
+    if (isObjectEmpty(response) && response?.data) {
       onChatAdded(response.data as Chat);
     }
     addedUsers.length = 0;

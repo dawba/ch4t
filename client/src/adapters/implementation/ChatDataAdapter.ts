@@ -12,21 +12,27 @@ const ChatDataAdapter: IChatDataAdapter = {
       const messagesResponse = await MessageRepository.getAllMessagesForChat(
         chat._id
       );
-      const messages = MessageDataAdapter.getMessages(
-        messagesResponse.data as MessageData[],
-        currentUserId,
-        chat.users
-      );
+      const messages = messagesResponse.data
+        ? MessageDataAdapter.getMessages(
+            messagesResponse.data as MessageData[],
+            currentUserId,
+            chat.users
+          )
+        : [];
       const imageResponse = await ImageRepository.getImageById(
         chat.chatPicture
       );
-      const image = ImageDataAdapter.getImages(imageResponse.data as ImageData);
+      const image = imageResponse.data
+        ? ImageDataAdapter.getImages(imageResponse.data as ImageData)
+        : null;
+      const lastMessage = messages[0]?.message ?? '';
+      const lastSender = messages[0]?.senderName ?? '';
       chats.push({
         id: chat._id,
         chatName: chat.name,
         chatPicture: image,
-        lastMessage: '',
-        lastSender: '',
+        lastMessage: lastMessage,
+        lastSender: lastSender,
         isLastMessageRead: false,
         users: chat?.users || [],
         messages: messages,
