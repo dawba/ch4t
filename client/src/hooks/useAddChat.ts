@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { ID } from '../types/types';
 import ChatRepository from '../api/ChatRepository.ts';
+import UserRepository from '../api/UserRepository.ts';
+import {User} from "../types/types";
+import {checkEmptyObject} from "../utils/checkEmptyObject.ts";
 
-interface User {
-  id: ID;
-  username: string;
-}
+
 
 const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
   const [addedUsers, setAddedUsers] = useState<User[]>([]);
@@ -22,25 +22,22 @@ const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
       return false;
     }
 
-    try {
-      const API_URL = `http://localhost:5050/api/user/username/${username}`;
-      const response = await fetch(API_URL);
-      const user = await response.json();
-      if (user == null) {
+
+
+      const response = await UserRepository.getUserByUsername(username);
+      if (checkEmptyObject(response.data) ) {
         setErrorMessage('User not found');
         return false;
       }
+      const user : User  = response.data;
 
       setAddedUsers((prevUsers) => [
         ...prevUsers,
-        { id: user._id, username: user.username },
+        { id: user.id, username: user.username },
       ]);
       setErrorMessage('');
       return true;
-    } catch (error) {
-      setErrorMessage('User not found');
-      return false;
-    }
+
   };
 
   // might be better approach to send the pfp in parallel with the chat creation
