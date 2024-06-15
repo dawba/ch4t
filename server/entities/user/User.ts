@@ -32,6 +32,15 @@ const userSchema = new Schema({
   },
 });
 
+userSchema.methods.toJSON = function () {
+  const user = this.toObject();
+
+  delete user.password;
+  delete user.verificationToken;
+
+  return user;
+};
+
 const User = model<UserDocument>("User", userSchema);
 
 export default User;

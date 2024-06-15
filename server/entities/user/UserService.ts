@@ -1,6 +1,10 @@
 import User from "./User.js";
 import UserDocument from "./UserDocument.js";
 import { EmailService } from "../email/EmailService.js";
+import * as dotenv from "dotenv";
+import bcrypt from "bcrypt";
+
+dotenv.config({ path: "config.env" });
 
 export class UserService {
   async getAllUsers() {
@@ -13,7 +17,16 @@ export class UserService {
 
   async createUser(userData: UserDocument) {
     const verificationToken = crypto.randomUUID();
-    const userDataWithVerificationToken = { ...userData, verificationToken };
+
+    // Encrypt the password
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+
+    const userDataWithVerificationToken = {
+      ...userData,
+      password: hashedPassword,
+      verificationToken,
+    };
+
     const user = new User(userDataWithVerificationToken);
 
     EmailService.sendRegistrationMailMessage(user.email, verificationToken);
@@ -55,16 +68,27 @@ export class UserService {
   }
 
   async loginUser(userData: UserDocument) {
-    console.log(userData);
-    const user = await User.findOne({
-      username: userData.username,
-      password: userData.password,
-    });
+    // Find user by username first
+    const user = await User.findOne({ username: userData.username });
 
     if (!user) {
       throw new Error("Invalid credentials");
     }
 
+    // Compare the provided password with the stored hashed password
+    const isPasswordValid = await bcrypt.compare(
+      userData.password,
+      user.password,
+    );
+
+    if (!isPasswordValid) {
+      throw new Error("Invalid credentials");
+    }
+
     return user;
+  }
+
+  async getHashedPassword(password: string) {
+    return bcrypt.hash(password, 10);
   }
 }
