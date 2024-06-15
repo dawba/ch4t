@@ -66,11 +66,6 @@ export type Credentials = {
   password: string;
 };
 
-export type EmailCredentials = {
-  email: string;
-  password: string;
-};
-
 export type SVGIcon = React.FunctionComponent<
   React.SVGProps<SVGSVGElement> & { title?: string }
 >;
