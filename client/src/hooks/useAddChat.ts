@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ID } from '../types/types';
+import ChatRepository from '../api/ChatRepository.ts';
 
 interface User {
   id: ID;
@@ -51,25 +52,14 @@ const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
       setErrorMessage('Cant create a chat with no users');
       return null;
     }
+
     try {
       const userIds = users.map((user) => user.id);
       userIds.push(currentUserId);
       const createdAt = new Date().toISOString();
-      const API_URL = `http://localhost:5050/api/chat/`;
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          users: userIds,
-          createdAt,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to create chat');
-      }
-      const data = await response.json();
+
+      const data = await ChatRepository.createChat(userIds, createdAt);
+
       setErrorMessage('');
       setAddedUsers([]);
       return data;

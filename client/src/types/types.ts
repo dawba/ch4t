@@ -44,6 +44,15 @@ export type User = {
   createdAt: Date;
 };
 
+export type Message = {
+  id: ID;
+  content: string;
+  sender: ID;
+  chat: ID;
+  readStatus: { recipient: ID; read: boolean }[];
+  createdAt: Date;
+};
+
 export interface MessageTileProps {
   id: ID;
   message: string;
@@ -69,3 +78,8 @@ export type SVGIcon = React.FunctionComponent<
 export type AlertIconState = 'hidden' | 'yellow' | 'red';
 
 export type MenuItem = 'DirectChats' | 'GroupChats' | 'AddChat' | 'Settings';
+
+export type ApiResponse = {
+  message: string;
+  data: Object;
+};

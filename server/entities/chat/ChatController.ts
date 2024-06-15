@@ -51,4 +51,17 @@ export class ChatController {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   }
+
+  async removeUserFromChat(req: Request, res: Response) {
+    try {
+      await this.chatService.removeUserFromChat(
+        req.params.chatId,
+        req.params.userId,
+      );
+      return res.status(204).send();
+    } catch (error) {
+      console.error("Error removing user from chat:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
 }

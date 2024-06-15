@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AlertIconState } from '../types/types.ts';
+import UserRepository from '../api/UserRepository.ts';
 
 interface Props {
   email: string | null;
@@ -143,35 +144,7 @@ const useUserAuthentication = ({
       userEmail !== '' &&
       username !== ''
     ) {
-      try {
-        const response = await fetch(
-          'http://localhost:5050/api/user/register',
-          {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: userEmail,
-              username,
-              password: userPassword,
-            }),
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log('User registered:', data);
-          return { message: data.message, data: data.user };
-        } else {
-          console.log('Network response was not [ok]');
-          return { message: 'Network response was not [ok]', data: null };
-        }
-      } catch (error) {
-        console.error('Failed to register:', error);
-        return { message: 'Failed to register:', data: null };
-      }
+      return UserRepository.register(userEmail, username, userPassword);
     } else {
       checkAndSetPasswordState(password, repeatedPassword);
       checkAndSetEmailState(email);
@@ -181,26 +154,7 @@ const useUserAuthentication = ({
 
   const handleUserLogin = async (username: string, userPassword: string) => {
     if (username !== '' && userPassword !== '') {
-      try {
-        const response = await fetch('http://localhost:5050/api/user/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, password: userPassword }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          return { message: 'User logged in:', data };
-        } else {
-          return { message: 'Network response was not [ok]', data: null };
-        }
-      } catch (error) {
-        console.error('Failed to login:', error);
-        return { message: 'Failed to login:', data: null };
-      }
+      return UserRepository.login(username, userPassword);
     }
 
     checkAndSetPasswordState(password, undefined);
