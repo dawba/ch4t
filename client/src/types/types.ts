@@ -15,10 +15,13 @@ export type UserData = {
 
 export type ChatData = {
   _id: ID;
-  users: ID[];
+  users: PartialUser[];
+  chatName: string | null;
   messages: ID[];
   createdAt: Date;
 };
+
+export type PartialUser = { username: string; userId: ID };
 
 export type MessageData = {
   _id: ID;

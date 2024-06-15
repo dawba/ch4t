@@ -40,26 +40,20 @@ const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
   ) => {
     // log it for now to get rid of unused params warning
     console.log(chatName, users, pfp);
-
     if (users.length == 0) {
       setErrorMessage('Cant create a chat with no users');
       return null;
     }
 
-    try {
-      const userIds = users.map((user) => user.id);
-      userIds.push(currentUserId);
-      const createdAt = new Date().toISOString();
+    const userIds = users.map((user) => user._id);
+    userIds.push(currentUserId);
+    const createdAt = new Date().toISOString();
 
-      const data = await ChatRepository.createChat(userIds, createdAt);
+    const data = await ChatRepository.createChat(userIds, createdAt);
 
-      setErrorMessage('');
-      setAddedUsers([]);
-      return data;
-    } catch (error) {
-      setErrorMessage('Failed to create chat');
-      return null;
-    }
+    setErrorMessage('');
+    setAddedUsers([]);
+    return data;
   };
 
   return {

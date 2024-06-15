@@ -1,8 +1,8 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import ChatView from './components/chat/ChatView.tsx'; // Adjust the import path based on your folder structure
 import { ID } from './types/types.ts'; // Adjust the import path based on your folder structure
-import AddUsersButton from "./components/chat/AddUsersButton.tsx";
-import mongoose from "mongoose";
+import AddUsersButton from './components/chat/AddUsersButton.tsx';
+import mongoose from 'mongoose';
 
 const App = () => {
   const mockChatId: ID = 'chat123'; // Example chat ID
@@ -15,7 +15,9 @@ const App = () => {
     <div>
       <h1>Chat Application</h1>
       {/* Render ChatView with props */}
-      <AddUsersButton chatId={new mongoose.Types.ObjectId('665f91aca3e68b53b3442c5f')} />
+      <AddUsersButton
+        chatId={new mongoose.Types.ObjectId('666e099a22e877ad90d9ee9c')}
+      />
     </div>
   );
 };
