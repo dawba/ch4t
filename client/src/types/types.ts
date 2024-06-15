@@ -8,6 +8,8 @@ export type ChatData = {
   _id: ID;
   users: ID[];
   messages: ID[];
+  name: string;
+  chatPicture: ID;
   createdAt: Date;
 };
 
@@ -20,18 +22,26 @@ export type MessageData = {
   createdAt: Date;
 };
 
+export type ImageData = {
+  _id: ID;
+  name: string;
+  data: Buffer;
+  contentType: string;
+  createdAt: Date;
+};
+
 // ===================================================================
 // FRONTEND TYPES
 
 export type Chat = {
   id: ID;
   chatName: string;
-  profilePicture: string;
+  chatPicture: Image;
   lastMessage: string;
   lastSender: string;
   isLastMessageRead: boolean;
   users: ID[];
-  messages: ID[];
+  messages: MessageTileProps[];
 };
 
 export type User = {
@@ -60,6 +70,14 @@ export interface MessageTileProps {
   timeSent: Date;
   messageSentByUser: boolean;
 }
+
+export type Image = {
+  id: ID;
+  url: string;
+  name: string;
+  contentType: string;
+  createdAt: Date;
+};
 
 export type Credentials = {
   username: string;
