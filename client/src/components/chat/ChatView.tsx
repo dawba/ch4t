@@ -6,6 +6,7 @@ import { io } from 'socket.io-client';
 import Search from '../customs/Search.tsx';
 import MessageList from './MessageList.tsx';
 import CustomTextField from './CustomTextField.tsx';
+import LeaveChatButton from '../chat/LeaveChatButton.tsx';
 import { MessageDataAdapter } from '../../adapters/implementation/MessageDataAdapter.ts';
 import { ID, MessageData } from '../../types/types.ts';
 import styles from '../../styles/ChatView.module.css';
@@ -39,7 +40,7 @@ const ChatView = ({ chatId, currentUser, users }: ChatViewProps) => {
     return () => {
       socket.off('receiveMessage');
     };
-  });
+  }, [chatId, currentUser, users, setMessages]);
 
   const handleButtonClick = () => {
     console.log('clicked');
@@ -54,6 +55,7 @@ const ChatView = ({ chatId, currentUser, users }: ChatViewProps) => {
     socket.emit('sendMessage', messageData);
   };
 
+ 
   return (
     <div className={styles.chatViewWrapper + ' relative'}>
       <h4 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-5">
@@ -66,6 +68,9 @@ const ChatView = ({ chatId, currentUser, users }: ChatViewProps) => {
           <div className={styles.topBar}>
             <div className="w-80">
               <Search />
+            </div>
+            <div className="mr-10">
+            <LeaveChatButton />
             </div>
           </div>
           <div className={styles.messageList} ref={messageListRef}>

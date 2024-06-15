@@ -13,7 +13,7 @@ const MainPage = () => {
     <UserProvider>
       <div className="h-full w-full flex flex-row items-start">
         <NavigationMenu activeItem={activeItem} setActiveItem={setActiveItem} />
-        <ContextMenu activeMenuItem={activeItem} />
+        <ContextMenu activeMenuItem={activeItem} chats={[]} />
         {/*<ChatView users={[]} chatId={null} currentUser={null} />*/}
       </div>
     </UserProvider>
