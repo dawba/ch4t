@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 interface ChatDocument extends mongoose.Document {
-  users: mongoose.Types.ObjectId[];
+  users: { userId: mongoose.Types.ObjectId; username: string }[];
+  chatName: string | null;
   messages: mongoose.Types.ObjectId[];
   createdAt: Date;
 }
