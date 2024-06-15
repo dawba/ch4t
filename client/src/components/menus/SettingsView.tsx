@@ -5,10 +5,6 @@ import ImageUploader from '../customs/ImageUploader.tsx';
 const SettingsView = () => {
   const userContext = useContext(UserContext);
 
-  if (!userContext) {
-    throw new Error('SettingsView must be used within a UserProvider');
-  }
-
   const {
     username,
     email,

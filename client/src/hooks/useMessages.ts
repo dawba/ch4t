@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
-import { ChatViewProps } from '../components/chat/ChatView.tsx';
 import { MessageDataAdapter } from '../adapters/implementation/MessageDataAdapter.ts';
-import { MessageTileProps } from '../types/types.ts';
+import { ID, MessageTileProps } from '../types/types.ts';
 
-const useMessages = ({ chatId, currentUser, users }: ChatViewProps) => {
+interface Props {
+  chatId: ID;
+  currentUser: ID;
+  users: ID[];
+}
+const useMessages = ({ chatId, currentUser, users }: Props) => {
   const API_URL = `http://localhost:5050/api/message/chat/${chatId}`;
   const [messages, setMessages] = useState<MessageTileProps[]>([]);
 
   useEffect(() => {
-    if (!currentUser) {
+    if (!chatId) {
       return;
     }
 

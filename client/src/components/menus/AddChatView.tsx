@@ -2,13 +2,13 @@ import { ChangeEvent, useState, useContext } from 'react';
 import { UserContext } from '../providers/UserProvider.tsx';
 import useAddChat from '../../hooks/useAddChat.ts';
 import ImageUploader from '../customs/ImageUploader.tsx';
+import { Chat } from '../../types/types.ts';
 
-const AddChatView = () => {
+type AddChatProps = {
+  onChatAdded: (c: Chat) => void;
+};
+const AddChatView = ({ onChatAdded }: AddChatProps) => {
   const userContext = useContext(UserContext);
-
-  if (!userContext) {
-    throw new Error('AddChatView must be used within a UserProvider');
-  }
 
   const { profilePicture, setProfilePicture } = userContext;
   const [chatName, setChatName] = useState('');
@@ -32,7 +32,10 @@ const AddChatView = () => {
   };
 
   const handleCreateChat = async () => {
-    await createChat(chatName, addedUsers, profilePicture);
+    const response = await createChat(chatName, addedUsers, profilePicture);
+    if (response) {
+      onChatAdded(response.data as Chat);
+    }
     addedUsers.length = 0;
   };
 
