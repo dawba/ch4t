@@ -81,5 +81,5 @@ export type MenuItem = 'DirectChats' | 'GroupChats' | 'AddChat' | 'Settings';
 
 export type ApiResponse = {
   message: string;
-  data: Object;
+  data: object;
 };
