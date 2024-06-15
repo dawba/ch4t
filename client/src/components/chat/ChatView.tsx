@@ -1,15 +1,14 @@
-import { useContext, useEffect } from 'react';
-import useMessages from '../../hooks/useMessages.ts';
-import useScrollToBottom from '../../hooks/useScrollToBottom.ts';
+import { useContext, useEffect, useState } from 'react';
 import { ReactComponent as ClipIcon } from '../../assets/clip_icon.svg';
 import { io } from 'socket.io-client';
 import Search from '../customs/Search.tsx';
 import MessageList from './MessageList.tsx';
 import CustomTextField from './CustomTextField.tsx';
 import { MessageDataAdapter } from '../../adapters/implementation/MessageDataAdapter.ts';
-import { Chat, MessageData } from '../../types/types.ts';
+import { Chat, MessageData, MessageTileProps } from '../../types/types.ts';
 import styles from '../../styles/ChatView.module.css';
 import { UserContext } from '../providers/UserProvider.tsx';
+import useScrollToBottom from '../../hooks/useScrollToBottom.ts';
 
 export interface ChatViewProps {
   chat: Chat;
@@ -19,15 +18,11 @@ const socket = io('http://localhost:5050');
 
 const ChatView = ({ chat }: ChatViewProps) => {
   const currentUser = useContext(UserContext).id;
-  const { messages, setMessages } = useMessages({
-    chatId: chat.id,
-    currentUser,
-    users: chat.users,
-  });
+  const [messages, setMessages] = useState<MessageTileProps[]>(chat.messages);
   const messageListRef = useScrollToBottom(messages);
 
   useEffect(() => {
-    socket.emit('joinChat', chat);
+    socket.emit('joinChat', chat.id);
 
     socket.on('receiveMessage', (message: MessageData) => {
       console.log('received message:', message);

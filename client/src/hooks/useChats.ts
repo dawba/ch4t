@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import ChatDataAdapter from '../adapters/implementation/ChatDataAdapter.ts';
-import { Chat, ID } from '../types/types.ts';
+import { Chat, ChatData, ID } from '../types/types.ts';
+import ChatRepository from '../api/ChatRepository.ts';
 
 const useChats = (userId: ID | null) => {
-  const API_URL = `http://localhost:5050/api/chat/user/${userId}`;
   const [chats, setChats] = useState<Chat[]>([]);
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
 
@@ -14,18 +14,20 @@ const useChats = (userId: ID | null) => {
 
     const fetchUserChats = async () => {
       try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        const chatData = ChatDataAdapter.getChats(data);
-        setChats(chatData);
-        setSelectedChat(chatData[0]);
+        const chatsResponse = await ChatRepository.getChatsByUserId(userId);
+        const chatsResponseData = chatsResponse.data;
+        const chats = await ChatDataAdapter.getChats(
+          chatsResponseData as ChatData[],
+          userId
+        );
+        setChats(chats);
       } catch (error) {
         console.error('Error fetching user chats:', error);
       }
     };
 
     fetchUserChats();
-  }, [API_URL, userId]);
+  }, []);
 
   return { chats, setChats, selectedChat, setSelectedChat };
 };
