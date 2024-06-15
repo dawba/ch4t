@@ -149,6 +149,7 @@ const useUserAuthentication = ({
       checkAndSetPasswordState(password, repeatedPassword);
       checkAndSetEmailState(email);
       checkAndSetUsernameState(username);
+      return { message: 'Incorrect form data', data: null };
     }
   };
 

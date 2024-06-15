@@ -4,6 +4,7 @@ import { ReactComponent as Envelope } from '../assets/envelope_icon.svg';
 import useUserAuthentication from '../hooks/useUserAuthentication.ts';
 import CustomInput from '../components/customs/CustomInput.tsx';
 import NavigationFooter from '../components/customs/NavigationFooter.tsx';
+import { checkEmptyObject } from '../utils/checkEmptyObject.ts';
 
 const RegisterPage = () => {
   const [email, setEmail] = useState('');
@@ -46,7 +47,7 @@ const RegisterPage = () => {
     // const response = await handleUserRegistration(email, password);
     const response = await handleUserRegistration(email, username, password);
     // TODO HANDLE RESPONSE SHOW ENVELOPE
-    if (response?.data) {
+    if (!checkEmptyObject(response.data)) {
       setIsAccountActivationShown(true);
     }
   };

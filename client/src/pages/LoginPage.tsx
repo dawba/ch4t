@@ -5,6 +5,7 @@ import { Credentials } from '../types/types.ts';
 import useUserAuthentication from '../hooks/useUserAuthentication.ts';
 import CustomInput from '../components/customs/CustomInput.tsx';
 import NavigationFooter from '../components/customs/NavigationFooter.tsx';
+import { checkEmptyObject } from '../utils/checkEmptyObject.ts';
 
 const LoginPage = () => {
   const [credentials, setCredentials] = useState<Credentials>({
@@ -46,7 +47,7 @@ const LoginPage = () => {
       credentials.password
     );
 
-    if (response.data) {
+    if (checkEmptyObject(response.data)) {
       console.log('Logged in successfully');
       navigate('/');
     }
