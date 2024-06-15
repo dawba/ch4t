@@ -9,6 +9,11 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
+  profilePicture: {
+    type: ObjectId,
+    ref: "Image",
+    required: false,
+  },
   email: {
     type: String,
     required: true,
