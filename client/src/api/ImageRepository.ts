@@ -4,9 +4,9 @@ import { fetchData } from './fetchData.ts';
 
 interface IImageRepository {
   getImageById: (id: ID) => Promise<ApiResponse>;
-  createImageForChat: (chatId: ID, imageData: any) => Promise<ApiResponse>;
-  createImageForUser: (userId: ID, imageData: any) => Promise<ApiResponse>;
-  updateImage: (id: ID, imageData: any) => Promise<ApiResponse>;
+  createImageForChat: (chatId: ID, imageData: string) => Promise<ApiResponse>;
+  createImageForUser: (userId: ID, imageData: string) => Promise<ApiResponse>;
+  updateImage: (id: ID, imageData: string) => Promise<ApiResponse>;
 }
 
 const ImageRepository: IImageRepository = {
