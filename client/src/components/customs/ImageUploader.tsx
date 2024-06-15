@@ -1,10 +1,10 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 // @ts-ignore
 import { ReactComponent as GalleryIcon } from '../../assets/gallery_icon.svg';
 
 interface ImageUploaderProps {
   image: string;
-  setImage: (image: string) => void;
+  setImage: Dispatch<SetStateAction<string>>;
 }
 
 const ImageUploader = ({ image, setImage }: ImageUploaderProps) => {

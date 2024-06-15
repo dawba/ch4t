@@ -3,10 +3,11 @@ import { Chat } from '../../types/types.ts';
 import Search from '../customs/Search.tsx';
 
 import styles from '../../styles/ChatsListView.module.css';
+import { Dispatch, SetStateAction } from 'react';
 
 export type ChatListProps = {
   chats: Chat[];
-  setSelectedChat: (c: Chat) => void;
+  setSelectedChat: Dispatch<SetStateAction<Chat | null>>;
 };
 
 const ChatListView = ({ chats, setSelectedChat }: ChatListProps) => {

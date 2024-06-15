@@ -2,12 +2,13 @@ import ChatListView from './ChatListView.tsx';
 import SettingsView from './SettingsView.tsx';
 import AddChatView from './AddChatView.tsx';
 import { Chat, MenuItem } from '../../types/types.ts';
+import { Dispatch, SetStateAction } from 'react';
 
 type ContextMenuProps = {
   activeMenuItem: MenuItem;
-  setSelectedChat: (c: Chat | null) => void;
+  setSelectedChat: Dispatch<SetStateAction<Chat | null>>;
   chats: Chat[];
-  setChats: (c: Chat[]) => void;
+  setChats: Dispatch<SetStateAction<Chat[]>>;
 };
 
 const ContextMenu = ({
@@ -16,7 +17,7 @@ const ContextMenu = ({
   chats,
   setChats,
 }: ContextMenuProps) => {
-  const privateChats = chats.filter((c: Chat) => c.users.length === 2);
+  const directChats = chats.filter((c: Chat) => c.users.length === 2);
   const groupChats = chats.filter((c: Chat) => c.users.length !== 2);
 
   const onChatAdded = (newChat: Chat) => {
@@ -26,7 +27,7 @@ const ContextMenu = ({
   return (
     <div className="w-[20vw] h-full bg-primary-gray mr-1">
       {activeMenuItem === 'DirectChats' && (
-        <ChatListView chats={privateChats} setSelectedChat={setSelectedChat} />
+        <ChatListView chats={directChats} setSelectedChat={setSelectedChat} />
       )}
       {activeMenuItem === 'GroupChats' && (
         <ChatListView chats={groupChats} setSelectedChat={setSelectedChat} />

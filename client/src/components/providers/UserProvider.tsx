@@ -1,4 +1,10 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, {
+  createContext,
+  useState,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import mongoose from 'mongoose';
 import { ID } from '../../types/types.ts';
 
@@ -7,9 +13,9 @@ interface UserContextType {
   email: string;
   profilePicture: string;
   id: ID;
-  setUsername: (username: string) => void;
-  setEmail: (email: string) => void;
-  setProfilePicture: (profilePicture: string) => void;
+  setUsername: Dispatch<SetStateAction<string>>;
+  setEmail: Dispatch<SetStateAction<string>>;
+  setProfilePicture: Dispatch<SetStateAction<string>>;
 }
 
 export const UserContext = createContext<UserContextType>(

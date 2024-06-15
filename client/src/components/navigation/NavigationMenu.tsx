@@ -2,10 +2,11 @@ import { ReactComponent as Logo } from '../../assets/logo.svg';
 import NavigationButton from './NavigationButton.tsx';
 import { MenuItem } from '../../types/types.ts';
 import MenuIconItem from './MenuIconItem.tsx';
+import { Dispatch, SetStateAction } from 'react';
 
 type NavigationMenuProps = {
   activeItem: MenuItem;
-  setActiveItem: (item: MenuItem) => void;
+  setActiveItem: Dispatch<SetStateAction<MenuItem>>;
 };
 
 const NavigationMenu = ({ activeItem, setActiveItem }: NavigationMenuProps) => {
