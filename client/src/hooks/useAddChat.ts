@@ -1,14 +1,11 @@
 import { useState } from 'react';
-import { ID } from '../types/types';
+import { ID, UserData } from '../types/types';
 import ChatRepository from '../api/ChatRepository.ts';
 import UserRepository from '../api/UserRepository.ts';
-import {User} from "../types/types";
-import {checkEmptyObject} from "../utils/checkEmptyObject.ts";
-
-
+import { checkEmptyObject } from '../utils/checkEmptyObject.ts';
 
 const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
-  const [addedUsers, setAddedUsers] = useState<User[]>([]);
+  const [addedUsers, setAddedUsers] = useState<UserData[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const addUserToChat = async (username: string) => {
@@ -22,26 +19,25 @@ const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
       return false;
     }
 
+    const { data } = await UserRepository.getUserByUsername(username);
+    if (checkEmptyObject(data)) {
+      setErrorMessage('User not found');
+      return false;
+    }
 
+    const user = data as UserData;
 
-      const response = await UserRepository.getUserByUsername(username);
-      if (checkEmptyObject(response.data) ) {
-        setErrorMessage('User not found');
-        return false;
-      }
-      const user : User  = response.data;
-
-      setAddedUsers((prevUsers) => [
-        ...prevUsers,
-        { id: user.id, username: user.username },
-      ]);
-      setErrorMessage('');
-      return true;
-
+    setAddedUsers((prevUsers) => [...prevUsers, user]);
+    setErrorMessage('');
+    return true;
   };
 
   // might be better approach to send the pfp in parallel with the chat creation
-  const createChat = async (chatName: string, users: User[], pfp: string) => {
+  const createChat = async (
+    chatName: string,
+    users: UserData[],
+    pfp: string
+  ) => {
     // log it for now to get rid of unused params warning
     console.log(chatName, users, pfp);
 

@@ -4,6 +4,15 @@ import * as React from 'react';
 
 export type ID = mongoose.Types.ObjectId;
 
+export type UserData = {
+  _id: ID;
+  username: string;
+  email: string;
+  chats: ID[];
+  isVerified: boolean;
+  createdAt: Date;
+};
+
 export type ChatData = {
   _id: ID;
   users: ID[];
@@ -37,10 +46,8 @@ export type Chat = {
 export type User = {
   id: ID;
   username: string;
-  password: string;
-  chats: ID;
+  chats: ID[];
   isVerified: boolean;
-  verificationToken: string;
   createdAt: Date;
 };
 
