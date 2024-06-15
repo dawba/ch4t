@@ -1,7 +1,7 @@
-import { IMessageAdapter } from '../interfaces/IMessageAdapter.ts';
+import { IMessageDataAdapter } from '../interfaces/IMessageDataAdapter.ts';
 import { ID, MessageData, MessageTileProps } from '../../types/types.ts';
 
-export const MessageDataAdapter: IMessageAdapter = {
+export const MessageDataAdapter: IMessageDataAdapter = {
   getMessages: (
     messageData: MessageData[],
     currentUser: ID,
@@ -11,12 +11,10 @@ export const MessageDataAdapter: IMessageAdapter = {
       const sender = users.find((user: ID) => user === message.sender);
       const messageSentByUser = message.sender === currentUser;
 
-      const senderName = sender;
-
       return {
         id: message._id,
         message: message.content,
-        senderName: senderName ?? '',
+        senderName: sender ?? '',
         timeSent: message.createdAt,
         messageSentByUser,
       };
