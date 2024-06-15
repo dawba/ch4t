@@ -1,5 +1,4 @@
 import { ChangeEvent, useContext } from 'react';
-import { ReactComponent as GalleryIcon } from '../../assets/gallery_icon.svg';
 import { UserContext } from '../providers/UserProvider.tsx';
 import ImageUploader from '../customs/ImageUploader.tsx';
 

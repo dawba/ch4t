@@ -1,33 +1,15 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { ID } from '../types/types';
-import { UserContext } from '../components/providers/UserProvider.tsx';
+import ChatRepository from '../api/ChatRepository.ts';
+
 interface User {
   id: ID;
   username: string;
 }
 
-const useAddChat = () => {
+const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
   const [addedUsers, setAddedUsers] = useState<User[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const userContext = useContext(UserContext);
-
-  if (!userContext) {
-    setErrorMessage('User context is not available');
-    return null;
-  }
-
-  const currentUserId = userContext.id;
-  const currentUserUsername = userContext.username;
-
-  if (!currentUserId) {
-    setErrorMessage('Current user ID is not available');
-    return null;
-  }
-
-  if (!currentUserUsername) {
-    setErrorMessage('Current user Username is not available');
-    return null;
-  }
 
   const addUserToChat = async (username: string) => {
     if (addedUsers.some((user) => user.username === username)) {
@@ -61,30 +43,23 @@ const useAddChat = () => {
     }
   };
 
+  // might be better approach to send the pfp in parallel with the chat creation
   const createChat = async (chatName: string, users: User[], pfp: string) => {
+    // log it for now to get rid of unused params warning
+    console.log(chatName, users, pfp);
+
     if (users.length == 0) {
       setErrorMessage('Cant create a chat with no users');
       return null;
     }
+
     try {
       const userIds = users.map((user) => user.id);
       userIds.push(currentUserId);
       const createdAt = new Date().toISOString();
-      const API_URL = `http://localhost:5050/api/chat/`;
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          users: userIds,
-          createdAt,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to create chat');
-      }
-      const data = await response.json();
+
+      const data = await ChatRepository.createChat(userIds, createdAt);
+
       setErrorMessage('');
       setAddedUsers([]);
       return data;
@@ -94,7 +69,12 @@ const useAddChat = () => {
     }
   };
 
-  return { addUserToChat, createChat, addedUsers, errorMessage };
+  return {
+    addedUsers,
+    errorMessage,
+    addUserToChat,
+    createChat,
+  };
 };
 
 export default useAddChat;

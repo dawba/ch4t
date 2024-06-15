@@ -42,4 +42,8 @@ export class ChatService {
   async getAllUserChats(id: string) {
     return Chat.find({ users: id });
   }
+
+  async removeUserFromChat(chatId: string, userId: string) {
+    await Chat.findByIdAndUpdate(chatId, { $pull: { users: userId } });
+  }
 }

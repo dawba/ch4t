@@ -4,11 +4,11 @@ import { UserController } from "./UserController.js";
 const userController = new UserController();
 const UserRouter = express.Router();
 
-UserRouter.get("/", userController.getAllUsers);
+UserRouter.get("/all", userController.getAllUsers);
 UserRouter.get("/id/:id", userController.getUserById);
 UserRouter.get("/username/:username", userController.getUserByUsername);
 
-UserRouter.post("/", userController.createUser);
+UserRouter.post("/register", userController.createUser);
 UserRouter.post("/login", userController.loginUser);
 UserRouter.post("/confirm", userController.confirmUser);
 
