@@ -47,7 +47,7 @@ const LoginPage = () => {
       credentials.password
     );
 
-    if (checkEmptyObject(response.data)) {
+    if (!checkEmptyObject(response.data)) {
       console.log('Logged in successfully');
       navigate('/');
     }

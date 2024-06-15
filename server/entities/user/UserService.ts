@@ -9,9 +9,7 @@ export class UserService {
 
   async getUserById(id: string) {
     return User.findById(id);
-  } 
-
- 
+  }
 
   async createUser(userData: UserDocument) {
     const verificationToken = crypto.randomUUID();
@@ -57,6 +55,7 @@ export class UserService {
   }
 
   async loginUser(userData: UserDocument) {
+    console.log(userData);
     const user = await User.findOne({
       username: userData.username,
       password: userData.password,

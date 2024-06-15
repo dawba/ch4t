@@ -5,6 +5,8 @@ export const fetchData = async (
   options: RequestInit
 ): Promise<ApiResponse> => {
   try {
+    console.log('Fetching data from:', url);
+    console.log('Options:', options.body);
     const response = await fetch(url, options);
     if (response.ok) {
       const data = await response.json();

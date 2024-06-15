@@ -8,7 +8,7 @@ interface IUserRepository {
     username: string,
     password: string
   ) => Promise<ApiResponse>;
-  login: (email: string, password: string) => Promise<ApiResponse>;
+  login: (username: string, password: string) => Promise<ApiResponse>;
   logout: (token: string) => Promise<ApiResponse>;
   getUserByUsername: (username: string) => Promise<ApiResponse>;
   getUserById: (id: ID) => Promise<ApiResponse>;
@@ -23,26 +23,35 @@ interface IUserRepository {
 
 const UserRepository: IUserRepository = {
   register: async (email, username, password) => {
-    const options = {
+    const options: RequestInit = {
       method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ email, username, password }),
     };
 
     return await fetchData(UserApiPaths.POST.REGISTER, options);
   },
 
-  login: async (email, password) => {
-    const options = {
+  login: async (username, password) => {
+    const options: RequestInit = {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
     };
 
     return await fetchData(UserApiPaths.POST.LOGIN, options);
   },
 
   logout: async () => {
-    const options = {
+    const options: RequestInit = {
       method: 'POST',
+      mode: 'cors',
     };
 
     return await fetchData(UserApiPaths.POST.LOGOUT, options);
