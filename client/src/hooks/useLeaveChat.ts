@@ -5,8 +5,10 @@ import ChatRepository from '../api/ChatRepository.ts';
 const useLeaveChat = () => {
   const [isConfirming, setIsConfirming] = useState(false);
   const userContext = useContext(UserContext);
-  const userId = userContext.userId!!;
-
+  const userId = userContext.userId;
+  if (userId == null) {
+    return;
+  }
   const startConfirming = () => {
     setIsConfirming(true);
   };

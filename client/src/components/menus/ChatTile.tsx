@@ -3,24 +3,28 @@ import { ReactComponent as UnreadIcon } from '../../assets/message_unread.svg';
 import { Chat } from '../../types/types.ts';
 
 import styles from '../../styles/ChatTile.module.css';
+import { Dispatch, SetStateAction } from 'react';
 
-const ChatTile = ({ chat }: { chat: Chat }) => {
-  const {
-    lastMessage,
-    lastSender,
-    isLastMessageRead,
-    chatName,
-    profilePicture,
-  } = chat;
+type ChatTileProps = {
+  chat: Chat;
+  setSelectedChat: Dispatch<SetStateAction<Chat | null>>;
+};
+
+const ChatTile = ({ chat, setSelectedChat }: ChatTileProps) => {
+  const { lastMessage, lastSender, isLastMessageRead, chatName, chatPicture } =
+    chat;
 
   const StatusIcon = isLastMessageRead ? ReadIcon : UnreadIcon;
   const lastSenderAndMessage = lastSender + ': ' + lastMessage;
 
   return (
-    <div className={`h-auto w-full flex items-center ${styles.messageTile}`}>
+    <div
+      className={`h-auto w-full flex items-center ${styles.messageTile}`}
+      onClick={() => setSelectedChat(chat)}
+    >
       <div className="w-12 h-12 flex-none items-center justify-center border-2 border-primary-yellow rounded-full overflow-hidden mr-4">
         <img
-          src={profilePicture}
+          src={chatPicture?.url ?? 'placeholder-path'}
           className="w-full h-full object-cover"
           alt="Profile picture"
         />

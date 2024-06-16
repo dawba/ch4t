@@ -1,9 +1,9 @@
-import { ApiResponse, ID, Message } from '../types/types.ts';
+import { ApiResponse, ID, NewMessageData } from '../types/types.ts';
 import { Fetching } from './fetchData.ts';
 import MESSAGE_API_ENDPOINTS from './MessageApiPaths.ts';
 
 interface IMessageRepository {
-  createMessage: (message: Message) => Promise<ApiResponse>;
+  createMessage: (message: NewMessageData) => Promise<ApiResponse>;
   getAllMessagesForUser: (id: ID) => Promise<ApiResponse>;
   getMessageById: (id: ID) => Promise<ApiResponse>;
   getAllMessagesForChat: (id: ID) => Promise<ApiResponse>;
@@ -12,7 +12,7 @@ interface IMessageRepository {
 }
 
 const MessageRepository: IMessageRepository = {
-  createMessage: async (message: Message): Promise<ApiResponse> => {
+  createMessage: async (message): Promise<ApiResponse> => {
     const options: RequestInit = {
       method: 'POST',
       headers: {

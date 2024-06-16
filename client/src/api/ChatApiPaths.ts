@@ -12,7 +12,7 @@ const CHAT_API_ENDPOINTS = {
     ALL_USER_CHATS: (id: ID) => `${BASE_URL}/all/user/${id}`,
   },
   PUT: {
-    UPDATE: (id: ID) => `${BASE_URL}/${id}`,
+    UPDATE: (id: ID) => `${BASE_URL}/update/${id}`,
   },
   DELETE: {
     DELETE: (id: ID) => `${BASE_URL}/${id}`,
