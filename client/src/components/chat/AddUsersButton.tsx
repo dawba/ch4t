@@ -74,8 +74,11 @@ const AddUsersButton = ({ chatId }: AddUsersButtonProps) => {
         </div>
         {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
         <div className="mb-4">
-          {addedUsers.map((user, index) => (
-            <div key={index} className="flex justify-between items-center">
+          {addedUsers.map((user) => (
+            <div
+              key={user._id.toString()}
+              className="flex justify-between items-center"
+            >
               <p className="text-sm text-primary-gray">{user.username}</p>
               <button
                 className="text-red-500"

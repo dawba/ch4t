@@ -24,8 +24,6 @@ const useAddUsersToChat = ({ chatId }: { chatId: ID }) => {
   const currentUserUsername = userContext.username;
   const addUserToChat = async (username: string) => {
     const users = await fetchCurrentUserList();
-    console.log('users', users);
-    console.log('ddddd', addedUsers);
     if (
       addedUsers.some((user) => user.username === username) ||
       users.some((user) => user.username === username)
