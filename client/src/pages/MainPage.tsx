@@ -4,7 +4,7 @@ import NavigationMenu from '../components/navigation/NavigationMenu.tsx';
 
 import useChats from '../hooks/useChats.ts';
 import ChatView from '../components/chat/ChatView.tsx';
-import {  MenuItem, UserData } from '../types/types.ts';
+import { MenuItem, UserData } from '../types/types.ts';
 import { useUserContext } from '../components/providers/UserProvider.tsx';
 import { useNavigate } from 'react-router-dom';
 import UserRepository from '../api/UserRepository.ts';
@@ -58,26 +58,26 @@ const MainPage = () => {
   }, []);
 
   return (
-      <div className="h-full w-full flex flex-row items-start">
-        <NavigationMenu activeItem={activeItem} setActiveItem={setActiveItem} />
-        <ContextMenu
-          activeMenuItem={activeItem}
-          setSelectedChat={setSelectedChat}
-          chats={chats}
-          setChats={setChats}
-        />
-        {selectedChat !== null ? (
-          <ChatView chat={selectedChat} />
-        ) : (
-          <div className="flex items-center justify-center w-full h-full">
-            <h4 className="">
-              Create a new chat
-              <br />
-              or select one from the list!
-            </h4>
-          </div>
-        )}
-      </div>
+    <div className="h-full w-full flex flex-row items-start">
+      <NavigationMenu activeItem={activeItem} setActiveItem={setActiveItem} />
+      <ContextMenu
+        activeMenuItem={activeItem}
+        setSelectedChat={setSelectedChat}
+        chats={chats}
+        setChats={setChats}
+      />
+      {selectedChat !== null ? (
+        <ChatView chat={selectedChat} />
+      ) : (
+        <div className="flex items-center justify-center w-full h-full">
+          <h4 className="text-center">
+            Create a new chat
+            <br />
+            or select one from the list!
+          </h4>
+        </div>
+      )}
+    </div>
   );
 };
 
