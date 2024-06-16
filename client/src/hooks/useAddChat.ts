@@ -32,6 +32,12 @@ const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
     return true;
   };
 
+  const removeUserFromChat = (username: string) => {
+    setAddedUsers((prevUsers) =>
+      prevUsers.filter((user) => user.username !== username)
+    );
+  };
+
   // might be better approach to send the pfp in parallel with the chat creation
   const createChat = async (
     chatName: string,
@@ -61,6 +67,7 @@ const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
     errorMessage,
     addUserToChat,
     createChat,
+    removeUserFromChat,
   };
 };
 

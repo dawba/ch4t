@@ -52,6 +52,15 @@ const useAddUsersToChat = ({ chatId }: { chatId: ID }) => {
     return true;
   };
 
+  const removeUserFromChat = (username: string) => {
+    setAddedUsers((prevUsers) =>
+      prevUsers.filter((user) => user.username !== username)
+    );
+  };
+
+  const deleteAllAddedUsers = () => {
+    setAddedUsers([]);
+  };
   // might be better approach to send the pfp in parallel with the chat creation
   const updateChat = async (users: UserData[]) => {
     // log it for now to get rid of unused params warning
@@ -86,6 +95,8 @@ const useAddUsersToChat = ({ chatId }: { chatId: ID }) => {
     errorMessage,
     addUserToChat,
     updateChat,
+    removeUserFromChat,
+    deleteAllAddedUsers,
   };
 };
 
