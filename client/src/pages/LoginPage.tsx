@@ -48,11 +48,15 @@ const LoginPage = () => {
     );
 
     if (!checkEmptyObject(response.data)) {
-      localStorage.setItem(
-        'currentUserId',
-        JSON.stringify(response.data?.user?._id)
-      );
-      localStorage.setItem('token', response.data?.token);
+      const { data } = response.data as {
+        message: string;
+        data: { user: { _id: string }; token: string };
+      };
+
+      const { user, token } = data;
+
+      localStorage.setItem('currentUserId', JSON.stringify(user?._id));
+      localStorage.setItem('token', token);
       navigate('/');
     }
   };

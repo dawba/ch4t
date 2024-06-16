@@ -6,7 +6,7 @@ import ImageUploader from '../customs/ImageUploader.tsx';
 const AddChatView = () => {
   const userContext = useContext(UserContext);
 
-  if (!userContext) {
+  if (!userContext || !userContext.userId || !userContext.username) {
     throw new Error('AddChatView must be used within a UserProvider');
   }
 
@@ -14,7 +14,7 @@ const AddChatView = () => {
   const [chatName, setChatName] = useState('');
   const [username, setUsername] = useState('');
   const { addedUsers, errorMessage, addUserToChat, createChat } = useAddChat(
-    userContext.id,
+    userContext.userId,
     userContext.username
   );
 
