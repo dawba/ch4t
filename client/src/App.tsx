@@ -5,7 +5,7 @@ import MainPage from './pages/MainPage.tsx';
 
 const App = () => {
   return (
-    <div className="page-wrapper flex justify-center items-center bg-background-gray rounded-xl">
+    <div className="page-wrapper flex justify-center items-center bg-background-gray rounded-xl overflow-hidden">
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
