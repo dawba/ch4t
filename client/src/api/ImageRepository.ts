@@ -1,12 +1,18 @@
-import { ApiResponse, ID } from '../types/types.ts';
+import { ApiResponse, ID, NewImageData } from '../types/types.ts';
 import ImageApiPaths from './ImageApiPaths.ts';
 import { fetchData } from './fetchData.ts';
 
 interface IImageRepository {
   getImageById: (id: ID) => Promise<ApiResponse>;
-  createImageForChat: (chatId: ID, imageData: string) => Promise<ApiResponse>;
-  createImageForUser: (userId: ID, imageData: string) => Promise<ApiResponse>;
-  updateImage: (id: ID, imageData: string) => Promise<ApiResponse>;
+  createImageForChat: (
+    chatId: ID,
+    imageData: NewImageData
+  ) => Promise<ApiResponse>;
+  createImageForUser: (
+    userId: ID,
+    imageData: NewImageData
+  ) => Promise<ApiResponse>;
+  updateImage: (id: ID, imageData: NewImageData) => Promise<ApiResponse>;
 }
 
 const ImageRepository: IImageRepository = {
