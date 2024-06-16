@@ -12,12 +12,13 @@ const USER_API_ENDPOINTS = {
     ALL: `${BASE_URL}/all`,
     BY_ID: (id: ID) => `${BASE_URL}/id/${id}`,
     BY_USERNAME: (username: string) => `${BASE_URL}/username/${username}`,
+    BY_EMAIL: (email: string) => `${BASE_URL}/email/${email}`,
   },
   PUT: {
-    UPDATE: `${BASE_URL}/`,
+    UPDATE: (id: ID) => `${BASE_URL}/${id}`,
   },
   DELETE: {
-    DELETE: `${BASE_URL}/`,
+    DELETE: (id: ID) => `${BASE_URL}/${id}`,
   },
 };
 
