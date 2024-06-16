@@ -1,11 +1,14 @@
 import { ChangeEvent, useContext } from 'react';
 import { UserContext, useUserContext } from '../providers/UserProvider.tsx';
+import { ChangeEvent, useContext, useEffect, useRef } from 'react';
+import { UserContext } from '../providers/UserProvider.tsx';
 import ImageUploader from '../customs/ImageUploader.tsx';
 import useEditAccount from '../../hooks/useEditAccount.ts';
 import FormNotification from '../customs/FormNotification.tsx';
 import { ID } from '../../types/types.ts';
 
 const SettingsView = () => {
+  const imageUploaderRef = useRef<{ uploadImage: () => void }>(null);
   const { userId, username, email, profilePicture, setProfilePicture } =
     useUserContext();
 
@@ -26,9 +29,24 @@ const SettingsView = () => {
     window.location.reload();
   };
 
+  const handleUpload = () => {
+    if (imageUploaderRef.current) {
+      imageUploaderRef.current.uploadImage();
+    }
+  };
+
+  useEffect(() => {
+    handleUpload();
+  }, [profilePicture]);
+
   return (
-    <div className="w-full flex flex-col p-7 h-full">
-      <ImageUploader image={profilePicture} setImage={setProfilePicture} />
+    <div className="w-full flex flex-col p-7">
+      <ImageUploader
+        image={profilePicture}
+        setImage={setProfilePicture}
+        imageContext={'User'}
+        id={userId}
+      />
 
       <p className="mt-8 ml-2 text-left text-sm">Username</p>
       <input

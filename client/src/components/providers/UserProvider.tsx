@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import React, {
+    ReactNode,
+    createContext,
+    useContext,
+    Dispatch,
+    SetStateAction, useState,
+} from 'react';
 import { ID } from '../../types/types.ts';
 
 interface UserContextType {
@@ -7,11 +13,11 @@ interface UserContextType {
   profilePicture: string;
   userId: ID | null;
   chats: ID[];
-  setUsername: (username: string) => void;
-  setUserId: (id: ID) => void;
-  setEmail: (email: string) => void;
-  setProfilePicture: (profilePicture: string) => void;
-  setUserChats: (chats: ID[]) => void;
+  setUserId: Dispatch<SetStateAction<ID | null>>;
+  setUsername: Dispatch<SetStateAction<string>>;
+  setEmail: Dispatch<SetStateAction<string>>;
+  setProfilePicture: Dispatch<SetStateAction<string>>;
+  setUserChats: Dispatch<SetStateAction<string>>;
 }
 
 export const UserContext = createContext<UserContextType>({

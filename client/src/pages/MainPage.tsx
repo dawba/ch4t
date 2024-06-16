@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import ContextMenu from '../components/menus/ContextMenu.tsx';
-// import ChatView from '../components/chat/ChatView.tsx';
 import NavigationMenu from '../components/navigation/NavigationMenu.tsx';
 
-import { MenuItem, UserData } from '../types/types.ts';
+import useChats from '../hooks/useChats.ts';
+import ChatView from '../components/chat/ChatView.tsx';
+import {  MenuItem, UserData } from '../types/types.ts';
 import { useUserContext } from '../components/providers/UserProvider.tsx';
 import { useNavigate } from 'react-router-dom';
 import UserRepository from '../api/UserRepository.ts';
@@ -22,6 +23,7 @@ const MainPage = () => {
   } = useUserContext();
 
   const [activeItem, setActiveItem] = useState<MenuItem>('DirectChats');
+  const { chats, setChats, selectedChat, setSelectedChat } = useChats(userId);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,18 +58,26 @@ const MainPage = () => {
   }, []);
 
   return (
-    <>
-      {userId && (
-        <div className="h-full w-full flex flex-row items-start">
-          <NavigationMenu
-            activeItem={activeItem}
-            setActiveItem={setActiveItem}
-          />
-          <ContextMenu activeMenuItem={activeItem} />
-          {/*<ChatView users={[]} chatId={null} currentUser={null} />*/}
-        </div>
-      )}
-    </>
+      <div className="h-full w-full flex flex-row items-start">
+        <NavigationMenu activeItem={activeItem} setActiveItem={setActiveItem} />
+        <ContextMenu
+          activeMenuItem={activeItem}
+          setSelectedChat={setSelectedChat}
+          chats={chats}
+          setChats={setChats}
+        />
+        {selectedChat !== null ? (
+          <ChatView chat={selectedChat} />
+        ) : (
+          <div className="flex items-center justify-center w-full h-full">
+            <h4 className="">
+              Create a new chat
+              <br />
+              or select one from the list!
+            </h4>
+          </div>
+        )}
+      </div>
   );
 };
 

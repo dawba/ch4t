@@ -1,14 +1,11 @@
 import { useState } from 'react';
-import { ID } from '../types/types';
+import { ID, UserData } from '../types/types';
 import ChatRepository from '../api/ChatRepository.ts';
-
-interface User {
-  id: ID;
-  username: string;
-}
+import UserRepository from '../api/UserRepository.ts';
+import { checkEmptyObject } from '../utils/checkEmptyObject.ts';
 
 const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
-  const [addedUsers, setAddedUsers] = useState<User[]>([]);
+  const [addedUsers, setAddedUsers] = useState<UserData[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const addUserToChat = async (username: string) => {
@@ -22,51 +19,47 @@ const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
       return false;
     }
 
-    try {
-      const API_URL = `http://localhost:5050/api/user/username/${username}`;
-      const response = await fetch(API_URL);
-      const user = await response.json();
-      if (user == null) {
-        setErrorMessage('User not found');
-        return false;
-      }
-
-      setAddedUsers((prevUsers) => [
-        ...prevUsers,
-        { id: user._id, username: user.username },
-      ]);
-      setErrorMessage('');
-      return true;
-    } catch (error) {
+    const { data } = await UserRepository.getUserByUsername(username);
+    if (checkEmptyObject(data)) {
       setErrorMessage('User not found');
       return false;
     }
+
+    const user = data as UserData;
+
+    setAddedUsers((prevUsers) => [...prevUsers, user]);
+    setErrorMessage('');
+    return true;
+  };
+
+  const removeUserFromChat = (username: string) => {
+    setAddedUsers((prevUsers) =>
+      prevUsers.filter((user) => user.username !== username)
+    );
   };
 
   // might be better approach to send the pfp in parallel with the chat creation
-  const createChat = async (chatName: string, users: User[], pfp: string) => {
+  const createChat = async (
+    chatName: string,
+    users: UserData[],
+    pfp: string
+  ) => {
     // log it for now to get rid of unused params warning
     console.log(chatName, users, pfp);
-
     if (users.length == 0) {
       setErrorMessage('Cant create a chat with no users');
       return null;
     }
 
-    try {
-      const userIds = users.map((user) => user.id);
-      userIds.push(currentUserId);
-      const createdAt = new Date().toISOString();
+    const userIds = users.map((user) => user._id);
+    userIds.push(currentUserId);
+    const createdAt = new Date().toISOString();
 
-      const data = await ChatRepository.createChat(userIds, createdAt);
+    const data = await ChatRepository.createChat(userIds, createdAt);
 
-      setErrorMessage('');
-      setAddedUsers([]);
-      return data;
-    } catch (error) {
-      setErrorMessage('Failed to create chat');
-      return null;
-    }
+    setErrorMessage('');
+    setAddedUsers([]);
+    return data;
   };
 
   return {
@@ -74,6 +67,7 @@ const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
     errorMessage,
     addUserToChat,
     createChat,
+    removeUserFromChat,
   };
 };
 
