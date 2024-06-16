@@ -1,9 +1,10 @@
 import React, {
-    ReactNode,
-    createContext,
-    useContext,
-    Dispatch,
-    SetStateAction, useState,
+  ReactNode,
+  createContext,
+  useContext,
+  Dispatch,
+  SetStateAction,
+  useState,
 } from 'react';
 import { ID } from '../../types/types.ts';
 
@@ -17,7 +18,7 @@ interface UserContextType {
   setUsername: Dispatch<SetStateAction<string>>;
   setEmail: Dispatch<SetStateAction<string>>;
   setProfilePicture: Dispatch<SetStateAction<string>>;
-  setUserChats: Dispatch<SetStateAction<string>>;
+  setUserChats: Dispatch<SetStateAction<ID[]>>;
 }
 
 export const UserContext = createContext<UserContextType>({

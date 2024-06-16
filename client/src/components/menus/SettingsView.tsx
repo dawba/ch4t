@@ -1,7 +1,5 @@
-import { ChangeEvent, useContext } from 'react';
-import { UserContext, useUserContext } from '../providers/UserProvider.tsx';
-import { ChangeEvent, useContext, useEffect, useRef } from 'react';
-import { UserContext } from '../providers/UserProvider.tsx';
+import { useEffect, useRef } from 'react';
+import { useUserContext } from '../providers/UserProvider.tsx';
 import ImageUploader from '../customs/ImageUploader.tsx';
 import useEditAccount from '../../hooks/useEditAccount.ts';
 import FormNotification from '../customs/FormNotification.tsx';
@@ -11,6 +9,8 @@ const SettingsView = () => {
   const imageUploaderRef = useRef<{ uploadImage: () => void }>(null);
   const { userId, username, email, profilePicture, setProfilePicture } =
     useUserContext();
+
+  const nonNullUserId = userId as ID;
 
   const {
     credentials,
@@ -45,7 +45,7 @@ const SettingsView = () => {
         image={profilePicture}
         setImage={setProfilePicture}
         imageContext={'User'}
-        id={userId}
+        id={nonNullUserId}
       />
 
       <p className="mt-8 ml-2 text-left text-sm">Username</p>
