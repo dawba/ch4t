@@ -57,7 +57,7 @@ const ChatView = ({ chat }: ChatViewProps) => {
 
   return (
     <div className={styles.chatViewWrapper + ' relative'}>
-      <div className="h-full w-full flex flex-col bg-primary-gray relative z-10">
+      <div className="h-full w-full flex flex-col bg-primary-gray relative">
         <div className={styles.topBar}>
           <div className="w-80">
             <Search />

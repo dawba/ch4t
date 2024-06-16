@@ -54,17 +54,18 @@ const AddUsersButton = ({ chatId }: AddUsersButtonProps) => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Add Users"
-        className="bg-secondary-gray rounded-lg p-6 max-w-md mx-auto my-16"
+        className="bg-secondary-gray rounded-lg p-6 max-w-md mx-auto my-16 z-50"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
         ariaHideApp={false}
       >
         <h2 className="text-lg font-semibold mb-4">Add Users to Chat</h2>
-        <div>
+        <div className="flex flex-row relative">
           <input
             type="text"
-            className="w-full p-2  border-primary-yellow rounded mb-4"
+            className="w-full p-2 border-primary-yellow rounded mb-4"
             value={username}
             onChange={handleUsernameChange}
+            placeholder="Enter username"
           />
           <button
             className="ml-2 p-2 bg-primary-yellow text-black rounded"
