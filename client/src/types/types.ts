@@ -45,15 +45,6 @@ export type ImageData = {
 
 export type NewImageData = Omit<ImageData, '_id'>;
 
-export type UserData = {
-  _id: ID;
-  email: string;
-  username: string;
-  chats: ID[];
-  isVerified: boolean;
-  createdAt: Date;
-};
-
 // ===================================================================
 // FRONTEND TYPES
 
