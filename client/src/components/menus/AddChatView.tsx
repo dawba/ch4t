@@ -6,23 +6,17 @@ import ImageUploader from '../customs/ImageUploader.tsx';
 const AddChatView = () => {
   const userContext = useContext(UserContext);
 
-  if (!userContext) {
+  if (!userContext || !userContext.userId || !userContext.username) {
     throw new Error('AddChatView must be used within a UserProvider');
   }
 
   const { profilePicture, setProfilePicture } = userContext;
   const [chatName, setChatName] = useState('');
   const [username, setUsername] = useState('');
-  if (userContext.userId == null) {
-    return;
-  }
-  const {
-    addedUsers,
-    errorMessage,
-    addUserToChat,
-    createChat,
-    removeUserFromChat,
-  } = useAddChat(userContext.userId, userContext.username);
+  const { addedUsers, errorMessage, addUserToChat, createChat } = useAddChat(
+    userContext.userId,
+    userContext.username
+  );
 
   const handleChatNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChatName(event.target.value);
@@ -70,15 +64,9 @@ const AddChatView = () => {
       {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
       <div className="mt-4">
         {addedUsers.map((user, index) => (
-          <div key={index} className="flex justify-between items-center">
-            <p className="text-sm text-primary-gray">{user.username}</p>
-            <button
-              className="text-red-500"
-              onClick={() => removeUserFromChat(user.username)}
-            >
-              -
-            </button>
-          </div>
+          <p key={index} className="text-sm text-secondary-gray">
+            {user.username}
+          </p>
         ))}
       </div>
       <button

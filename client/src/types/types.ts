@@ -4,22 +4,11 @@ import * as React from 'react';
 
 export type ID = mongoose.Types.ObjectId;
 
-export type UserData = {
-    _id: ID;
-    username: string;
-    email: string;
-    chats: ID[];
-    isVerified: boolean;
-    createdAt: Date;
-};
-export type PartialUser = { username: string; userId: ID };
-
 export type ChatData = {
-    _id: ID;
-    users: PartialUser[];
-    chatName: string | null;
-    messages: ID[];
-    createdAt: Date;
+  _id: ID;
+  users: ID[];
+  messages: ID[];
+  createdAt: Date;
 };
 
 export type MessageData = {
@@ -28,6 +17,15 @@ export type MessageData = {
   sender: ID;
   chat: ID;
   readStatus: { recipient: ID; read: boolean }[];
+  createdAt: Date;
+};
+
+export type UserData = {
+  _id: ID;
+  email: string;
+  username: string;
+  chats: ID[];
+  isVerified: boolean;
   createdAt: Date;
 };
 
@@ -47,9 +45,9 @@ export type Chat = {
 
 export type User = {
   id: ID;
+  email: string;
   username: string;
-  password: string;
-  chats: ID[];
+  chats: ID;
   isVerified: boolean;
   verificationToken: string;
   createdAt: Date;

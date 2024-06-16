@@ -1,25 +1,20 @@
-import ChatListView from './ChatListView.tsx';
+import ChatListView, { Mock1, Mock2, Mock3 } from './ChatListView.tsx';
 import SettingsView from './SettingsView.tsx';
 import AddChatView from './AddChatView.tsx';
-import { MenuItem,Chat } from '../../types/types.ts'; 
-import useSplitChats from '../../hooks/useSplitChats.ts';
+import { MenuItem } from '../../types/types.ts';
 
 type ContextMenuProps = {
   activeMenuItem: MenuItem;
-  chats: Chat[]
 };
 
-const ContextMenu = ({ activeMenuItem,chats }: ContextMenuProps) => {
-
-  const {directChats,groupChats} = useSplitChats(chats);
-
+const ContextMenu = ({ activeMenuItem }: ContextMenuProps) => {
   return (
     <div className="w-[20vw] min-w-[300px] h-full bg-primary-gray mr-1">
       {activeMenuItem === 'DirectChats' && (
-        <ChatListView chats={directChats} />
+        <ChatListView chats={[Mock1, Mock2, Mock3]} />
       )}
       {activeMenuItem === 'GroupChats' && (
-        <ChatListView chats={groupChats} />
+        <ChatListView chats={[Mock1, Mock2, Mock3]} />
       )}
       {activeMenuItem === 'AddChat' && <AddChatView />}
       {activeMenuItem === 'Settings' && <SettingsView />}
