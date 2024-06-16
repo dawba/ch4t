@@ -1,10 +1,9 @@
 import { IChatDataAdapter } from '../interfaces/IChatDataAdapter.ts';
 import { MessageDataAdapter } from './MessageDataAdapter.ts';
 import MessageRepository from '../../api/MessageRepository.ts';
-import { ImageData, MessageData, User } from '../../types/types.ts';
+import { ImageData, MessageData } from '../../types/types.ts';
 import ImageRepository from '../../api/ImageRepository.ts';
 import { ImageDataAdapter } from './ImageDataAdapter.ts';
-import UserRepository from '../../api/UserRepository.ts';
 
 const ChatDataAdapter: IChatDataAdapter = {
   getChats: async (chatData, currentUserId) => {
@@ -48,33 +47,12 @@ const ChatDataAdapter: IChatDataAdapter = {
           };
         }
 
-        const response = await UserRepository.getUserByUsername(
-          lastMessage.senderName
-        );
-
-        const { data } = response;
-
-        if (Object(data).keys.length == 0 || data == null) {
-          return {
-            id: chat._id,
-            chatName: chat.name,
-            chatPicture: image,
-            lastMessage: lastMessage.message,
-            lastSender: '',
-            isLastMessageRead: false,
-            users: chat?.users || [],
-            messages: messages,
-          };
-        }
-
-        const user = data as User;
-
         return {
           id: chat._id,
           chatName: chat.name,
           chatPicture: image,
           lastMessage: lastMessage.message,
-          lastSender: user.username,
+          lastSender: lastMessage.senderName,
           isLastMessageRead: false,
           users: chat?.users || [],
           messages: messages,

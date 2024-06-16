@@ -1,9 +1,14 @@
-import { ID, MessageData, MessageTileProps } from '../../types/types.ts';
+import {
+  ID,
+  MessageData,
+  MessageTileProps,
+  PartialUser,
+} from '../../types/types.ts';
 
 export interface IMessageDataAdapter {
   getMessages: (
     messageData: MessageData[],
     currentUser: ID,
-    users: ID[]
+    users: PartialUser[]
   ) => MessageTileProps[];
 }
