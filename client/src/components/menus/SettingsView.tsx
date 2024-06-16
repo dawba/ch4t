@@ -1,9 +1,10 @@
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent, useContext, useEffect, useRef } from 'react';
 import { UserContext } from '../providers/UserProvider.tsx';
 import ImageUploader from '../customs/ImageUploader.tsx';
 
 const SettingsView = () => {
   const userContext = useContext(UserContext);
+  const imageUploaderRef = useRef<{ uploadImage: () => void }>(null);
 
   const {
     username,
@@ -28,6 +29,16 @@ const SettingsView = () => {
     localStorage.removeItem('token');
     window.location.reload();
   };
+
+  const handleUpload = () => {
+    if (imageUploaderRef.current) {
+      imageUploaderRef.current.uploadImage();
+    }
+  };
+
+  useEffect(() => {
+    handleUpload();
+  }, [profilePicture]);
 
   return (
     <div className="w-full flex flex-col p-7">

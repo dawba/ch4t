@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useContext } from 'react';
+import { ChangeEvent, useState, useContext, useRef } from 'react';
 import { UserContext } from '../providers/UserProvider.tsx';
 import useAddChat from '../../hooks/useAddChat.ts';
 import ImageUploader from '../customs/ImageUploader.tsx';
@@ -10,6 +10,7 @@ type AddChatProps = {
 };
 const AddChatView = ({ onChatAdded }: AddChatProps) => {
   const userContext = useContext(UserContext);
+  const imageUploaderRef = useRef<{ uploadImage: () => void }>(null);
 
   const { profilePicture, setProfilePicture } = userContext;
   const [chatName, setChatName] = useState('');
@@ -32,10 +33,17 @@ const AddChatView = ({ onChatAdded }: AddChatProps) => {
     setUsername('');
   };
 
+  const handleUpload = () => {
+    if (imageUploaderRef.current) {
+      imageUploaderRef.current.uploadImage();
+    }
+  };
+
   const handleCreateChat = async () => {
     const response = await createChat(chatName, addedUsers, profilePicture);
     if (isObjectEmpty(response) && response?.data) {
       onChatAdded(response.data as Chat);
+      handleUpload();
     }
     addedUsers.length = 0;
   };
