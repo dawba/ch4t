@@ -8,7 +8,7 @@ import { useUserContext } from '../components/providers/UserProvider.tsx';
 import { useNavigate } from 'react-router-dom';
 import UserRepository from '../api/UserRepository.ts';
 import { checkEmptyObject } from '../utils/checkEmptyObject.ts';
-import { getIdFromLocalStorage } from '../utils/getIdFromLocalStorage.ts';
+import { getUserDataFromLocalStorage } from '../utils/getUserDataFromLocalStorage.ts';
 
 const MainPage = () => {
   const {
@@ -25,10 +25,10 @@ const MainPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const lsUserId = getIdFromLocalStorage();
-    const lsToken = localStorage.getItem('token');
+    const { lsUsername, lsEmail, lsUserId, lsToken, lsChats } =
+      getUserDataFromLocalStorage();
 
-    if (!lsUserId || !lsToken) {
+    if (!lsUserId || !lsToken || !lsUsername || !lsEmail || lsChats === null) {
       return navigate('/login');
     }
 
