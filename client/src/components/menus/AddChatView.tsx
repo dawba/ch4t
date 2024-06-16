@@ -13,13 +13,16 @@ const AddChatView = () => {
   const { profilePicture, setProfilePicture } = userContext;
   const [chatName, setChatName] = useState('');
   const [username, setUsername] = useState('');
+  if (userContext.userId == null) {
+    return;
+  }
   const {
     addedUsers,
     errorMessage,
     addUserToChat,
     createChat,
     removeUserFromChat,
-  } = useAddChat(userContext.id, userContext.username);
+  } = useAddChat(userContext.userId, userContext.username);
 
   const handleChatNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChatName(event.target.value);

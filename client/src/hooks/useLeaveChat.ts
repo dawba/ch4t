@@ -1,12 +1,14 @@
 import { useState, useContext } from 'react';
-import {ID} from '../types/types.ts' 
+import { ID } from '../types/types.ts';
 import { UserContext } from '../components/providers/UserProvider.tsx';
-import ChatRepository from '../api/ChatRepository.ts'
+import ChatRepository from '../api/ChatRepository.ts';
 const useLeaveChat = () => {
   const [isConfirming, setIsConfirming] = useState(false);
-  const userContext = useContext(UserContext); 
-  const userId = userContext.id;
-
+  const userContext = useContext(UserContext);
+  const userId = userContext.userId;
+  if (userId == null) {
+    return;
+  }
   const startConfirming = () => {
     setIsConfirming(true);
   };
@@ -15,8 +17,8 @@ const useLeaveChat = () => {
     setIsConfirming(false);
   };
 
-  const confirmLeave = async(chatId: ID) => {
-    ChatRepository.removeUserFromChat(chatId,userId);
+  const confirmLeave = async (chatId: ID) => {
+    await ChatRepository.removeUserFromChat(chatId, userId);
     setIsConfirming(false);
   };
 

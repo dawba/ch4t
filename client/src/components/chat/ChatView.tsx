@@ -55,7 +55,6 @@ const ChatView = ({ chatId, currentUser, users }: ChatViewProps) => {
     socket.emit('sendMessage', messageData);
   };
 
- 
   return (
     <div className={styles.chatViewWrapper + ' relative'}>
       <h4 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-5">
@@ -70,7 +69,7 @@ const ChatView = ({ chatId, currentUser, users }: ChatViewProps) => {
               <Search />
             </div>
             <div className="mr-10">
-            <LeaveChatButton />
+              <LeaveChatButton chatID={chatId} />
             </div>
           </div>
           <div className={styles.messageList} ref={messageListRef}>
