@@ -7,6 +7,47 @@ import { ImageDataAdapter } from './ImageDataAdapter.ts';
 
 const ChatDataAdapter: IChatDataAdapter = {
   getChats: async (chatData, currentUserId) => {
+    const chatPromises = chatData.map(chat => {
+      const messagesPromise = MessageRepository.getAllMessagesForChat(chat._id);
+      const imagePromise = ImageRepository.getImageById(chat.chatPicture);
+      return { chat, messagesPromise, imagePromise };
+    });
+
+    const results = await Promise.all(
+      chatPromises.map(async ({ chat, messagesPromise, imagePromise }) => {
+        const [messagesResponse, imageResponse] = await Promise.all([messagesPromise, imagePromise]);
+
+        const messages = messagesResponse.data
+          ? MessageDataAdapter.getMessages(
+              messagesResponse.data as MessageData[],
+              currentUserId,
+              chat.users
+            )
+          : [];
+
+        const image = imageResponse.data
+          ? ImageDataAdapter.getImages(imageResponse.data as ImageData)
+          : null;
+
+        const lastMessage = messages[messages.length - 1]?.message ?? '';
+        const response = await UserRepository.getUserById(lastMessage.sender);
+        const lastSender =response?.data?.username || ''
+
+        return {
+          id: chat._id,
+          chatName: chat.name,
+          chatPicture: image,
+          lastMessage: lastMessage,
+          lastSender: lastSender,
+          isLastMessageRead: false,
+          users: chat?.users || [],
+          messages: messages,
+        };
+      })
+    );
+
+    return results;
+  },
     const chats: Chat[] = [];
     for (const chat of chatData) {
       const messagesResponse = await MessageRepository.getAllMessagesForChat(
