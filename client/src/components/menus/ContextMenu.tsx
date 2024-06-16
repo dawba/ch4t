@@ -9,7 +9,7 @@ type ContextMenuProps = {
 
 const ContextMenu = ({ activeMenuItem }: ContextMenuProps) => {
   return (
-    <div className="w-[20vw] h-full bg-primary-gray mr-1">
+    <div className="w-[20vw] min-w-[300px] h-full bg-primary-gray mr-1">
       {activeMenuItem === 'DirectChats' && (
         <ChatListView chats={[Mock1, Mock2, Mock3]} />
       )}

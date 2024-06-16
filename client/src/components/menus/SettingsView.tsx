@@ -26,8 +26,14 @@ const SettingsView = () => {
     setEmail(event.target.value);
   };
 
+  const handleLogOut = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    window.location.reload();
+  };
+
   return (
-    <div className="w-full flex flex-col p-7">
+    <div className="w-full flex flex-col p-7 h-full">
       <ImageUploader image={profilePicture} setImage={setProfilePicture} />
 
       <p className="mt-8 ml-2 text-left text-sm">Username</p>
@@ -44,6 +50,15 @@ const SettingsView = () => {
         value={email}
         onChange={handleEmailChange}
       />
+
+      <div className="flex-grow"></div>
+
+      <button
+        className="mt-6 w-full bg-primary text-white py-2 rounded-md border border-primary-yellow"
+        onClick={handleLogOut}
+      >
+        Log out
+      </button>
     </div>
   );
 };
