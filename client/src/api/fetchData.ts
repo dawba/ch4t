@@ -14,8 +14,6 @@ export const Fetching = {
       };
     }
 
-    console.log(options.headers);
-
     return await Fetching.fetchData(url, options);
   },
 
@@ -24,7 +22,6 @@ export const Fetching = {
     options: RequestInit = {}
   ): Promise<ApiResponse> => {
     try {
-      console.log('Fetching data from:', url);
       const response = await fetch(url, options);
       if (response.ok) {
         const data = await response.json();
