@@ -48,7 +48,11 @@ const LoginPage = () => {
     );
 
     if (!checkEmptyObject(response.data)) {
-      console.log('Logged in successfully');
+      localStorage.setItem(
+        'currentUserId',
+        JSON.stringify(response.data?.user?._id)
+      );
+      localStorage.setItem('token', response.data?.token);
       navigate('/');
     }
   };

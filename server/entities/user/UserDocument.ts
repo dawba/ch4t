@@ -6,6 +6,7 @@ interface UserDocument extends mongoose.Document {
   password: string;
   chats: mongoose.Types.ObjectId[];
   verificationToken: string;
+  isVerified: boolean;
   createdAt: Date;
 }
 

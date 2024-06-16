@@ -1,6 +1,6 @@
 import { ApiResponse, ChatData, ID } from '../types/types.ts';
 import ChatApiPaths from './ChatApiPaths.ts';
-import { fetchData } from './fetchData.ts';
+import { Fetching } from './fetchData.ts';
 
 interface IChatRepository {
   createChat: (users: ID[], createdAt: string) => Promise<ApiResponse>;
@@ -19,23 +19,23 @@ const ChatRepository: IChatRepository = {
       body: JSON.stringify({ users, createdAt }),
     };
 
-    return await fetchData(ChatApiPaths.POST.CREATE, options);
+    return await Fetching.withAuth(ChatApiPaths.POST.CREATE, options);
   },
 
   getAllChats: async () => {
-    return await fetchData(ChatApiPaths.GET.ALL, {
+    return await Fetching.withAuth(ChatApiPaths.GET.ALL, {
       method: 'GET',
     });
   },
 
   getChatById: async (id) => {
-    return await fetchData(ChatApiPaths.GET.BY_ID(id), {
+    return await Fetching.withAuth(ChatApiPaths.GET.BY_ID(id), {
       method: 'GET',
     });
   },
 
   getChatsByUserId: async (id) => {
-    return await fetchData(ChatApiPaths.GET.ALL_USER_CHATS(id), {
+    return await Fetching.withAuth(ChatApiPaths.GET.ALL_USER_CHATS(id), {
       method: 'GET',
     });
   },
@@ -46,19 +46,22 @@ const ChatRepository: IChatRepository = {
       body: JSON.stringify(chat),
     };
 
-    return await fetchData(ChatApiPaths.PUT.UPDATE(id), options);
+    return await Fetching.withAuth(ChatApiPaths.PUT.UPDATE(id), options);
   },
 
   deleteChat: async (id) => {
-    return await fetchData(ChatApiPaths.DELETE.DELETE(id), {
+    return await Fetching.withAuth(ChatApiPaths.DELETE.DELETE(id), {
       method: 'DELETE',
     });
   },
 
   removeUserFromChat: async (chatId, userId) => {
-    return await fetchData(ChatApiPaths.DELETE.REMOVE_USER(chatId, userId), {
-      method: 'DELETE',
-    });
+    return await Fetching.withAuth(
+      ChatApiPaths.DELETE.REMOVE_USER(chatId, userId),
+      {
+        method: 'DELETE',
+      }
+    );
   },
 };
 

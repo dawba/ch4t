@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AlertIconState } from '../types/types.ts';
 import UserRepository from '../api/UserRepository.ts';
 
@@ -133,36 +133,38 @@ const useUserAuthentication = ({
     }
   };
 
-  const handleUserRegistration = async (
-    userEmail: string,
-    username: string,
-    userPassword: string
-  ) => {
-    if (
-      arePasswordsConsistent &&
-      isEmailValidOrEmpty &&
-      userEmail !== '' &&
-      username !== ''
-    ) {
-      return UserRepository.register(userEmail, username, userPassword);
-    } else {
-      checkAndSetPasswordState(password, repeatedPassword);
-      checkAndSetEmailState(email);
+  const handleUserRegistration = useCallback(
+    async (userEmail: string, username: string, userPassword: string) => {
+      if (
+        arePasswordsConsistent &&
+        isEmailValidOrEmpty &&
+        userEmail !== '' &&
+        username !== ''
+      ) {
+        return UserRepository.register(userEmail, username, userPassword);
+      } else {
+        checkAndSetPasswordState(password, repeatedPassword);
+        checkAndSetEmailState(email);
+        checkAndSetUsernameState(username);
+        return { message: 'Incorrect form data', data: null };
+      }
+    },
+    []
+  );
+
+  const handleUserLogin = useCallback(
+    async (username: string, userPassword: string) => {
+      if (username !== '' && userPassword !== '') {
+        return UserRepository.login(username, userPassword);
+      }
+
+      checkAndSetPasswordState(password, undefined);
       checkAndSetUsernameState(username);
+
       return { message: 'Incorrect form data', data: null };
-    }
-  };
-
-  const handleUserLogin = async (username: string, userPassword: string) => {
-    if (username !== '' && userPassword !== '') {
-      return UserRepository.login(username, userPassword);
-    }
-
-    checkAndSetPasswordState(password, undefined);
-    checkAndSetUsernameState(username);
-
-    return { message: 'Incorrect form data', data: null };
-  };
+    },
+    []
+  );
 
   return {
     emailIconState,

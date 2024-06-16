@@ -20,6 +20,15 @@ export type MessageData = {
   createdAt: Date;
 };
 
+export type UserData = {
+  _id: ID;
+  email: string;
+  username: string;
+  chats: ID[];
+  isVerified: boolean;
+  createdAt: Date;
+};
+
 // ===================================================================
 // FRONTEND TYPES
 
@@ -36,8 +45,8 @@ export type Chat = {
 
 export type User = {
   id: ID;
+  email: string;
   username: string;
-  password: string;
   chats: ID;
   isVerified: boolean;
   verificationToken: string;

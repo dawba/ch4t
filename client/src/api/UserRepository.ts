@@ -1,6 +1,6 @@
 import { ApiResponse, ID } from '../types/types.ts';
 import UserApiPaths from './UserApiPaths.ts';
-import { fetchData } from './fetchData.ts';
+import { Fetching } from './fetchData.ts';
 
 interface IUserRepository {
   register: (
@@ -32,7 +32,7 @@ const UserRepository: IUserRepository = {
       body: JSON.stringify({ email, username, password }),
     };
 
-    return await fetchData(UserApiPaths.POST.REGISTER, options);
+    return await Fetching.fetchData(UserApiPaths.POST.REGISTER, options);
   },
 
   login: async (username, password) => {
@@ -45,7 +45,7 @@ const UserRepository: IUserRepository = {
       body: JSON.stringify({ username, password }),
     };
 
-    return await fetchData(UserApiPaths.POST.LOGIN, options);
+    return await Fetching.fetchData(UserApiPaths.POST.LOGIN, options);
   },
 
   logout: async () => {
@@ -54,23 +54,23 @@ const UserRepository: IUserRepository = {
       mode: 'cors',
     };
 
-    return await fetchData(UserApiPaths.POST.LOGOUT, options);
+    return await Fetching.withAuth(UserApiPaths.POST.LOGOUT, options);
   },
 
   getUserByUsername: async (username) => {
-    return await fetchData(UserApiPaths.GET.BY_USERNAME(username), {
+    return await Fetching.fetchData(UserApiPaths.GET.BY_USERNAME(username), {
       method: 'GET',
     });
   },
 
   getUserById: async (id) => {
-    return await fetchData(UserApiPaths.GET.BY_ID(id), {
+    return await Fetching.withAuth(UserApiPaths.GET.BY_ID(id), {
       method: 'GET',
     });
   },
 
   getAllUsers: async () => {
-    return await fetchData(UserApiPaths.GET.ALL, {
+    return await Fetching.withAuth(UserApiPaths.GET.ALL, {
       method: 'GET',
     });
   },
@@ -81,11 +81,11 @@ const UserRepository: IUserRepository = {
       body: JSON.stringify({ email, username, password }),
     };
 
-    return await fetchData(UserApiPaths.PUT.UPDATE, options);
+    return await Fetching.withAuth(UserApiPaths.PUT.UPDATE, options);
   },
 
   deleteUser: async () => {
-    return await fetchData(UserApiPaths.DELETE.DELETE, {
+    return await Fetching.withAuth(UserApiPaths.DELETE.DELETE, {
       method: 'DELETE',
     });
   },

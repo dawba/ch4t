@@ -1,5 +1,6 @@
 import express from "express";
 import { UserController } from "./UserController.js";
+import { authMiddleware } from "../../middleware/authMiddleware";
 
 const userController = new UserController();
 const UserRouter = express.Router();
@@ -10,10 +11,10 @@ UserRouter.get("/username/:username", userController.getUserByUsername);
 
 UserRouter.post("/register", userController.createUser);
 UserRouter.post("/login", userController.loginUser);
-UserRouter.post("/confirm", userController.confirmUser);
+UserRouter.post("/confirm/:token", userController.confirmUser);
 
-UserRouter.put("/:id", userController.updateUser);
+UserRouter.put("/:id", authMiddleware, userController.updateUser);
 
-UserRouter.delete("/:id", userController.deleteUser);
+UserRouter.delete("/:id", authMiddleware, userController.deleteUser);
 
 export default UserRouter;
