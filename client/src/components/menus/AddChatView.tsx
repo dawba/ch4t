@@ -16,10 +16,13 @@ const AddChatView = ({ onChatAdded }: AddChatProps) => {
   const { profilePicture, setProfilePicture } = userContext;
   const [chatName, setChatName] = useState('');
   const [username, setUsername] = useState('');
-  const { addedUsers, errorMessage, addUserToChat, createChat } = useAddChat(
-    userContext.userId,
-    userContext.username
-  );
+  const {
+    addedUsers,
+    errorMessage,
+    addUserToChat,
+    createChat,
+    removeUserFromChat,
+  } = useAddChat(userContext.userId, userContext.username);
 
   const handleChatNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChatName(event.target.value);
@@ -81,10 +84,19 @@ const AddChatView = ({ onChatAdded }: AddChatProps) => {
       </div>
       {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
       <div className="mt-4">
-        {addedUsers.map((user, index) => (
-          <p key={index} className="text-sm text-secondary-gray">
-            {user.username}
-          </p>
+        {addedUsers.map((user) => (
+          <div
+            key={user._id.toString()}
+            className="flex justify-between items-center"
+          >
+            <p className="text-sm text-primary-yellow">{user.username}</p>
+            <button
+              className="text-red-500"
+              onClick={() => removeUserFromChat(user.username)}
+            >
+              -
+            </button>
+          </div>
         ))}
       </div>
       <button

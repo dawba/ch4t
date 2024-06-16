@@ -1,12 +1,9 @@
-import { useEffect, useState} from 'react';
 import { useEffect, useState } from 'react';
 import ContextMenu from '../components/menus/ContextMenu.tsx';
 // import ChatView from '../components/chat/ChatView.tsx';
 import NavigationMenu from '../components/navigation/NavigationMenu.tsx';
 
-import {
-  UserProvider,
-} from '../components/providers/UserProvider.tsx';
+import { UserProvider } from '../components/providers/UserProvider.tsx';
 import useChats from '../hooks/useChats.ts';
 import ChatView from '../components/chat/ChatView.tsx';
 import { ID, MenuItem } from '../types/types.ts';
@@ -16,9 +13,7 @@ import { useNavigate } from 'react-router-dom';
 const MainPage = () => {
   const { userId, setUserId } = useUserContext();
   const [activeItem, setActiveItem] = useState<MenuItem>('DirectChats');
-  const { chats, setChats, selectedChat, setSelectedChat } = useChats(
-    userId
-  );
+  const { chats, setChats, selectedChat, setSelectedChat } = useChats(userId);
   const navigate = useNavigate();
 
   useEffect(() => {
