@@ -1,4 +1,4 @@
-import mongoose, { ObjectId } from "mongoose";
+import mongoose from "mongoose";
 import Chat from "./Chat.js";
 import User from "../user/User.js";
 import Message from "../message/Message.js";
@@ -47,7 +47,8 @@ export class ChatService {
   }
 
   async getAllUserChats(id: string) {
-    return Chat.find({ users: id });
+    const objectId = new mongoose.Types.ObjectId(id);
+    return Chat.find({ "users.userId": objectId });
   }
 
   async removeUserFromChat(chatId: string, userId: string) {

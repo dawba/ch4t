@@ -7,7 +7,7 @@ const ChatRouter = express.Router();
 
 ChatRouter.get("/all", chatController.getAllChats);
 ChatRouter.get("/id/:id", chatController.getChatById);
-ChatRouter.get("/user/:id", chatController.getAllUserChats);
+ChatRouter.get("/all/user/:id", chatController.getAllUserChats);
 
 ChatRouter.post("/create", authMiddleware, chatController.createChat);
 

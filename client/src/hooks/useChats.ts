@@ -27,7 +27,7 @@ const useChats = (userId: ID | null) => {
     };
 
     fetchUserChats();
-  }, []);
+  }, [userId]);
 
   return { chats, setChats, selectedChat, setSelectedChat };
 };
