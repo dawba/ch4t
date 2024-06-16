@@ -4,6 +4,7 @@ import useAddChat from '../../hooks/useAddChat.ts';
 import ImageUploader from '../customs/ImageUploader.tsx';
 import { Chat } from '../../types/types.ts';
 import mongoose from 'mongoose';
+import { isObjectEmpty } from '../../utils/checkIfEmpty.ts';
 
 type AddChatProps = {
   onChatAdded: (c: Chat) => void;

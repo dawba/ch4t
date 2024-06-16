@@ -1,16 +1,10 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from '../../styles/CustomTextField.module.css';
 
 interface CustomTextFieldProps {
   initialHeight?: number;
   maxHeight?: number;
-  handleSubmit: Dispatch<SetStateAction<string>>;
+  handleSubmit: (s: string) => void;
 }
 
 const CustomTextField = ({
