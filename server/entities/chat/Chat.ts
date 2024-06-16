@@ -28,11 +28,6 @@ const chatSchema = new Schema({
       required: true,
     },
   ],
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   chatPicture: {
     type: ObjectId,
     ref: "Image",

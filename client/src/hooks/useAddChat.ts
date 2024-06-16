@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ID, UserData } from '../types/types';
+import { ID, PartialUser, UserData } from '../types/types';
 import ChatRepository from '../api/ChatRepository.ts';
 import UserRepository from '../api/UserRepository.ts';
 import { checkEmptyObject } from '../utils/checkEmptyObject.ts';
@@ -51,11 +51,20 @@ const useAddChat = (currentUserId: ID, currentUserUsername: string) => {
       return null;
     }
 
-    const userIds = users.map((user) => user._id);
-    userIds.push(currentUserId);
+    const partialUsers = users.map(
+      (user) => ({ userId: user._id, username: user.username }) as PartialUser
+    );
+    partialUsers.push({
+      userId: currentUserId,
+      username: currentUserUsername,
+    } as PartialUser);
     const createdAt = new Date().toISOString();
 
-    const data = await ChatRepository.createChat(userIds, createdAt);
+    const data = await ChatRepository.createChat(
+      partialUsers,
+      chatName,
+      createdAt
+    );
 
     setErrorMessage('');
     setAddedUsers([]);
