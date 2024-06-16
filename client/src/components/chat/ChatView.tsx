@@ -9,6 +9,8 @@ import { Chat, MessageData, MessageTileProps } from '../../types/types.ts';
 import styles from '../../styles/ChatView.module.css';
 import { UserContext } from '../providers/UserProvider.tsx';
 import useScrollToBottom from '../../hooks/useScrollToBottom.ts';
+import AddUsersButton from './AddUsersButton.tsx';
+import LeaveChatButton from './LeaveChatButton.tsx';
 
 export interface ChatViewProps {
   chat: Chat;
@@ -59,6 +61,10 @@ const ChatView = ({ chat }: ChatViewProps) => {
         <div className={styles.topBar}>
           <div className="w-80">
             <Search />
+            <div className=" flex items-center space-x-4">
+              <AddUsersButton chatId={chat.id} />
+              <LeaveChatButton chatId={chat.id} />
+            </div>
           </div>
         </div>
         <div className={styles.messageList} ref={messageListRef}>

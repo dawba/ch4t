@@ -41,13 +41,13 @@ const AddUsersButton = ({ chatId }: AddUsersButtonProps) => {
     setIsModalOpen(false);
     deleteAllAddedUsers();
   };
+  const handleButtonClick = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <div>
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="text-primary-yellow"
-      >
+      <button onClick={handleButtonClick} className="text-primary-yellow">
         Add Users
       </button>
       <Modal
@@ -56,6 +56,7 @@ const AddUsersButton = ({ chatId }: AddUsersButtonProps) => {
         contentLabel="Add Users"
         className="bg-secondary-gray rounded-lg p-6 max-w-md mx-auto my-16"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+        ariaHideApp={false}
       >
         <h2 className="text-lg font-semibold mb-4">Add Users to Chat</h2>
         <div>

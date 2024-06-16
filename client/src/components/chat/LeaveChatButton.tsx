@@ -1,17 +1,17 @@
 import useLeaveChat from '../../hooks/useLeaveChat.ts';
-import {ID} from '../../types/types.ts'
+import { ID } from '../../types/types.ts';
 
 interface LeaveChatButtonProps {
-   chatID : ID 
+  chatId: ID;
 }
 
-const LeaveChatButton = ({chatID} : LeaveChatButtonProps) => {
-  const { isConfirming, startConfirming, cancelLeave, confirmLeave } = useLeaveChat();
+const LeaveChatButton = ({ chatId }: LeaveChatButtonProps) => {
+  const { isConfirming, startConfirming, cancelLeave, confirmLeave } =
+    useLeaveChat();
 
   const handleConfirmLeave = () => {
-    confirmLeave(chatID);
+    confirmLeave(chatId);
   };
- 
 
   return (
     <div className="ml-auto">
