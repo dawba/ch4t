@@ -3,25 +3,57 @@ import ContextMenu from '../components/menus/ContextMenu.tsx';
 // import ChatView from '../components/chat/ChatView.tsx';
 import NavigationMenu from '../components/navigation/NavigationMenu.tsx';
 
-import { ID, MenuItem } from '../types/types.ts';
+import { MenuItem, UserData } from '../types/types.ts';
 import { useUserContext } from '../components/providers/UserProvider.tsx';
 import { useNavigate } from 'react-router-dom';
+import UserRepository from '../api/UserRepository.ts';
+import { checkEmptyObject } from '../utils/checkEmptyObject.ts';
+import { getIdFromLocalStorage } from '../utils/getIdFromLocalStorage.ts';
 
 const MainPage = () => {
-  const { userId, setUserId } = useUserContext();
+  const {
+    userId,
+    username,
+    email,
+    setUserId,
+    setUsername,
+    setEmail,
+    setUserChats,
+  } = useUserContext();
+
   const [activeItem, setActiveItem] = useState<MenuItem>('DirectChats');
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userId = localStorage.getItem('currentUserId') as unknown as ID;
-    const token = localStorage.getItem('token');
+    const lsUserId = getIdFromLocalStorage();
+    const lsToken = localStorage.getItem('token');
 
-    if (!userId || !token) {
+    if (!lsUserId || !lsToken) {
       return navigate('/login');
     }
 
-    setUserId(userId);
-  }, [userId]);
+    const fetchRememberedUser = async () => {
+      const rememberedUser = await UserRepository.getUserById(lsUserId);
+      const userData = rememberedUser.data as UserData;
+      if (checkEmptyObject(userData)) {
+        return navigate('/login');
+      }
+
+      setUsername(userData.username);
+      setEmail(userData.email);
+      setUserId(userData._id);
+      setUserChats(userData.chats);
+      localStorage.setItem('currentUsername', userData.username);
+      localStorage.setItem('email', userData.email);
+      localStorage.setItem('currentUserId', JSON.stringify(userData?._id));
+      localStorage.setItem('token', lsToken);
+      localStorage.setItem('chats', JSON.stringify(userData.chats));
+    };
+
+    if (!username || !email || !userId) {
+      fetchRememberedUser();
+    }
+  }, []);
 
   return (
     <>

@@ -18,6 +18,8 @@ const SettingsView = () => {
     setProfilePicture,
   } = userContext;
 
+  console.log(userContext);
+
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
   };

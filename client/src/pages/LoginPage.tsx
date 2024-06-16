@@ -57,6 +57,8 @@ const LoginPage = () => {
       const { user, token } = data;
 
       localStorage.setItem('currentUserId', JSON.stringify(user?._id));
+      localStorage.setItem('currentUsername', user?.username);
+      localStorage.setItem('email', user?.email);
       localStorage.setItem('token', token);
       navigate('/');
     }
