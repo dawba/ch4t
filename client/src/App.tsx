@@ -1,23 +1,16 @@
-import { useState } from 'react';
-import ChatView from './components/chat/ChatView.tsx'; // Adjust the import path based on your folder structure
-import { ID } from './types/types.ts'; // Adjust the import path based on your folder structure
-import AddUsersButton from './components/chat/AddUsersButton.tsx';
-import mongoose from 'mongoose';
+import { Route, Routes } from 'react-router-dom';
+import LoginPage from './pages/LoginPage.tsx';
+import RegisterPage from './pages/RegisterPage.tsx';
+import MainPage from './pages/MainPage.tsx';
 
 const App = () => {
-  const mockChatId: ID = 'chat123'; // Example chat ID
-  const mockCurrentUser: ID = 'user1'; // Example current user ID
-  const mockUsers: ID[] = ['user1', 'user2', 'user3']; // Example user IDs
-
-  const [chatId, setChatId] = useState<ID | null>(mockChatId);
-
   return (
-    <div>
-      <h1>Chat Application</h1>
-      {/* Render ChatView with props */}
-      <AddUsersButton
-        chatId={new mongoose.Types.ObjectId('666e099a22e877ad90d9ee9c')}
-      />
+    <div className="page-wrapper flex justify-center items-center bg-background-gray rounded-xl">
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/" element={<MainPage />} />
+      </Routes>
     </div>
   );
 };
