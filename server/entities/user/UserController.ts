@@ -38,7 +38,7 @@ export class UserController {
   }
 
   async createUser(req: Request, res: Response) {
-    console.log(`Received a request to create user: ${req.body}`);
+    console.log(`Received a request to create user.`);
     const user = await this.userService.createUser(req.body);
     res.status(200).json({
       message: "User created successfully",
@@ -63,10 +63,11 @@ export class UserController {
 
   async loginUser(req: Request, res: Response) {
     try {
-      const user = await this.userService.loginUser(req.body);
+      const { user, token } = await this.userService.loginUser(req.body);
       return res.status(200).json({
         message: "User logged in successfully",
         user,
+        token,
       });
     } catch (error) {
       console.error("Error when logging in user:", req.body, error);

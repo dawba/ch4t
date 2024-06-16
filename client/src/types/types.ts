@@ -5,23 +5,22 @@ import * as React from 'react';
 export type ID = mongoose.Types.ObjectId;
 
 export type UserData = {
-  _id: ID;
-  username: string;
-  email: string;
-  chats: ID[];
-  isVerified: boolean;
-  createdAt: Date;
+    _id: ID;
+    username: string;
+    email: string;
+    chats: ID[];
+    isVerified: boolean;
+    createdAt: Date;
 };
+export type PartialUser = { username: string; userId: ID };
 
 export type ChatData = {
-  _id: ID;
-  users: PartialUser[];
-  chatName: string | null;
-  messages: ID[];
-  createdAt: Date;
+    _id: ID;
+    users: PartialUser[];
+    chatName: string | null;
+    messages: ID[];
+    createdAt: Date;
 };
-
-export type PartialUser = { username: string; userId: ID };
 
 export type MessageData = {
   _id: ID;
@@ -49,8 +48,10 @@ export type Chat = {
 export type User = {
   id: ID;
   username: string;
+  password: string;
   chats: ID[];
   isVerified: boolean;
+  verificationToken: string;
   createdAt: Date;
 };
 

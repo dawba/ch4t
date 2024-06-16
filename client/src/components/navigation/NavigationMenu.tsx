@@ -10,7 +10,7 @@ type NavigationMenuProps = {
 
 const NavigationMenu = ({ activeItem, setActiveItem }: NavigationMenuProps) => {
   return (
-    <div className="w-[8vw] h-full bg-primary-gray flex flex-col items-center mr-1">
+    <div className="w-[8vw] min-w-[150px] h-full bg-primary-gray flex flex-col items-center mr-1">
       <Logo className="w-24 h-24 mx-auto mt-5 mb-12" />
       <div className="flex flex-col items-center h-full">
         {MenuIconItem.allMenuIconItems.map((iconItem, index) => (

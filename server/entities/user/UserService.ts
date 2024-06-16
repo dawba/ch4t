@@ -3,6 +3,7 @@ import UserDocument from "./UserDocument.js";
 import { EmailService } from "../email/EmailService.js";
 import * as dotenv from "dotenv";
 import bcrypt from "bcrypt";
+import { generateToken } from "../../config/auth";
 
 dotenv.config({ path: "config.env" });
 
@@ -29,6 +30,8 @@ export class UserService {
 
     const user = new User(userDataWithVerificationToken);
 
+    console.log("Generated verification token: ", verificationToken);
+
     EmailService.sendRegistrationMailMessage(user.email, verificationToken);
     await user.save();
 
@@ -37,7 +40,7 @@ export class UserService {
 
   async confirmUser(token: string) {
     const user = await User.findOne({
-      verificationToken: token,
+      verificationToken: token.trim(),
     });
 
     if (!user) {
@@ -85,7 +88,13 @@ export class UserService {
       throw new Error("Invalid credentials");
     }
 
-    return user;
+    if (!user.isVerified) {
+      throw new Error("User is not verified");
+    }
+
+    const token = generateToken(user);
+
+    return { user, token };
   }
 
   async getHashedPassword(password: string) {

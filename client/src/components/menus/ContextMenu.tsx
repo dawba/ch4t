@@ -14,7 +14,7 @@ const ContextMenu = ({ activeMenuItem,chats }: ContextMenuProps) => {
   const {directChats,groupChats} = useSplitChats(chats);
 
   return (
-    <div className="w-[20vw] h-full bg-primary-gray mr-1">
+    <div className="w-[20vw] min-w-[300px] h-full bg-primary-gray mr-1">
       {activeMenuItem === 'DirectChats' && (
         <ChatListView chats={directChats} />
       )}
