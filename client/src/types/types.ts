@@ -22,6 +22,8 @@ export type MessageData = {
   createdAt: Date;
 };
 
+export type NewMessageData = Omit<MessageData, '_id'>;
+
 export type ImageData = {
   _id: ID;
   name: string;
@@ -29,6 +31,8 @@ export type ImageData = {
   contentType: string;
   createdAt: Date;
 };
+
+export type NewImageData = Omit<ImageData, '_id'>;
 
 // ===================================================================
 // FRONTEND TYPES
@@ -51,15 +55,6 @@ export type User = {
   chats: ID;
   isVerified: boolean;
   verificationToken: string;
-  createdAt: Date;
-};
-
-export type Message = {
-  id: ID;
-  content: string;
-  sender: ID;
-  chat: ID;
-  readStatus: { recipient: ID; read: boolean }[];
   createdAt: Date;
 };
 
@@ -96,6 +91,8 @@ export type SVGIcon = React.FunctionComponent<
 export type AlertIconState = 'hidden' | 'yellow' | 'red';
 
 export type MenuItem = 'DirectChats' | 'GroupChats' | 'AddChat' | 'Settings';
+
+export type ImageContext = 'Chat' | 'User' | 'Message';
 
 export type ApiResponse = {
   message: string;

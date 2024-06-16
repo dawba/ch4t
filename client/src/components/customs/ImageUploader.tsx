@@ -1,13 +1,31 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
-// @ts-ignore
 import { ReactComponent as GalleryIcon } from '../../assets/gallery_icon.svg';
+import ImageRepository from '../../api/ImageRepository.ts';
+import { ID, NewImageData } from '../../types/types.ts';
+import { ImageContext } from '../../types/types.ts';
+
+const commonImageMimeTypes: { [key: string]: string } = {
+  '.gif': 'image/gif',
+  '.jpeg': 'image/jpeg',
+  '.jpg': 'image/jpeg',
+  '.png': 'image/png',
+  '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
+};
 
 interface ImageUploaderProps {
   image: string;
   setImage: Dispatch<SetStateAction<string>>;
+  imageContext: ImageContext;
+  id: ID;
 }
 
-const ImageUploader = ({ image, setImage }: ImageUploaderProps) => {
+const ImageUploader = ({
+  image,
+  setImage,
+  imageContext,
+  id,
+}: ImageUploaderProps) => {
   const placeholderPath = '../../assets/pfp_placeholder.jpg';
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
@@ -16,9 +34,33 @@ const ImageUploader = ({ image, setImage }: ImageUploaderProps) => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(reader.result as string);
+        uploadImage(file);
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const uploadImage = async (file: File) => {
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const base64String = reader.result as string;
+      const extension = file.name.split('.').pop()?.toLowerCase();
+      const contentType = commonImageMimeTypes[`.${extension}`];
+
+      const imageData: NewImageData = {
+        name: file.name,
+        data: Buffer.from(base64String.split(',')[1], 'base64'),
+        contentType,
+        createdAt: new Date(),
+      };
+
+      if (imageContext === 'User') {
+        await ImageRepository.createImageForUser(id, imageData);
+      } else if (imageContext === 'Chat') {
+        await ImageRepository.createImageForChat(id, imageData);
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
   return (

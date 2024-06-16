@@ -3,6 +3,7 @@ import { UserContext } from '../providers/UserProvider.tsx';
 import useAddChat from '../../hooks/useAddChat.ts';
 import ImageUploader from '../customs/ImageUploader.tsx';
 import { Chat } from '../../types/types.ts';
+import mongoose from 'mongoose';
 
 type AddChatProps = {
   onChatAdded: (c: Chat) => void;
@@ -41,7 +42,12 @@ const AddChatView = ({ onChatAdded }: AddChatProps) => {
 
   return (
     <div className="flex flex-col p-7">
-      <ImageUploader image={profilePicture} setImage={setProfilePicture} />
+      <ImageUploader
+        image={profilePicture}
+        setImage={setProfilePicture}
+        imageContext={'Chat'}
+        id={new mongoose.Types.ObjectId('665f9188a3e68b53b3442c59')}
+      />
       <p className="mt-8 ml-2 text-left text-sm">Chat Name</p>
       <input
         type="text"

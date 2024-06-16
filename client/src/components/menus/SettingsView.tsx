@@ -12,6 +12,7 @@ const SettingsView = () => {
     setUsername,
     setEmail,
     setProfilePicture,
+    id,
   } = userContext;
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +25,12 @@ const SettingsView = () => {
 
   return (
     <div className="w-full flex flex-col p-7">
-      <ImageUploader image={profilePicture} setImage={setProfilePicture} />
+      <ImageUploader
+        image={profilePicture}
+        setImage={setProfilePicture}
+        imageContext={'User'}
+        id={id}
+      />
 
       <p className="mt-8 ml-2 text-left text-sm">Username</p>
       <input
