@@ -1,14 +1,17 @@
-import { ChangeEvent, useState, useContext } from 'react';
+import { ChangeEvent, useState, useContext, useRef } from 'react';
 import { UserContext } from '../providers/UserProvider.tsx';
 import useAddChat from '../../hooks/useAddChat.ts';
 import ImageUploader from '../customs/ImageUploader.tsx';
+import { Chat } from '../../types/types.ts';
+import mongoose from 'mongoose';
+import { isObjectEmpty } from '../../utils/checkIfEmpty.ts';
 
-const AddChatView = () => {
+type AddChatProps = {
+  onChatAdded: (c: Chat) => void;
+};
+const AddChatView = ({ onChatAdded }: AddChatProps) => {
   const userContext = useContext(UserContext);
-
-  if (!userContext || !userContext.userId || !userContext.username) {
-    throw new Error('AddChatView must be used within a UserProvider');
-  }
+  const imageUploaderRef = useRef<{ uploadImage: () => void }>(null);
 
   const { profilePicture, setProfilePicture } = userContext;
   const [chatName, setChatName] = useState('');
@@ -31,14 +34,29 @@ const AddChatView = () => {
     setUsername('');
   };
 
+  const handleUpload = () => {
+    if (imageUploaderRef.current) {
+      imageUploaderRef.current.uploadImage();
+    }
+  };
+
   const handleCreateChat = async () => {
-    await createChat(chatName, addedUsers, profilePicture);
+    const response = await createChat(chatName, addedUsers, profilePicture);
+    if (isObjectEmpty(response) && response?.data) {
+      onChatAdded(response.data as Chat);
+      handleUpload();
+    }
     addedUsers.length = 0;
   };
 
   return (
     <div className="flex flex-col p-7">
-      <ImageUploader image={profilePicture} setImage={setProfilePicture} />
+      <ImageUploader
+        image={profilePicture}
+        setImage={setProfilePicture}
+        imageContext={'Chat'}
+        id={new mongoose.Types.ObjectId('665f9188a3e68b53b3442c59')}
+      />
       <p className="mt-8 ml-2 text-left text-sm">Chat Name</p>
       <input
         type="text"

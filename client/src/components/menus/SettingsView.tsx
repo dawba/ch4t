@@ -1,13 +1,10 @@
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent, useContext, useEffect, useRef } from 'react';
 import { UserContext } from '../providers/UserProvider.tsx';
 import ImageUploader from '../customs/ImageUploader.tsx';
 
 const SettingsView = () => {
   const userContext = useContext(UserContext);
-
-  if (!userContext) {
-    throw new Error('SettingsView must be used within a UserProvider');
-  }
+  const imageUploaderRef = useRef<{ uploadImage: () => void }>(null);
 
   const {
     username,
@@ -16,6 +13,7 @@ const SettingsView = () => {
     setUsername,
     setEmail,
     setProfilePicture,
+    userId,
   } = userContext;
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -32,9 +30,24 @@ const SettingsView = () => {
     window.location.reload();
   };
 
+  const handleUpload = () => {
+    if (imageUploaderRef.current) {
+      imageUploaderRef.current.uploadImage();
+    }
+  };
+
+  useEffect(() => {
+    handleUpload();
+  }, [profilePicture]);
+
   return (
-    <div className="w-full flex flex-col p-7 h-full">
-      <ImageUploader image={profilePicture} setImage={setProfilePicture} />
+    <div className="w-full flex flex-col p-7">
+      <ImageUploader
+        image={profilePicture}
+        setImage={setProfilePicture}
+        imageContext={'User'}
+        id={userId}
+      />
 
       <p className="mt-8 ml-2 text-left text-sm">Username</p>
       <input

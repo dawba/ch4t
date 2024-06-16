@@ -7,7 +7,7 @@ import { UserProvider } from './components/providers/UserProvider.tsx';
 const App = () => {
   return (
     <UserProvider>
-      <div className="page-wrapper flex justify-center items-center bg-background-gray rounded-xl">
+      <div className="page-wrapper flex justify-center items-center bg-background-gray rounded-xl overflow-hidden">
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
