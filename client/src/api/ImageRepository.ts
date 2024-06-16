@@ -1,6 +1,6 @@
 import { ApiResponse, ID, NewImageData } from '../types/types.ts';
 import ImageApiPaths from './ImageApiPaths.ts';
-import { fetchData } from './fetchData.ts';
+import { Fetching } from './fetchData.ts';
 
 interface IImageRepository {
   getImageById: (id: ID) => Promise<ApiResponse>;
@@ -17,7 +17,7 @@ interface IImageRepository {
 
 const ImageRepository: IImageRepository = {
   getImageById: async (id) => {
-    return await fetchData(ImageApiPaths.GET.BY_ID(id), {
+    return await Fetching.fetchData(ImageApiPaths.GET.BY_ID(id), {
       method: 'GET',
     });
   },
@@ -31,7 +31,10 @@ const ImageRepository: IImageRepository = {
       },
     };
 
-    return await fetchData(ImageApiPaths.POST.CREATE_FOR_CHAT(chatId), options);
+    return await Fetching.fetchData(
+      ImageApiPaths.POST.CREATE_FOR_CHAT(chatId),
+      options
+    );
   },
 
   createImageForUser: async (userId, imageData) => {
@@ -43,7 +46,10 @@ const ImageRepository: IImageRepository = {
       },
     };
 
-    return await fetchData(ImageApiPaths.POST.CREATE_FOR_USER(userId), options);
+    return await Fetching.fetchData(
+      ImageApiPaths.POST.CREATE_FOR_USER(userId),
+      options
+    );
   },
 
   updateImage: async (id, imageData) => {
@@ -55,7 +61,7 @@ const ImageRepository: IImageRepository = {
       },
     };
 
-    return await fetchData(ImageApiPaths.PUT.UPDATE(id), options);
+    return await Fetching.fetchData(ImageApiPaths.PUT.UPDATE(id), options);
   },
 };
 
