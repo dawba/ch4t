@@ -48,11 +48,12 @@ const LoginPage = () => {
     );
 
     if (!checkEmptyObject(response.data)) {
-      const { data } = response.data as {
+      const data = response.data as {
         message: string;
         data: { user: { _id: string }; token: string };
       };
 
+      // @ts-ignore
       const { user, token } = data;
 
       localStorage.setItem('currentUserId', JSON.stringify(user?._id));
