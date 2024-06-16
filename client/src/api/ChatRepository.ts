@@ -1,9 +1,13 @@
-import { ApiResponse, ChatData, ID } from '../types/types.ts';
+import { ApiResponse, ChatData, ID, PartialUser } from '../types/types.ts';
 import ChatApiPaths from './ChatApiPaths.ts';
 import { Fetching } from './fetchData.ts';
 
 interface IChatRepository {
-  createChat: (users: ID[], createdAt: string) => Promise<ApiResponse>;
+  createChat: (
+    users: PartialUser[],
+    chatName: string,
+    createdAt: string
+  ) => Promise<ApiResponse>;
   getAllChats: () => Promise<ApiResponse>;
   getChatById: (id: ID) => Promise<ApiResponse>;
   getChatsByUserId: (id: ID) => Promise<ApiResponse>;
@@ -13,10 +17,10 @@ interface IChatRepository {
 }
 
 const ChatRepository: IChatRepository = {
-  createChat: async (users, createdAt) => {
+  createChat: async (users, chatName, createdAt) => {
     const options = {
       method: 'POST',
-      body: JSON.stringify({ users, createdAt }),
+      body: JSON.stringify({ users, chatName, createdAt }),
     };
 
     return await Fetching.withAuth(ChatApiPaths.POST.CREATE, options);

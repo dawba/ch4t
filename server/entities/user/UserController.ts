@@ -16,6 +16,7 @@ export class UserController {
     this.deleteUser = this.deleteUser.bind(this);
     this.loginUser = this.loginUser.bind(this);
     this.getUserByUsername = this.getUserByUsername.bind(this);
+    this.getUserByEmail = this.getUserByEmail.bind(this);
   }
 
   async getAllUsers(req: Request, res: Response) {
@@ -94,5 +95,13 @@ export class UserController {
         message: "Internal Server Error",
       });
     }
+  }
+
+  async getUserByEmail(req: Request, res: Response) {
+    const email = req.params.email;
+    console.log(email);
+
+    const user = await this.userService.getUserByEmail(email);
+    res.json(user);
   }
 }

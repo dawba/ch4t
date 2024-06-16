@@ -5,7 +5,7 @@ export const Fetching = {
     url: string,
     options: RequestInit = {}
   ): Promise<ApiResponse> => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('token');
     if (token) {
       options.headers = {
         ...options.headers,
@@ -13,6 +13,9 @@ export const Fetching = {
         'Content-Type': 'application/json',
       };
     }
+
+    console.log(options.headers);
+
     return await Fetching.fetchData(url, options);
   },
 

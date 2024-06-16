@@ -12,13 +12,15 @@ interface IUserRepository {
   logout: (token: string) => Promise<ApiResponse>;
   getUserByUsername: (username: string) => Promise<ApiResponse>;
   getUserById: (id: ID) => Promise<ApiResponse>;
+  getUserByEmail: (email: string) => Promise<ApiResponse>;
   getAllUsers: () => Promise<ApiResponse>;
   updateUser: (
+    id: ID,
     email: string,
     username: string,
     password: string
   ) => Promise<ApiResponse>;
-  deleteUser: () => Promise<ApiResponse>;
+  deleteUser: (id: ID) => Promise<ApiResponse>;
 }
 
 const UserRepository: IUserRepository = {
@@ -69,23 +71,29 @@ const UserRepository: IUserRepository = {
     });
   },
 
+  getUserByEmail: async (email) => {
+    return await Fetching.fetchData(UserApiPaths.GET.BY_EMAIL(email), {
+      method: 'GET',
+    });
+  },
+
   getAllUsers: async () => {
     return await Fetching.withAuth(UserApiPaths.GET.ALL, {
       method: 'GET',
     });
   },
 
-  updateUser: async (email, username, password) => {
+  updateUser: async (id, email, username, password) => {
     const options = {
       method: 'PUT',
       body: JSON.stringify({ email, username, password }),
     };
 
-    return await Fetching.withAuth(UserApiPaths.PUT.UPDATE, options);
+    return await Fetching.withAuth(UserApiPaths.PUT.UPDATE(id), options);
   },
 
-  deleteUser: async () => {
-    return await Fetching.withAuth(UserApiPaths.DELETE.DELETE, {
+  deleteUser: async (id) => {
+    return await Fetching.withAuth(UserApiPaths.DELETE.DELETE(id), {
       method: 'DELETE',
     });
   },
