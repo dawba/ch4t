@@ -17,9 +17,14 @@ export interface ChatViewProps {
 const socket = io('http://localhost:5050');
 
 const ChatView = ({ chat }: ChatViewProps) => {
-  const currentUser = useContext(UserContext).id;
+  const currentUser = useContext(UserContext).userId;
+  const [searchQuery, setSearchQuery] = useState('');
   const [messages, setMessages] = useState<MessageTileProps[]>(chat.messages);
   const messageListRef = useScrollToBottom(messages);
+
+  const filteredMessages = messages.filter((message) =>
+    message.message.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useEffect(() => {
     socket.emit('joinChat', chat.id);
@@ -58,11 +63,11 @@ const ChatView = ({ chat }: ChatViewProps) => {
       <div className="h-full w-full flex flex-col bg-primary-gray relative z-10">
         <div className={styles.topBar}>
           <div className="w-80">
-            <Search />
+            <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           </div>
         </div>
         <div className={styles.messageList} ref={messageListRef}>
-          <MessageList messages={messages} />
+          <MessageList messages={filteredMessages} />
         </div>
         <div className={styles.inputArea}>
           <button className="mr-2 w-auto h-auto" onClick={handleButtonClick}>
