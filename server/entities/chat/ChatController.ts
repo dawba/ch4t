@@ -44,7 +44,6 @@ export class ChatController {
   async getAllUserChats(req: Request, res: Response) {
     try {
       const chats = await this.chatService.getAllUserChats(req.params.id);
-      console.log(chats);
       return res.json(chats);
     } catch (error) {
       console.error("Error fetching user chats:", error);
