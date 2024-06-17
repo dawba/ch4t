@@ -1,9 +1,16 @@
 import { IChatDataAdapter } from '../interfaces/IChatDataAdapter.ts';
 import { MessageDataAdapter } from './MessageDataAdapter.ts';
 import MessageRepository from '../../api/MessageRepository.ts';
-import { ImageData, MessageData } from '../../types/types.ts';
+import { ID, ImageData, MessageData, PartialUser } from '../../types/types.ts';
 import ImageRepository from '../../api/ImageRepository.ts';
 import { ImageDataAdapter } from './ImageDataAdapter.ts';
+
+const getAltChatName = (users: PartialUser[], currentUserId: ID) => {
+  return users
+    .filter((user) => user.userId !== currentUserId)
+    .map((user) => user.username)
+    .join(',');
+};
 
 const ChatDataAdapter: IChatDataAdapter = {
   getChats: async (chatData, currentUserId) => {
@@ -46,12 +53,12 @@ const ChatDataAdapter: IChatDataAdapter = {
 
         return {
           id: chat._id,
-          chatName: chat.name,
+          chatName: chat.name ?? getAltChatName(chat.users, currentUserId),
           chatPicture: null,
           lastMessage: lastMessage.message,
           lastSender: lastMessage.senderName,
           isLastMessageRead: false,
-          users: chat?.users || [],
+          users: chat.users || [],
           messages: messages,
         };
       })
