@@ -68,7 +68,7 @@ const AddUsersButton = ({ chatId }: AddUsersButtonProps) => {
             placeholder="Enter username"
           />
           <button
-            className="ml-2 p-2 bg-primary-yellow text-black rounded"
+            className="w-1/5 p-2 ml-2 bg-primary-yellow text-black rounded mb-4"
             onClick={handleAddUser}
           >
             Add
