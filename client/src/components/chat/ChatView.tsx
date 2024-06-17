@@ -22,9 +22,12 @@ const ChatView = ({ chat }: ChatViewProps) => {
   const [messages, setMessages] = useState<MessageTileProps[]>(chat.messages);
   const messageListRef = useScrollToBottom(messages);
 
-  const filteredMessages = messages.filter((message) =>
-    message.message.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredMessages =
+    searchQuery !== ''
+      ? messages.filter((message) =>
+          message.message.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : messages;
 
   useEffect(() => {
     socket.emit('joinChat', chat.id);
