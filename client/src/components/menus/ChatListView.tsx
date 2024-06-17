@@ -3,7 +3,7 @@ import { Chat } from '../../types/types.ts';
 import Search from '../customs/Search.tsx';
 
 import styles from '../../styles/ChatsListView.module.css';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 export type ChatListProps = {
   chats: Chat[];
@@ -11,9 +11,15 @@ export type ChatListProps = {
 };
 
 const ChatListView = ({ chats, setSelectedChat }: ChatListProps) => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredChats = chats.filter((chat) =>
+    chat.chatName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className={styles.groupChatsList}>
-      {chats.map((chat: Chat) => (
+      {filteredChats.map((chat: Chat) => (
         <ChatTile
           key={chat?.id?.toString()}
           chat={chat}
@@ -21,7 +27,7 @@ const ChatListView = ({ chats, setSelectedChat }: ChatListProps) => {
         />
       ))}
       <div className={styles.searchBarWrapper}>
-        <Search />
+        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </div>
     </div>
   );

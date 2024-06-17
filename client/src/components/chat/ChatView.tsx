@@ -17,6 +17,13 @@ const ChatView = ({ chat, socket }: ChatViewProps) => {
   const { userId, username } = useUserContext();
   const messageListRef = useScrollToBottom(chat.messages);
 
+  const filteredMessages =
+    searchQuery !== ''
+      ? messages.filter((message) =>
+        message.message.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      : messages;
+
   const handleButtonClick = () => {
     console.log('clicked');
   };
@@ -40,11 +47,11 @@ const ChatView = ({ chat, socket }: ChatViewProps) => {
       <div className="h-full w-full flex flex-col bg-primary-gray relative z-10">
         <div className={styles.topBar}>
           <div className="w-80">
-            <Search />
+            <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           </div>
         </div>
         <div className={styles.messageList} ref={messageListRef}>
-          <MessageList messages={chat.messages} />
+          <MessageList messages={filteredMessages} />
         </div>
         <div className={styles.inputArea}>
           <button className="mr-2 w-auto h-auto" onClick={handleButtonClick}>
