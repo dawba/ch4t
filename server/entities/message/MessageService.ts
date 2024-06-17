@@ -24,7 +24,8 @@ export class MessageService {
 
   async createMessageForChat(chatId: string, messageData: any) {
     const message = new Message({
-      sender: new mongoose.Types.ObjectId(messageData.sender),
+      sender: messageData.sender,
+      senderName: messageData.senderName,
       content: messageData.message,
       chat: chatId,
     });

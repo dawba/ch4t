@@ -1,44 +1,21 @@
-import { useContext, useEffect, useState } from 'react';
 import { ReactComponent as ClipIcon } from '../../assets/clip_icon.svg';
-import { io } from 'socket.io-client';
 import Search from '../customs/Search.tsx';
 import MessageList from './MessageList.tsx';
 import CustomTextField from './CustomTextField.tsx';
-import { MessageDataAdapter } from '../../adapters/implementation/MessageDataAdapter.ts';
-import { Chat, MessageData, MessageTileProps } from '../../types/types.ts';
+import { Chat } from '../../types/types.ts';
 import styles from '../../styles/ChatView.module.css';
-import { UserContext } from '../providers/UserProvider.tsx';
+import { useUserContext } from '../providers/UserProvider.tsx';
 import useScrollToBottom from '../../hooks/useScrollToBottom.ts';
+import { Socket } from 'socket.io';
 
 export interface ChatViewProps {
   chat: Chat;
+  socket: Socket;
 }
 
-const socket = io('http://localhost:5050');
-
-const ChatView = ({ chat }: ChatViewProps) => {
-  const currentUser = useContext(UserContext).id;
-  const [messages, setMessages] = useState<MessageTileProps[]>(chat.messages);
-  const messageListRef = useScrollToBottom(messages);
-
-  useEffect(() => {
-    socket.emit('joinChat', chat.id);
-
-    socket.on('receiveMessage', (message: MessageData) => {
-      console.log('received message:', message);
-      const receivedMessage = MessageDataAdapter.getMessages(
-        [message],
-        currentUser,
-        chat.users
-      );
-
-      setMessages((prevMessages) => [...prevMessages, ...receivedMessage]);
-    });
-
-    return () => {
-      socket.off('receiveMessage');
-    };
-  });
+const ChatView = ({ chat, socket }: ChatViewProps) => {
+  const { userId, username } = useUserContext();
+  const messageListRef = useScrollToBottom(chat.messages);
 
   const handleButtonClick = () => {
     console.log('clicked');
@@ -49,7 +26,12 @@ const ChatView = ({ chat }: ChatViewProps) => {
       return;
     }
 
-    const messageData = { chatId: chat.id, sender: currentUser, message };
+    const messageData = {
+      chatId: chat.id,
+      sender: userId,
+      senderName: username,
+      message,
+    };
     socket.emit('sendMessage', messageData);
   };
 
@@ -62,7 +44,7 @@ const ChatView = ({ chat }: ChatViewProps) => {
           </div>
         </div>
         <div className={styles.messageList} ref={messageListRef}>
-          <MessageList messages={messages} />
+          <MessageList messages={chat.messages} />
         </div>
         <div className={styles.inputArea}>
           <button className="mr-2 w-auto h-auto" onClick={handleButtonClick}>
@@ -71,12 +53,6 @@ const ChatView = ({ chat }: ChatViewProps) => {
           <div className={styles.textField}>
             <CustomTextField handleSubmit={handleSubmit} />
           </div>
-          <button
-            className="border-primary-yellow border-2 rounded-xl mx-auto h-10 w-24 hover:opacity-80"
-            onClick={handleButtonClick}
-          >
-            Send
-          </button>
         </div>
       </div>
     </div>

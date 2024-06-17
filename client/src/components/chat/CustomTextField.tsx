@@ -43,7 +43,7 @@ const CustomTextField = ({
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleFormSubmit} className="flex flex-row gap-5">
       <textarea
         ref={textAreaRef}
         className={styles.customTextField}
@@ -51,6 +51,12 @@ const CustomTextField = ({
         value={value}
         onChange={handleInput}
       />
+      <button
+        className="border-primary-yellow border-2 rounded-xl mx-auto h-10 w-24 hover:opacity-80"
+        type="submit"
+      >
+        Send
+      </button>
     </form>
   );
 };

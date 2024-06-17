@@ -3,7 +3,8 @@ import { ReactComponent as UnreadIcon } from '../../assets/message_unread.svg';
 import { Chat } from '../../types/types.ts';
 
 import styles from '../../styles/ChatTile.module.css';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useContext } from 'react';
+import { UserContext } from '../providers/UserProvider.tsx';
 
 type ChatTileProps = {
   chat: Chat;
@@ -11,9 +12,21 @@ type ChatTileProps = {
 };
 
 const ChatTile = ({ chat, setSelectedChat }: ChatTileProps) => {
-  const { lastMessage, lastSender, isLastMessageRead, chatName, chatPicture } =
-    chat;
+  const { userId: currentUserId } = useContext(UserContext);
 
+  const {
+    lastMessage,
+    lastSender,
+    isLastMessageRead,
+    chatName,
+    chatPicture,
+    users,
+  } = chat;
+
+  const altChatName = users
+    .filter((user) => user.userId !== currentUserId)
+    .map((user) => user.username)
+    .join(',');
   const StatusIcon = isLastMessageRead ? ReadIcon : UnreadIcon;
   const lastSenderAndMessage = lastSender + ': ' + lastMessage;
 
@@ -30,7 +43,7 @@ const ChatTile = ({ chat, setSelectedChat }: ChatTileProps) => {
         />
       </div>
       <div className="flex flex-col grow truncate">
-        <div className={styles.senderName}>{chatName}</div>
+        <div className={styles.senderName}>{chatName ?? altChatName}</div>
         <div className={styles.lastMessage}>{lastSenderAndMessage}</div>
       </div>
       <StatusIcon className={'w-4 h-4 flex-none mx-2'} />

@@ -9,6 +9,10 @@ const messageSchema = new Schema({
     ref: "User",
     required: true,
   },
+  senderName: {
+    type: String,
+    required: true,
+  },
   chat: {
     type: ObjectId,
     ref: "Chat",

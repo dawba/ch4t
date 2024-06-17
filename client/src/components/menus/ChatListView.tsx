@@ -15,7 +15,7 @@ const ChatListView = ({ chats, setSelectedChat }: ChatListProps) => {
     <div className={styles.groupChatsList}>
       {chats.map((chat: Chat) => (
         <ChatTile
-          key={chat.id.toString()}
+          key={chat?.id?.toString()}
           chat={chat}
           setSelectedChat={setSelectedChat}
         />

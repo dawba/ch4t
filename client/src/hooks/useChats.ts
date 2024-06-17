@@ -31,7 +31,12 @@ const useChats = (userId: ID | null) => {
     fetchUserChats();
   }, [userId]);
 
-  return { chats, setChats, selectedChat, setSelectedChat };
+  return {
+    chats,
+    setChats,
+    selectedChat,
+    setSelectedChat,
+  };
 };
 
 export default useChats;

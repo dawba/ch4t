@@ -72,8 +72,9 @@ export type User = {
 export interface MessageTileProps {
   id: ID;
   message: string;
+  senderId: ID;
   senderName: string;
-  timeSent: Date;
+  timeSent: string;
   messageSentByUser: boolean;
 }
 

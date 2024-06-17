@@ -15,7 +15,7 @@ const MessageTile = ({
         <span className={styles.senderName}>
           {messageSentByUser ? 'Me' : senderName.toString()}
         </span>
-        <span className={styles.timeSent}>{timeSent.toISOString()}</span>
+        <span className={styles.timeSent}>{timeSent}</span>
       </div>
       <p className={styles.messageText}>{message}</p>
     </div>

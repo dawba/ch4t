@@ -17,6 +17,8 @@ const ContextMenu = ({
   chats,
   setChats,
 }: ContextMenuProps) => {
+  console.log(chats);
+
   const directChats = chats.filter((c: Chat) => c.users.length === 2);
   const groupChats = chats.filter((c: Chat) => c.users.length !== 2);
 

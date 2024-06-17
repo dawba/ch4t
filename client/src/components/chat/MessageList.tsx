@@ -9,8 +9,8 @@ interface MessageListProps {
 const MessageList = ({ messages }: MessageListProps) => {
   return (
     <div className={styles.messageListWrapper}>
-      {messages.map((message) => (
-        <MessageTile key={message.id.toString()} {...message} />
+      {messages.map((message, index) => (
+        <MessageTile key={index} {...message} />
       ))}
     </div>
   );

@@ -21,6 +21,7 @@ export const MessageDataAdapter: IMessageDataAdapter = {
       return {
         id: message._id,
         message: message.content,
+        senderId: message.sender,
         senderName: sender.username,
         timeSent: message.createdAt,
         messageSentByUser,
