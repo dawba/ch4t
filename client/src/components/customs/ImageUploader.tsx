@@ -10,6 +10,7 @@ import { ReactComponent as GalleryIcon } from '../../assets/gallery_icon.svg';
 import ImageRepository from '../../api/ImageRepository.ts';
 import { ID, NewImageData } from '../../types/types.ts';
 import { ImageContext } from '../../types/types.ts';
+import placeholderImage from '../../assets/pfp_placeholder.jpg';
 
 const commonImageMimeTypes: { [key: string]: string } = {
   '.gif': 'image/gif',
@@ -30,7 +31,6 @@ interface ImageUploaderProps {
 const ImageUploader = forwardRef(
   ({ image, setImage, imageContext, id }: ImageUploaderProps, ref) => {
     const [imageFile, setImageFile] = useState<File | null>(null);
-    const placeholderPath = '../../assets/pfp_placeholder.jpg';
 
     const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
@@ -82,7 +82,7 @@ const ImageUploader = forwardRef(
         />
         <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden mt-8 relative border-2 border-primary-yellow">
           <img
-            src={image !== '' ? image : placeholderPath}
+            src={image !== '' ? image : placeholderImage}
             alt="Profile"
             className="w-full h-full object-cover"
           />

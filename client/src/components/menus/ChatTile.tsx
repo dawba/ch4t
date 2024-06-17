@@ -3,8 +3,8 @@ import { ReactComponent as UnreadIcon } from '../../assets/message_unread.svg';
 import { Chat } from '../../types/types.ts';
 
 import styles from '../../styles/ChatTile.module.css';
-import { Dispatch, SetStateAction, useContext } from 'react';
-import { UserContext } from '../providers/UserProvider.tsx';
+import { Dispatch, SetStateAction } from 'react';
+import placeholderImage from '../../assets/pfp_placeholder.jpg';
 
 type ChatTileProps = {
   chat: Chat;
@@ -12,21 +12,9 @@ type ChatTileProps = {
 };
 
 const ChatTile = ({ chat, setSelectedChat }: ChatTileProps) => {
-  const { userId: currentUserId } = useContext(UserContext);
+  const { lastMessage, lastSender, isLastMessageRead, chatName, chatPicture } =
+    chat;
 
-  const {
-    lastMessage,
-    lastSender,
-    isLastMessageRead,
-    chatName,
-    chatPicture,
-    users,
-  } = chat;
-
-  const altChatName = users
-    .filter((user) => user.userId !== currentUserId)
-    .map((user) => user.username)
-    .join(',');
   const StatusIcon = isLastMessageRead ? ReadIcon : UnreadIcon;
   const lastSenderAndMessage = lastSender + ': ' + lastMessage;
 
@@ -37,13 +25,13 @@ const ChatTile = ({ chat, setSelectedChat }: ChatTileProps) => {
     >
       <div className="w-12 h-12 flex-none items-center justify-center border-2 border-primary-yellow rounded-full overflow-hidden mr-4">
         <img
-          src={chatPicture?.url ?? 'placeholder-path'}
+          src={chatPicture?.url || placeholderImage}
           className="w-full h-full object-cover"
           alt="Profile picture"
         />
       </div>
       <div className="flex flex-col grow truncate">
-        <div className={styles.senderName}>{chatName ?? altChatName}</div>
+        <div className={styles.senderName}>{chatName}</div>
         <div className={styles.lastMessage}>{lastSenderAndMessage}</div>
       </div>
       <StatusIcon className={'w-4 h-4 flex-none mx-2'} />
