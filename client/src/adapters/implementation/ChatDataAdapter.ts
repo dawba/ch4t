@@ -9,16 +9,13 @@ const ChatDataAdapter: IChatDataAdapter = {
   getChats: async (chatData, currentUserId) => {
     const chatPromises = chatData.map((chat) => {
       const messagesPromise = MessageRepository.getAllMessagesForChat(chat._id);
-      const imagePromise = ImageRepository.getImageById(chat.chatPicture);
-      return { chat, messagesPromise, imagePromise };
+      // const imagePromise = ImageRepository.getImageById(chat.chatPicture);
+      return { chat, messagesPromise };
     });
 
     return await Promise.all(
-      chatPromises.map(async ({ chat, messagesPromise, imagePromise }) => {
-        const [messagesResponse, imageResponse] = await Promise.all([
-          messagesPromise,
-          imagePromise,
-        ]);
+      chatPromises.map(async ({ chat, messagesPromise }) => {
+        const [messagesResponse] = await Promise.all([messagesPromise]);
 
         const messages = messagesResponse.data
           ? MessageDataAdapter.getMessages(
@@ -28,9 +25,9 @@ const ChatDataAdapter: IChatDataAdapter = {
             )
           : [];
 
-        const image = imageResponse.data
-          ? ImageDataAdapter.getImages(imageResponse.data as ImageData)
-          : null;
+        // const image = imageResponse.data
+        //   ? ImageDataAdapter.getImages(imageResponse.data as ImageData)
+        //   : null;
 
         const lastMessage = messages[messages.length - 1] ?? null;
 
@@ -38,7 +35,7 @@ const ChatDataAdapter: IChatDataAdapter = {
           return {
             id: chat._id,
             chatName: chat.name,
-            chatPicture: image,
+            chatPicture: null,
             lastMessage: '',
             lastSender: '',
             isLastMessageRead: false,
@@ -50,7 +47,7 @@ const ChatDataAdapter: IChatDataAdapter = {
         return {
           id: chat._id,
           chatName: chat.name,
-          chatPicture: image,
+          chatPicture: null,
           lastMessage: lastMessage.message,
           lastSender: lastMessage.senderName,
           isLastMessageRead: false,

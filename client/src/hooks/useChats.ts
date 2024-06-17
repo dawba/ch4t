@@ -21,6 +21,8 @@ const useChats = (userId: ID | null) => {
           userId
         );
         setChats(chats);
+
+        console.log(chats);
       } catch (error) {
         console.error('Error fetching user chats:', error);
       }
