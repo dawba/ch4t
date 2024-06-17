@@ -7,6 +7,7 @@ import styles from '../../styles/ChatView.module.css';
 import { useUserContext } from '../providers/UserProvider.tsx';
 import useScrollToBottom from '../../hooks/useScrollToBottom.ts';
 import { Socket } from 'socket.io';
+import { useState } from 'react';
 
 export interface ChatViewProps {
   chat: Chat;
@@ -16,13 +17,14 @@ export interface ChatViewProps {
 const ChatView = ({ chat, socket }: ChatViewProps) => {
   const { userId, username } = useUserContext();
   const messageListRef = useScrollToBottom(chat.messages);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const filteredMessages =
     searchQuery !== ''
-      ? messages.filter((message) =>
-        message.message.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-      : messages;
+      ? chat.messages.filter((message) =>
+          message.message.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : chat.messages;
 
   const handleButtonClick = () => {
     console.log('clicked');

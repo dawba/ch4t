@@ -3,4 +3,5 @@
     @apply border border-primary-yellow rounded-xl p-2 focus:outline-none;
     background-color: black;
     resize: none;
+    overflow: hidden;
 }
